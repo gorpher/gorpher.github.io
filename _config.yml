@@ -79,6 +79,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:  git
-  repository:  git@github.com/wx11055/wx11055.github.io.git
+  repository:  git@github.com:wx11055/wx11055.github.io.git
   branch:  master
   plugin:  -hexo-generator-feed
