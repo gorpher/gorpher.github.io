@@ -1,4 +1,11 @@
-﻿
+﻿---
+title: 项目发布部署 可能问题 主要是内存问题
+date: {{date}}
+categories: dict
+tags: 
+- java
+- server
+---
 note@tomcat#项目发布部署！可能问题 主要是内存问题
 
 

@@ -1,5 +1,4 @@
 ---
-layout: post 
 title: aboutme
 date: {{ date }}
 type: "about"

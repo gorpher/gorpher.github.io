@@ -35,6 +35,16 @@ $ hexo deploy
 
 
 git 发布错误插件解决办法
-# npm install hexo-deployer-git –-save  
+
+> npm install hexo-deployer-git –-save  
 
 More info: [hexo](https://hexo.io/)
+
+
+## 使用gulp压缩博客发布
+> npm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save
+
+> hexo g && gulp
+
+## 同步文章内容到algolia搜索
+> hexo algolia
