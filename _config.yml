@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 程序之路
-subtitle: 峡哥的个人博客
-description: 
-keywords: 博客
+title: 漫漫人生路
+subtitle: 成功是成功之母
+description:  个人技术生活部落格.
+keywords: 博客,IT,Geek,JAVAi程序员
 author: matosiki
 language: zh-CN
-timezone: CN
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -35,8 +35,8 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
-relative_link: false
+post_asset_folder: true # 图片和文章同名目录
+relative_link: true
 future: true
 highlight:
   enable: true
@@ -54,9 +54,15 @@ index_generator:
   order_by: -date
   
 # Category & Tag
-default_category: uncategorized
-category_map:
+default_category: learn
+category_map: 
+  -note
+  -dict
+  -learn
+  -code
+  -reprint
 tag_map:
+ 
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
@@ -82,4 +88,4 @@ deploy:
   repository:  git@github.com:wx11055/wx11055.github.io.git
   branch:  master
   plugins:
-      - hexo-generator-cname
+      -hexo-generator-cname

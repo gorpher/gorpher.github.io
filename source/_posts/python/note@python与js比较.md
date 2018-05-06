@@ -1,3 +1,11 @@
+---
+title: python与js语法比较
+date: {{date}}
+categories: note
+tags: 
+- python
+- js
+---
 基本概念
 
 Python和Javascript都是脚本语言，所以它们有很多共同的特性，都需要解释器来运行，都是动态类型，都支持自动内存管理,都可以调用eval（）来执行脚本等等脚本语言所共有的特性。

@@ -1,5 +1,10 @@
 ---
 title: 高德地图web js版使用
+date: {{date}}
+categories: note
+tags: 
+- js
+- 高德地图
 ---
 # 高德地图web版使用
 

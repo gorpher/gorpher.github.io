@@ -1,17 +1,22 @@
 ---
 title: flex布局
+date: {{date}}
+categories: 
+- learn
+tags: 
+- h5
 ---
 
 # 一、骰子的布局
 
 骰子的一面，最多可以放置9个点。
-![]( ./img/flex-0.png)
+![]( ./flex-0.png)
 
 codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。你可以到查看Demo。
 
-![]( ./img/flex-1.png)
+![]( ./flex-1.png)
 
-![]( ./img/flex-2.png)
+![]( ./flex-2.png)
 
 如果不加说明，本节的HTML模板一律如下。
 ```html
@@ -23,7 +28,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 ## 1.1 单项目
 首先，只有左上角1个点的情况。Flex布局默认就是首行左对齐，所以一行代码就够了。
 
-![]( ./img/flex-3.png)
+![]( ./flex-3.png)
 
 ```css 
 .box {display: flex;}
@@ -31,7 +36,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 
 设置项目的对齐方式，就能实现居中对齐和右对齐。
 
-![]( ./img/flex-4.png)
+![]( ./flex-4.png)
 
 ```css
 .box {
@@ -39,7 +44,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
   
 }
 ```
-![]( ./img/flex-5.png)
+![]( ./flex-5.png)
 ```css
 .box {
   display: flex;
@@ -49,7 +54,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 
 设置交叉轴对齐方式，可以垂直移动主轴。
 
-![]( ./img/flex-6.png)
+![]( ./flex-6.png)
 
 ```css
 .box {
@@ -58,7 +63,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 }
 ```
 
-![]( ./img/flex-7.png)
+![]( ./flex-7.png)
 
 ```css
 .box {
@@ -68,7 +73,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 }
 ```
 
-![]( ./img/flex-8.png)
+![]( ./flex-8.png)
 
 ```css
 .box {
@@ -77,7 +82,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
   align-items: flex-end;
 }
 ```
-![]( ./img/flex-9.png)
+![]( ./flex-9.png)
 
 ```css
 .box {
@@ -88,14 +93,14 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 ```
 
 ## 1.2 双项目
-![]( ./img/flex-10.png)
+![]( ./flex-10.png)
 ```css
 .box {
   display: flex;
   justify-content: space-between;
 }
 ```
-![]( ./img/flex-11.png)
+![]( ./flex-11.png)
 ```css
 .box {
   display: flex;
@@ -103,7 +108,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
   justify-content: space-between;
 }
 ```
-![]( ./img/flex-12.png)
+![]( ./flex-12.png)
 
 ```css
 .box {
@@ -114,7 +119,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 }
 ```
 
-![]( ./img/flex-13.png)
+![]( ./flex-13.png)
 ```css
 .box {
   display: flex;
@@ -123,7 +128,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
   align-items: flex-end;
 }
 ```
-![]( ./img/flex-14.png)
+![]( ./flex-14.png)
 ```css
 .box {
   display: flex;
@@ -133,7 +138,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
   align-self: center;
 }
 ```
-![]( ./img/flex-15.png)
+![]( ./flex-15.png)
 ```css
 .box {
   display: flex;
@@ -145,7 +150,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 }
 ```
 ## 1.3 三项目
-![]( ./img/flex-16.png)
+![]( ./flex-16.png)
 
 ```css
 .box {
@@ -162,7 +167,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 ```
 ## 1.4 四项目
 
-![]( ./img/flex-17.png)
+![]( ./flex-17.png)
 
 ```css
 .box {
@@ -173,7 +178,7 @@ codepen下面，就来看看Flex如何实现，从1个点到9个点的布局。�
 }
 ```
 
-![]( ./img/flex-18.png)
+![]( ./flex-18.png)
 
 HTML代码如下。
 ```html
@@ -204,7 +209,7 @@ CSS代码如下。
 ```
 ## 1.5 六项目
 
-![]( ./img/flex-19.png)
+![]( ./flex-19.png)
 ```css
 
 .box {
@@ -214,7 +219,7 @@ CSS代码如下。
 }
 ```
 
-![]( ./img/flex-20.png)
+![]( ./flex-20.png)
 
 ```css
 .box {
@@ -224,7 +229,7 @@ CSS代码如下。
   align-content: space-between;
 }
 ```
-![]( ./img/flex-21.png)
+![]( ./flex-21.png)
 
 HTML代码如下。
 ```html
@@ -264,7 +269,7 @@ CSS代码如下。
 }
 ```
 ## 1.6 九项目
-![]( ./img/flex-22.png)
+![]( ./flex-22.png)
 
 ```css
 .box {
@@ -276,7 +281,7 @@ CSS代码如下。
 ## 2.1 基本网格布局
 最简单的网格布局，就是平均分布。在容器里面平均分配空间，跟上面的骰子布局很像，但是需要设置项目的自动缩放。
 
-![]( ./img/flex-23.png)
+![]( ./flex-23.png)
 
 HTML代码如下。
 ```html
@@ -298,7 +303,7 @@ CSS代码如下。
 ```
 ## 2.2 百分比布局
 某个网格的宽度为固定的百分比，其余网格平均分配剩余的空间。
-![]( ./img/flex-24.png)
+![]( ./flex-24.png)
 
 HTML代码如下。
 ```html
@@ -336,7 +341,7 @@ HTML代码如下。
 # 三、圣杯布局
 圣杯布局（Holy Grail Layout）指的是一种最常见的网站布局。页面从上到下，分成三个部分：头部（header），躯干（body），尾部（footer）。其中躯干又水平分成三栏，从左到右为：导航、主栏、副栏。
 
-![]( ./img/flex-25.png)
+![]( ./flex-25.png)
 
 HTML代码如下。
 ```html
@@ -399,7 +404,7 @@ footer {
 四、输入框的布局
 我们常常需要在输入框的前方添加提示，后方添加按钮。
 
-![]( ./img/flex-26.png)
+![]( ./flex-26.png)
 
 HTML代码如下。
 ```html
@@ -422,7 +427,7 @@ CSS代码如下。
 # 五、悬挂式布局
 有时，主栏的左侧或右侧，需要添加一个图片栏。
 
-![]( ./img/flex-27.png)
+![]( ./flex-27.png)
 
 HTML代码如下。
 ```html
@@ -449,7 +454,7 @@ CSS代码如下。
 # 六、固定的底栏
 有时，页面内容太少，无法占满一屏的高度，底栏就会抬高到页面的中间。这时可以采用Flex布局，让底栏总是出现在页面的底部。
 
-![]( ./img/flex-28.png)
+![]( ./flex-28.png)
 
 HTML代码如下。
 ```html
@@ -473,7 +478,7 @@ CSS代码如下。
 ```
 # 七，流式布局
 每行的项目数固定，会自动分行。
-![]( ./img/flex-29.png)
+![]( ./flex-29.png)
 
 CSS的写法。
 ```css

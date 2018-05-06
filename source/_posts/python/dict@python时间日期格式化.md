@@ -1,3 +1,10 @@
+---
+title: python时间日期格式化
+date: {{date}}
+categories: dict
+tags: 
+- python
+---
 python中时间日期格式化符号：
 %y 两位数的年份表示（00-99）
 %Y 四位数的年份表示（000-9999）

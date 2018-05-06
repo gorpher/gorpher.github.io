@@ -1,4 +1,11 @@
-
+---
+title: python装饰器
+date: {{date}}
+categories: learn
+tags: 
+- python
+- pattern
+---
 编写传参的装饰器
 
 通常我们见到的简单装饰器这样的：

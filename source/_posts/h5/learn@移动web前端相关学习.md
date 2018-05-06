@@ -1,5 +1,9 @@
 ---
 title: web前端自适应技巧相关学习
+date: {{date}}
+categories: learn
+tags: 
+- h5
 ---
 # meta基础知识
 ## H5页面窗口自动调整到设备宽度，并禁止用户缩放页面

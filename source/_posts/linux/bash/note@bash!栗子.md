@@ -1,3 +1,12 @@
+---
+title: bash入门栗子
+date: {{date}}
+categories: note
+tags: 
+- linux
+- bash
+---
+
 # 【例子:001】判断输入为数字，字符或其他
 ```sh
 #!/bin/bash  

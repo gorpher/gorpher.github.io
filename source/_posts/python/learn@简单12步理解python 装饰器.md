@@ -1,4 +1,11 @@
-
+---
+title: 简单12步理解python装饰器
+date: {{date}}
+categories: learn
+tags: 
+- python
+- pattern
+---
 1. 函数
 
 在 Python 中，使用关键字 def 和一个函数名以及一个可选的参数列表来定义函数。函数使用 return 关键字来返回值。定义和使用一个最简单的函数例子：

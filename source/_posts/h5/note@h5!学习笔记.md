@@ -1,5 +1,9 @@
 ﻿---
 title: h5学习笔记
+date: {{date}}
+categories: note
+tags: 
+- h5
 ---
 ##web视频
 	1.Ogg = 带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件

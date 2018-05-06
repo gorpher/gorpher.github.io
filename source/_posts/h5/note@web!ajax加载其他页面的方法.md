@@ -1,5 +1,11 @@
 ﻿---
 title: web前端 ajax加载其他页面方法
+date: {{date}}
+categories: note
+tags: 
+- h5
+- js
+- ajax
 ---
 html异步加载静态页面
 

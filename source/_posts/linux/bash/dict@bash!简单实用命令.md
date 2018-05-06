@@ -1,3 +1,11 @@
+---
+title: bash简单实用命令
+date: {{date}}
+categories: dict
+tags: 
+- linux
+- bash
+---
 # help 帮助命令
 > ls —help |more 获取ls 命令帮助，并分屏显示。
 1. 列出文件目录清单dir 和ls

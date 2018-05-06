@@ -1,5 +1,9 @@
 ---
 title: web前端编码规范
+date: {{date}}
+categories: note
+tags: 
+- h5
 ---
 前段编码规范
 # 一般规范

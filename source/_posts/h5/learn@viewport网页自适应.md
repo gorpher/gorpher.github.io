@@ -1,5 +1,10 @@
 ---
 title: viewpor网页自适应
+date: {{date}}
+categories: 
+- learn
+tags: 
+- h5
 ---
 # viewport 手机端浏览器可视窗口大小 
 实际浏览器可视域的大小比默认viewport 宽度小 ,就会出现滚动条

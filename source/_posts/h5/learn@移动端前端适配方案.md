@@ -1,5 +1,9 @@
 ---
 title: 移动端前端适配方案
+date: {{date}}
+categories: learn
+tags: 
+- h5
 ---
 
 关于移动适配技术方案4种对比:

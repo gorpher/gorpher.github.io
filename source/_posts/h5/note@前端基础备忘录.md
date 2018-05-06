@@ -1,5 +1,9 @@
 ---
-title: web前端相关单位字典
+title: web前端基础知识备忘录
+date: {{date}}
+categories: note
+tags: 
+- h5
 ---
 # 关于前端一些html css js  基础相关知识
 

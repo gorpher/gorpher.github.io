@@ -1,5 +1,10 @@
 ---
 title: google代码追踪标签管理器
+date: {{date}}
+categories: note
+tags: 
+- js
+- tool
 ---
 # tag manager
 放入头部
