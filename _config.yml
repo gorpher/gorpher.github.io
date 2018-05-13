@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 漫漫人生路
-subtitle: 成功是成功之母
-description:  个人技术生活部落格.
-keywords: 博客,IT,Geek,JAVAi程序员
+title: 多学一点知识,少写几行代码
+subtitle: 以不变应万变的才是真理
+description:  一个技术宅男的博客
+keywords: 博客,IT,Geek,程序员
 author: matosiki
 language: zh-CN
 timezone: Asia/Shanghai
@@ -56,11 +56,6 @@ index_generator:
 # Category & Tag
 default_category: learn
 category_map: 
-  -note
-  -dict
-  -learn
-  -code
-  -reprint
 tag_map:
  
 
@@ -79,7 +74,24 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/  
-theme: next
+theme: hexo-theme-icarus
+
+algolia:
+  applicationID: '836Z0IDCJH'
+  apiKey: 'e7ff5ea27cd5a4f5bda74e6ff7029084'
+  adminApiKey: '12c39c1ed8f108541e53e22b4432174b'
+  indexName: 'hexo-blog'
+  chunkSize: 5000
+  fields:
+    - title
+    - slug
+    - excerpt:strip
+    - gallery
+    - permalink
+    - photos
+    - tags
+    - content:strip:truncate,0,500
+    
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -88,4 +100,6 @@ deploy:
   repository:  git@github.com:wx11055/wx11055.github.io.git
   branch:  master
   plugins:
-      -hexo-generator-cname
+      - hexo-generator-cname
+      - hexo-generator-feed
+      - hexo-algoliasearch

@@ -1,5 +1,5 @@
 ---
-title: aboutme
+title: 个人简历
 date: {{ date }}
 type: "about"
 ---
@@ -7,11 +7,12 @@ type: "about"
 
 
 <div align = "center">
-	<p>** 我是邬峡、也叫武侠 **</p>
-	<a href="https://resume.matosiki.cn" target="_blank">Resume Of Me</a>
+	<p>** 我是虾,不皮皮虾的的那种!!**</p>
+	<a href="https://resume.matosiki.cn" target="_blank">基本介绍</a>
 </div>
 
 <div >
+	性别男，取向女
 	geek爱好者，脑洞大，敢尝试，乐意思考，有梦想，
 爱生活，会运动，敢拼搏，敢说敢做，有爱心，知道人情世故
 
@@ -20,11 +21,7 @@ type: "about"
 
 ### 个人广告词
 
-- 像猪一样不动心
-- 一个未知人说「未知话」
-- 有时候选择比坚持更重要，但成功需要的坚持
-- 视己慎独
-- 坚持做自己喜欢的事是一件十分痛苦的事情
+- 我思故我在
 
 ### 曾经
 
