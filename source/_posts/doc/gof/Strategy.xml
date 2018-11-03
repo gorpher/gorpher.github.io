@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern ..\schemas\designpattern.xsd">
+	<pattern:name>Strategy</pattern:name>
+	<pattern:description>strategy.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>the%Context%</attribute:name>
+					<attribute:type>%Context%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+			<!-- dependency relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Strategy%</dependency:dependentOn>
+					<dependency:type>uses</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!-- Context -->
+		<pattern:participant>
+			<participant:name>Context</participant:name>
+			<participant:required>false</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+<!--			
+			<participant:documentation><![CDATA[
+Context is configured with a ConcreteStrategy Object. It provides an interface that lets Strategy access its data and maintains a reference to a strategy object
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>StrategyRef</attribute:name>
+					<attribute:type>%Strategy%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+<!--					
+					<attribute:documentation><![CDATA[
+Reference to Strategy
+]]></attribute:documentation>
+-->				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>contextInterface</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+<!--					
+					<operation:documentation><![CDATA[
+Method lets Strategy to access its data by Strategy reference object
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+		<!-- Strategy -->
+		<pattern:participant>
+			<participant:name>Strategy</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>true</participant:isInterface>
+<!--			
+			<participant:documentation><![CDATA[
+Strategy. Declares an interface common to all supported algorithms.Context calls the algorithm defined by a ConcreteStrategy by using this interface.
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>algorithmInterface</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+				</participant:operation>
+				<!-- arguments -->
+			</participant:operations>
+		</pattern:participant>
+		<!-- ConcreteStrategy -->
+		<!-- We will describe only a generic one.  All the rest will be similar -->
+		<pattern:participant>
+			<participant:name>ConcreteStrategy</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+<!--			
+			<participant:documentation><![CDATA[
+Concrete Strategy. Implements the algorithm using the Strategy interface.
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>algorithmInterface</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+<!--					
+					<operation:documentation><![CDATA[
+Implements the algorithm.
+]]></operation:documentation>
+-->
+				</participant:operation>
+				<!-- arguments -->
+			</participant:operations>
+			<!-- relationships -->
+			<!-- Implements the interfaces: -->
+			<participant:interfacesImplemented>
+				<participant:implements>%Strategy%</participant:implements>
+			</participant:interfacesImplemented>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

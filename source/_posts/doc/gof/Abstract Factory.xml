@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern   ..\schemas\designpattern.xsd">
+	<pattern:name>Abstract Factory</pattern:name>
+	<pattern:description>abstract_factory.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>the%AbstractFactory%</attribute:name>
+					<attribute:type>%AbstractFactory%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+				<participant:dependencies>
+					<participant:dependency>
+						<dependency:dependentOn>%AbstractProduct%</dependency:dependentOn>
+						<dependency:type>creates</dependency:type>
+					</participant:dependency>
+				</participant:dependencies>
+		</pattern:participant>
+		<!--Abstract Factory -->
+		<pattern:participant>
+			<participant:name>AbstractFactory</participant:name>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:required>true</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[	
+Abstract Factory. Declares an interface for operations that create abstract product objects. 
+]]></participant:documentation>
+-->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>createProduct%AbstractProduct%</operation:name>
+					<operation:returnType>%AbstractProduct%</operation:returnType>
+					<operation:isAbstract>true</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+				</participant:operation>
+			</participant:operations>
+			<!-- dependency (uses) relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%AbstractProduct%</dependency:dependentOn>
+					<dependency:type>creates</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<pattern:tabbedParticipantCorrelation>
+			<pattern:participant>
+				<participant:name>ConcreteFactory</participant:name>
+				<participant:multiplicity>n</participant:multiplicity>
+				<participant:required>true</participant:required>
+				<participant:exportControl>public</participant:exportControl>
+				<participant:isAbstract>false</participant:isAbstract>
+				<participant:isInterface>false</participant:isInterface>
+				<!--
+				<participant:documentation><![CDATA[
+ConcreteFactory. Implements the operations to create concrete product objects. 
+]]></participant:documentation>
+-->
+				<!-- operations -->
+				<participant:operations>
+					<participant:operation>
+						<operation:name>createProduct%AbstractProduct%</operation:name>
+						<operation:returnType>%AbstractProduct%</operation:returnType>
+						<operation:exportControl>public</operation:exportControl>
+						<operation:isAbstract>false</operation:isAbstract>
+					</participant:operation>
+				</participant:operations>
+				<!-- relationships -->
+				<participant:dependencies>
+					<participant:dependency>
+						<dependency:dependentOn>%AbstractProduct%</dependency:dependentOn>
+						<dependency:type>creates</dependency:type>
+					</participant:dependency>
+				</participant:dependencies>
+				<participant:extends>%AbstractFactory%</participant:extends>
+			</pattern:participant>
+			<!-- Concrete Subjects -->
+			<!-- We will describe only a generic one.  All the rest will be similar -->
+			<pattern:participant>
+				<participant:name>AbstractProduct</participant:name>
+				<participant:multiplicity>n</participant:multiplicity>
+				<participant:required>true</participant:required>
+				<participant:exportControl>public</participant:exportControl>
+				<participant:isAbstract>true</participant:isAbstract>
+				<participant:isInterface>false</participant:isInterface>
+				<!--
+				<participant:documentation><![CDATA[
+Abstract Product. Declares an interface for a type of product object.
+]]></participant:documentation>
+-->
+			</pattern:participant>
+			<pattern:participant>
+				<participant:name>ConcreteProduct</participant:name>
+				<participant:multiplicity>n</participant:multiplicity>
+				<participant:required>false</participant:required>
+				<participant:exportControl>public</participant:exportControl>
+				<participant:isAbstract>false</participant:isAbstract>
+				<participant:isInterface>false</participant:isInterface>
+				<!--
+				<participant:documentation><![CDATA[
+ConcreteProduct. Defines a product object to be created by the corresponding concrete factory. Implements the AbstractProduct interface. 
+]]></participant:documentation>
+-->
+				<!-- relationships -->
+				<participant:extends>%AbstractProduct%</participant:extends>
+			</pattern:participant>
+		</pattern:tabbedParticipantCorrelation>
+	</pattern:participants>
+</pattern:specification>

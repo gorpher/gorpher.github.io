@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern
+../schemas\designpattern.xsd">
+	<pattern:name>Bridge</pattern:name>
+	<pattern:description>bridge.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>theAbstraction</attribute:name>
+					<attribute:type>%Abstraction%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+		</pattern:participant>
+		<!--Abstraction -->
+		<pattern:participant>
+			<participant:name>Abstraction</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Abstraction. Defines the abstraction's interface.
+]]></participant:documentation>
+-->
+			<!--attributes-->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>ImplementorRef</attribute:name>
+					<attribute:type>%Implementor%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--
+					<attribute:documentation><![CDATA[
+Reference to Implementor
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+			</participant:attributes>
+			<!--operations-->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>abstractionOp</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+				</participant:operation>
+			</participant:operations>
+			<!--relationships-->
+		</pattern:participant>
+		<!--RefinedAbstraction-->
+		<pattern:participant>
+			<participant:name>RefinedAbstraction</participant:name>
+			<participant:required>false</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Refined Abstraction. Extends the interface defined by Abstraction.
+]]></participant:documentation>
+-->
+			<!--relationships-->
+			<!-- Extends the classes:-->
+			<participant:extends>%Abstraction%</participant:extends>
+		</pattern:participant>
+		<!--Implementor-->
+		<pattern:participant>
+			<participant:name>Implementor</participant:name>
+			<participant:required>false</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>true</participant:isInterface>
+			<participant:exportControl>public</participant:exportControl>
+			<!--
+			<participant:documentation><![CDATA[
+Implementor. Defines the interface for implementation classes.
+]]></participant:documentation>
+-->
+			<!--attributes-->
+			<!--operations-->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>defaultMethod</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+				</participant:operation>
+				<!-- arguments -->
+			</participant:operations>
+			<!--relationships-->
+		</pattern:participant>
+		<!--Concrete Implementor-->
+		<!-- We will describe only a generic one.  All the rest will be similar-->
+		<pattern:participant>
+			<participant:name>ConcreteImplementor</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--			<participant:documentation><![CDATA[
+Concrete Implementor. Implements the implementor interface and defines its concrete implementation.
+]]></participant:documentation>
+-->
+			<!--relationships-->
+			<!--Implements the interfaces:-->
+			<participant:interfacesImplemented>
+				<participant:implements>%Implementor%</participant:implements>
+			</participant:interfacesImplemented>
+			<!--attributes-->
+			<!--operations-->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>defaultMethod</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+					<!--
+					<operation:documentation><![CDATA[
+Implements the implementor interface.
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

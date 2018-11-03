@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern ..\schemas\designpattern.xsd">
+	<pattern:name>Factory Method</pattern:name>
+	<pattern:description>factory_method.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>the%Creator%</attribute:name>
+					<attribute:type>%Creator%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+			<!-- dependency relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Product%</dependency:dependentOn>
+					<dependency:type>uses</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!-- Creator -->
+		<pattern:participant>
+			<participant:name>Creator</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Creator abstract class. Parent to all creator classes
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>factoryMethod</operation:name>
+					<operation:returnType>%Product%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+			<!-- dependency (creates) relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Product%</dependency:dependentOn>
+					<dependency:type>creates</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!-- Product -->
+		<pattern:participant>
+			<participant:name>Product</participant:name>
+			<participant:required>false</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Product abstract class. Parent to all product classes
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<!-- relationships -->
+		</pattern:participant>
+		<!-- ConcreteCreator -->
+		<pattern:participant>
+			<participant:name>ConcreteCreator</participant:name>
+			<participant:required>false</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+ConcreteCreator class. Implements Creator abstract class
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>factoryMethod</operation:name>
+					<operation:returnType>%Product%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+factoryMethod. Create concrete product. 
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+			<!-- Extends classes: -->
+			<participant:extends>%Creator%</participant:extends>
+			<!-- relationships -->
+			<!-- dependency (creates) relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Product%</dependency:dependentOn>
+					<dependency:type>creates</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!-- ConcreteProduct -->
+		<pattern:participant>
+			<participant:name>ConcreteProduct</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+ConcreteProduct class. Implements Product abstract class
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<!-- relationships -->
+			<!-- Extends classes: -->
+			<participant:extends>%Product%</participant:extends>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

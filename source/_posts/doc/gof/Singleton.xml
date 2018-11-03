@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern ..\schemas\designpattern.xsd">
+	<pattern:name>Singleton</pattern:name>
+	<pattern:description>singleton.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- dependency relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Singleton%</dependency:dependentOn>
+					<dependency:type>creates</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!--Singleton -->
+		<pattern:participant>
+			<participant:name>Singleton</participant:name>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:required>true</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<!--			<participant:documentation><![CDATA[	
+Defines an Instance operation that lets clients access its unique instance.
+]]></participant:documentation> -->
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>uniqueInstance</attribute:name>
+					<attribute:type>%Singleton%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:isStatic>true</attribute:isStatic>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--					<attribute:documentation><![CDATA[
+A flag controls single instance creation. It sets to true when one instance is created.
+]]></attribute:documentation> -->
+				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:isConstructor>true</operation:isConstructor>
+					<operation:exportControl>protected</operation:exportControl>
+					<!--					<operation:documentation><![CDATA[
+Constructor. It must be protected to prevent accidental instantiation, which might lead to more than one instance 
+]]></operation:documentation> -->
+				</participant:operation>
+				<participant:operation>
+					<operation:name>getInstance</operation:name>
+					<operation:isStatic>true</operation:isStatic>
+					<operation:returnType>%Singleton%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<!--					<operation:documentation><![CDATA[
+Static method. Clients access singleton exclusively through this method. 
+]]></operation:documentation> -->
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

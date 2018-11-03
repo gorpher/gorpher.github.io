@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern
+../schemas\designpattern.xsd">
+	<pattern:name>Chain Of Responsibility</pattern:name>
+	<pattern:description>chain_of_responsibility.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>theHandler</attribute:name>
+					<attribute:type>%Handler%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+		</pattern:participant>
+		<!--Handler-->
+		<pattern:participant>
+			<participant:name>Handler</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Handler. Defines an interface for handling requests. Implements the successor link(Optional)
+]]></participant:documentation>
+-->
+			<!--attributes-->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>successor</attribute:name>
+					<attribute:type>%Handler%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--
+					<attribute:documentation><![CDATA[
+Reference to Handler
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+			</participant:attributes>
+			<!--operations-->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>handleRequest</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Handle request if possible. Else, if successor exists, forward request to the successor.
+]]></operation:documentation>
+-->
+				</participant:operation>
+			</participant:operations>
+			<!--relationships-->
+		</pattern:participant>
+		<!--Concrete Handler-->
+		<!--We will describe only a generic one.  All the rest will be similar-->
+		<pattern:participant>
+			<participant:name>ConcreteHandler</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Concrete Handler. Responsible to handle requests
+]]></participant:documentation>
+-->
+			<!--attributes-->
+			<!--operations-->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>handleRequest</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Handle request if possible. Else, if successor exists, forward request to the successor.
+]]></operation:documentation>
+-->
+				</participant:operation>
+			</participant:operations>
+			<!--relationships-->
+			<!--Extends the classes:-->
+			<participant:extends>%Handler%</participant:extends>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

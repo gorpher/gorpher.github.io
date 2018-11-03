@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern ..\schemas\designpattern.xsd">
+	<pattern:name>Prototype</pattern:name>
+	<pattern:description>prototype.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>the%Prototype%</attribute:name>
+					<attribute:type>%Prototype%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>clone%Prototype%</operation:name>
+					<operation:returnType>%Prototype%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+		<!--Prototype-->
+		<pattern:participant>
+			<participant:name>Prototype</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<participant:documentation><![CDATA[
+Prototype. Declares an interface for cloning itself.
+]]></participant:documentation>
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>myClone</operation:name>
+					<operation:returnType>%Prototype%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+					<operation:documentation><![CDATA[
+cloning operation for cloning itself
+]]></operation:documentation>
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+		</pattern:participant>
+		<!--ConcretePrototype-->
+		<!-- We will describe only a generic one.  All the rest will be similar -->
+		<pattern:participant>
+			<participant:name>ConcretePrototype</participant:name>
+			<participant:required>true</participant:required>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<participant:documentation><![CDATA[
+Concrete Prototype. Implements an operation for cloning itself.
+]]></participant:documentation>
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>myClone</operation:name>
+					<operation:returnType>%Prototype%</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:documentation><![CDATA[
+cloning operation for cloning itself
+]]></operation:documentation>
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+			<!-- Extends classes: -->
+			<participant:extends>%Prototype%</participant:extends>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>

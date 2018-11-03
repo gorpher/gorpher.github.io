@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pattern:specification xmlns="http://www.ibm.com/software/rational/designpattern" xmlns:argument="http://www.ibm.com/software/rational/designpattern/argument" xmlns:attribute="http://www.ibm.com/software/rational/designpattern/attribute" xmlns:dependency="http://www.ibm.com/software/rational/designpattern/dependency" xmlns:operation="http://www.ibm.com/software/rational/designpattern/operation" xmlns:participant="http://www.ibm.com/software/rational/designpattern/participant" xmlns:pattern="http://www.ibm.com/software/rational/designpattern/pattern" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/software/rational/designpattern ..\schemas\designpattern.xsd">
+	<pattern:name>Observer</pattern:name>
+	<pattern:description>observer.html</pattern:description>
+	<pattern:assignedLanguage>Analysis</pattern:assignedLanguage>
+	<pattern:participants>
+		<!-- Client -->
+		<pattern:participant>
+			<participant:name>Client</participant:name>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:isAnyType>true</participant:isAnyType>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>the%Subject%</attribute:name>
+					<attribute:type>%Subject%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+				</participant:attribute>
+			</participant:attributes>
+			<!-- dependency relationship -->
+			<participant:dependencies>
+				<participant:dependency>
+					<dependency:dependentOn>%Observer%</dependency:dependentOn>
+					<dependency:type>creates</dependency:type>
+				</participant:dependency>
+			</participant:dependencies>
+		</pattern:participant>
+		<!--Subject -->
+		<pattern:participant>
+			<participant:name>Subject</participant:name>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>true</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[	
+Subject. Knows its observers. Any number of observer objects may observer a subject. Provide an interface for attaching and detaching observer objects. 
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>observers</attribute:name>
+					<attribute:type>%Observer%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>n</attribute:cardinality>
+					<attribute:containment>containmentObject</attribute:containment>
+					<!--
+					<attribute:documentation><![CDATA[
+references to the observers 
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>attach</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Attach Observer: add Observer object into containment object
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+					<operation:arguments>
+						<operation:argument>
+							<argument:name>observer</argument:name>
+							<argument:type>%Observer%</argument:type>
+						</operation:argument>
+					</operation:arguments>
+				</participant:operation>
+				<participant:operation>
+					<operation:name>dettach</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+					<!--
+					<operation:documentation><![CDATA[
+Dettach Observer: remove Observer object from containment object
+]]><operation:documentation> -->
+					<!-- arguments -->
+					<operation:arguments>
+						<operation:argument>
+							<argument:name>observer</argument:name>
+							<argument:type>%Observer%</argument:type>
+						</operation:argument>
+					</operation:arguments>
+				</participant:operation>
+				<participant:operation>
+					<operation:name>notify</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+					<!--
+					<operation:documentation><![CDATA[
+Notify all Observers: calls update method defined in each observer stored in containment object, 
+]]></operation:documentation>
+-->
+				</participant:operation>
+				<participant:operation>
+					<operation:name>getState</operation:name>
+					<operation:returnType>int</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Get Subject State
+]]></operation:documentation>
+-->
+				</participant:operation>
+				<participant:operation>
+					<operation:name>setState</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>true</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Set Subject State
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+					<operation:arguments>
+						<operation:argument>
+							<argument:name>state</argument:name>
+							<argument:type>int</argument:type>
+						</operation:argument>
+					</operation:arguments>
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+		<!-- Observer -->
+		<pattern:participant>
+			<participant:name>Observer</participant:name>
+			<participant:multiplicity>1</participant:multiplicity>
+			<participant:required>true</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>true</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Observer. Defines an updating interface for objects that should benotified of changes in a subject. 
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>update</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Update State
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+		</pattern:participant>
+		<!-- Concrete Subjects -->
+		<!-- We will describe only a generic one.  All the rest will be similar -->
+		<pattern:participant>
+			<participant:name>ConcreteSubject</participant:name>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:required>true</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Concrete Subject. Stores state of interest to ConcreteObserver objects. Sends a notification to its observers when its state changes.
+]]></participant:documentation>
+-->
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>subjectState</attribute:name>
+					<attribute:type>int</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--
+					<attribute:documentation><![CDATA[
+state of interest to ConcreteObserver objects
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>getState</operation:name>
+					<operation:returnType>int</operation:returnType>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+					<!--
+					<operation:documentation><![CDATA[
+Get Subject State
+]]></operation:documentation>
+-->
+				</participant:operation>
+				<participant:operation>
+					<operation:name>setState</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:isAbstract>false</operation:isAbstract>
+					<operation:exportControl>public</operation:exportControl>
+					<!--
+					<operation:documentation><![CDATA[
+Set Subject State
+]]></operation:documentation>
+-->
+					<!-- arguments -->
+					<operation:arguments>
+						<operation:argument>
+							<argument:name>state</argument:name>
+							<argument:type>int</argument:type>
+						</operation:argument>
+					</operation:arguments>
+				</participant:operation>
+			</participant:operations>
+			<!-- relationships -->
+			<!-- Extends the classes: -->
+			<participant:extends>%Subject%</participant:extends>
+		</pattern:participant>
+		<!-- ConcreteOberver -->
+		<!-- We will describe only a generic one.  All the rest will be similar -->
+		<pattern:participant>
+			<participant:name>ConcreteObserver</participant:name>
+			<participant:multiplicity>n</participant:multiplicity>
+			<participant:required>false</participant:required>
+			<participant:exportControl>public</participant:exportControl>
+			<participant:isAbstract>false</participant:isAbstract>
+			<participant:isInterface>false</participant:isInterface>
+			<!--
+			<participant:documentation><![CDATA[
+Concrete Observer. Maintains a reference to a ConcreteSubject instance. Stores state that should stay consistent with the subject's. Implements the Obsever updating interface to keep its state consistent with the subject's. 
+]]></participant:documentation>
+-->
+			<!-- relationships -->
+			<!-- Implements the interfaces: -->
+			<participant:interfacesImplemented>
+				<participant:implements>%Observer%</participant:implements>
+			</participant:interfacesImplemented>
+			<!-- attributes -->
+			<participant:attributes>
+				<participant:attribute>
+					<attribute:name>observerState</attribute:name>
+					<attribute:type>int</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--
+					<attribute:documentation><![CDATA[
+State that should stay consistent withe the subject's
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+				<participant:attribute>
+					<attribute:name>subject</attribute:name>
+					<attribute:type>%Subject%</attribute:type>
+					<attribute:exportControl>private</attribute:exportControl>
+					<attribute:cardinality>1</attribute:cardinality>
+					<!--
+					<attribute:documentation><![CDATA[
+Reference to a ConcreteSubject object
+]]></attribute:documentation>
+-->
+				</participant:attribute>
+			</participant:attributes>
+			<!-- operations -->
+			<participant:operations>
+				<participant:operation>
+					<operation:name>update</operation:name>
+					<operation:returnType>void</operation:returnType>
+					<operation:exportControl>public</operation:exportControl>
+					<operation:isAbstract>false</operation:isAbstract>
+					<!--
+					<operation:documentation><![CDATA[
+Keeps its state consistent, stores subject's reference in member variable observerState by calling getState() method defined in Subject
+]]></operation:documentation>
+-->
+				</participant:operation>
+			</participant:operations>
+		</pattern:participant>
+	</pattern:participants>
+</pattern:specification>
