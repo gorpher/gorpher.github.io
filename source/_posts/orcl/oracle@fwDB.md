@@ -1,4 +1,5 @@
 ﻿--房屋出租管理系统 表空间名FwDB
+```
 
 create tablespace FwDB 
 datafile 'E:\xxs\oracleDBFile\FwDB.dbf'
@@ -108,3 +109,4 @@ select * from userinfo where userid not in(select userid  from fwxx);
 select * from userInfo;
 select * from FwLx;
 select * from FwXx;
+```

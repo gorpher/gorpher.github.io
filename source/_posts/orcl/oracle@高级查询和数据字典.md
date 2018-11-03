@@ -1,4 +1,7 @@
-﻿topN查询
+﻿```
+
+
+topN查询
 select  * from emp where rownum=1   or   rownum=2;
 select * from   (select * from emp order by    sal desc) where rownum<5;
 分页查询
@@ -71,3 +74,4 @@ select  * from all_constraints where table_name='TEMP';
 在oracle中描述数据字典视图
 select table_name,comments from dictionary where table_name like '%TABLE%';
 
+```

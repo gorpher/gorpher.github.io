@@ -1,4 +1,6 @@
-﻿--创建表空间
+﻿```
+
+--创建表空间
 create tablespace myDB
 datafile 'E:\xxs\Oracle学习笔记\tablespaceFile\myDB.dbf'
 size 5M;
@@ -109,3 +111,4 @@ insert into empInfo values(seq_empid.nextval,'是否','女',20,default,sysdate,2
 
 
 select * from deptInfo;
+```

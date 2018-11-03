@@ -1,4 +1,6 @@
-﻿--1.同义词
+﻿```
+
+--1.同义词
 --访问scott用户下的emp表
 SELECT * FROM SCOTT.EMP;
 
@@ -92,3 +94,5 @@ SELECT * FROM STUDENT WHERE stuname like '%a%';
 
 SELECT * FROM SCORE;
 update score set score=56 where scoreid=1;
+
+```

@@ -1,4 +1,6 @@
-﻿SELECT PASSWORD("do one thing and do it well!");
+﻿```
+
+SELECT PASSWORD("do one thing and do it well!");
 SELECT MD5("do one thing and do it well!");
 SELECT ENCODE("do one thing and do it well!","matosiki");
 SELECT DECODE(ENCODE("73516260","matosiki"),"matosiki");
@@ -20,4 +22,5 @@ $$
 DELIMITER ;
 
 
+```
 

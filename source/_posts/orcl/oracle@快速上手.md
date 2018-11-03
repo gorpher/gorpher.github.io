@@ -1,4 +1,6 @@
-﻿1、开启服务：先开启Lisenterner服务 再开启ORCL服务
+﻿```
+
+1、开启服务：先开启Lisenterner服务 再开启ORCL服务
 2、oracle登录
    用户：管理员       sysDBA - 无密码 
          系统用户    system - manager
@@ -263,3 +265,4 @@ commit;
 
 
 
+```

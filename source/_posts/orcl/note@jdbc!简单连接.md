@@ -1,5 +1,5 @@
-﻿1. SQLServer连接--helper工具类
-```java
+﻿```java
+1. SQLServer连接--helper工具类
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,9 +33,7 @@ public class DBHelper {
 	}
 	
 }
-```
 1. oracle连接--helper工具类
-```java
 public class DBHelper {
 	public static Connection getConn() {
 		Connection conn=null;
@@ -59,9 +57,7 @@ public class DBHelper {
 		
 	}
 }
-```
 3. mysql连接--helper工具类
-```java
 public class DBHelper {
 	public static Connection getConn() {
 		Connection conn=null;

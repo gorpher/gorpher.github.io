@@ -17,7 +17,7 @@ $ hexo server
 ### 发布前清理站点
 
 ``` bash
-$ hexo lean
+$ hexo clean
 ```
 
 ### 生成静态html文件

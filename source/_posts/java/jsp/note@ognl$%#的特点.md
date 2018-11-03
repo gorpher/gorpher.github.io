@@ -1,4 +1,5 @@
-﻿1、什么是Ognl？
+﻿```
+1、什么是Ognl？
 
 OGNL（Object-Graphic Navigation Language）,对象图道行语言。是一种可以方便操作对象属性的开源表达式语言。
 
@@ -41,3 +42,5 @@ eg：<s:property value="#myMap['foo1']"/>
 3）“$”符号有两种用途
 	在国际化资源文件中，引用OGNL表达式,在struts2配置文件中，引用OGNL表达式
 <result type="redirect">listUser.action?msg=${msg}</result>
+
+```

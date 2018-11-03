@@ -1,4 +1,5 @@
-﻿servlet过滤器首先得在web.mxl配置maping
+﻿```
+servlet过滤器首先得在web.mxl配置maping
 
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
@@ -68,3 +69,4 @@ public class FilterDay extends HttpServlet implements Filter {
 
 }
 
+```

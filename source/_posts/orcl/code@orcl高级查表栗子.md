@@ -1,3 +1,4 @@
+```
 -- 确定一年内的天数
 select  add_months(trunc(sysdate,'y'),12)-trunc(sysdate,'y') from dual
 
@@ -42,3 +43,5 @@ select deptno ,sal ,sum(sal) over(partition by deptno order by ename) as s from 
 
 --得到上一行下一行数据
 select ename,sal,lead(sal) over (order by sal) aaa,lag(sal) over (order by sal) bbb from emp;
+
+```
