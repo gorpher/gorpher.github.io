@@ -2,7 +2,6 @@
 title: 友情链接
 thumbnail: https://blog.zhangruipeng.me/hexo-theme-icarus/gallery/salt-lake.jpg
 banner: http://blog.zhangruipeng.me/hexo-theme-icarus/gallery/snow-wolf.jpg
-toc: true
 ---
 
 - my using theme is [Icarus](http://blog.zhangruipeng.me/hexo-theme-icarus/about/)
@@ -43,3 +42,5 @@ toc: true
 - [Heleth](http://lalala.lol/)
 
 - [vevlins](https://vevlins.github.io/)
+
+- [ttfish](http://ttfish.top/)

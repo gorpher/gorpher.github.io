@@ -1,28 +1,7 @@
 ---
-title: 标签
-date: {{ date }}
-#tags:     
-#- java
-#- groovy
-#- android
-#- jsp
-#- spring
-#- hibernate
-#- strust
-#- pattern
-#- mybatis
-#- js
-#- jquery
-#- react
-#- nodejs
-#- gulp
-#- grunp
-#- webpack
-#- linux
-#- orcl
-#- python
-#- regex
-#- tool
-#- docker
-#- maven
+title: Tagcloud
+date: 2018-05-01 00:00:00
+type: "tags"
+comments: false
+layout: "tags"
 ---

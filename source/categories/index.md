@@ -1,11 +1,7 @@
 ---
-title: 分类
-date:  {{ date}}
+title: Tagcloud
+date: 2018-05-01 00:00:00
 type: "categories"
-#categories:
-#- learn
-#- note
-#- code
-#- dict
-#- reprint
+comments: false
+layout: "categories"
 ---

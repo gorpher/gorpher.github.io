@@ -24,22 +24,23 @@ tags:
 其实，Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：
 
 # mysingleton.py
+```py
 class My_Singleton(object):
     def foo(self):
         pass
  
 my_singleton = My_Singleton()
-
+```
 将上面的代码保存在文件 mysingleton.py 中，然后这样使用：
-
+```py
 from mysingleton import my_singleton
  
 my_singleton.foo()
-
+```
 使用 __new__
 
 为了使类只能出现一个实例，我们可以使用 __new__ 来控制实例的创建过程，代码如下：
-
+```py
 class Singleton(object):
     _instance = None
     def __new__(cls, *args, **kw):
@@ -49,11 +50,11 @@ class Singleton(object):
  
 class MyClass(Singleton):  
     a = 1
-
+```
 在上面的代码中，我们将类的实例和一个类变量 _instance 关联起来，如果 cls._instance 为 None 则创建实例，否则直接返回 cls._instance。
 
 执行情况如下：
-
+```
 >>> one = MyClass()
 >>> two = MyClass()
 >>> one == two
@@ -62,11 +63,11 @@ True
 True
 >>> id(one),id(two)
 (4303862608,4303862608)
-
+```
 使用装饰器
 
 我们知道，装饰器（decorator）可以动态地修改一个类或函数的功能。这里，我们也可以使用装饰器来装饰某个类，使其只能生成一个实例，代码如下：
-
+```py
 from functools import wraps
  
 def singleton(cls):
@@ -81,7 +82,7 @@ def singleton(cls):
 @singleton
 class MyClass(object):
     a = 1
-
+```
 在上面，我们定义了一个装饰器 singleton，它返回了一个内部函数 getinstance，该函数会判断某个类是否在字典 instances 中，如果不存在，则会将 cls 作为 key，cls(*args, **kw) 作为 value 存到 instances 中，否则，直接返回 instances[cls]。
 
 使用 metaclass
@@ -93,7 +94,7 @@ class MyClass(object):
 返回修改后的类
 
 用元类实现单例模式的代码如下：
-
+```py
 class Singleton(type):
     _instances = {}
     def __call__(cls, *args, **kwargs):
@@ -108,7 +109,7 @@ class MyClass(object):
 # Python3
 # class MyClass(metaclass=Singleton):
 #    pass
-
+```
 小结
 
 Python 的模块是天然的单例模式，这在大部分情况下应该是够用的，当然，我们也可以使用装饰器、元类等方法

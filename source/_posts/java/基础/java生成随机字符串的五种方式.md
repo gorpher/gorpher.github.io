@@ -4,6 +4,7 @@ date: {{ date }}
 categories: learn
 tags: 
 - java
+thumbnail: http://img.matosiki.site/tina/639.webp
 ---
 
 # 1. 使用原生java生成无边界字符串
