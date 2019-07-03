@@ -4,9 +4,9 @@
 
 # Site
 title: 多学一点知识,少写几行代码
-subtitle: 以不变应万变的才是真理
-description:  一个技术宅男的博客
-keywords: 博客,IT,Geek,程序员
+subtitle: 以不变应万变
+description:  不积跬步无以至千里.
+keywords: 博客,Golang,IT
 author: matosiki
 language: zh-CN
 timezone: Asia/Shanghai
@@ -74,24 +74,12 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/  
-theme: hexo-theme-icarus
+theme: hexo-theme-varaint
 
-algolia:
-  applicationID: '836Z0IDCJH'
-  apiKey: 'e7ff5ea27cd5a4f5bda74e6ff7029084'
-  adminApiKey: '12c39c1ed8f108541e53e22b4432174b'
-  indexName: 'hexo-blog'
-  chunkSize: 5000
-  fields:
-    - title
-    - slug
-    - excerpt:strip
-    - gallery
-    - permalink
-    - photos
-    - tags
-    - content:strip:truncate,0,500
-    
+social:
+  github: https://github.com/wx11055
+  weibo: http://weibo.com/matosiki
+  linkedin:
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

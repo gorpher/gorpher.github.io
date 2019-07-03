@@ -1,3 +1,13 @@
+---
+title: jvm工作原理
+date: {{ date }}
+categories: learn
+tags: 
+- java
+thumbnail: 	http://img.matosiki.site/tina/638.webp
+---
+
+
 # 一、	JVM的生命周期
 1.	JVM实例对应了一个独立运行的java程序它是进程级别
     a)	启动。启动一个Java程序时，一个JVM实例就产生了，任何一个拥有public static void main(String[] args)函数的class都可以作为JVM实例运行的起点
@@ -7,7 +17,7 @@
 2.	JVM执行引擎实例则对应了属于用户运行程序的线程它是线程级别的
 
 # 二、	JVM的体系结构
-![jvm体系结构](./../../img_lib/java/jvm/jvm-struct.png)
+![jvm体系结构](http://img.matosiki.site/image/jvm/jvm-struct.png)
 1.	类装载器（ClassLoader）（用来装载.class文件）
 2.	执行引擎（执行字节码，或者执行本地方法）
 3.	运行时数据区（方法区、堆、java栈、PC寄存器、本地方法栈）
@@ -30,14 +40,14 @@
 JVM启动过程中指定的初始化类。
 
 **VM类加载顺序：**
-![jvm加载顺序](./../../img_lib/java/jvm/jvm-loader.png)
+![jvm加载顺序](http://img.matosiki.site/image/jvm/jvm-loader.png)
 **JVM两种类装载器包括：**启动类装载器和用户自定义类装载器。
 启动类装载器是JVM实现的一部分；
 用户自定义类装载器则是Java程序的一部分，必须是ClassLoader类的子类。
 **JVM装载顺序：**
 	Jvm启动时，由Bootstrap向User-Defined方向加载类；
 	应用进行ClassLoader时，由User-Defined向Bootstrap方向查找并加载类；
-1.	**Bootstrap ClassLoaderzh
+1.	**Bootstrap ClassLoaderzh**
     这是JVM的根ClassLoader，它是用C++实现的，JVM启动时初始化此ClassLoader，并由此ClassLoader完成$JAVA_HOME中jre/lib/rt.jar（Sun JDK的实现）
 中所有class文件的加载，这个jar中包含了java规范定义的所有接口以及实现。
 2.	**Extension ClassLoader**
@@ -79,14 +89,14 @@ JVM的经验，采用两者结合的方式
 并进行优化。若方法不再频繁使用，则取消编译过的代码，仍对其进行解释执行。
 
 # 五、	JVM运行时数据区
-![](./../../img_lib/java/jvm/jvm-memory.png)
+![](http://img.matosiki.site/image/jvm/jvm-memory.png)
 **第一块：PC寄存器**
 PC寄存器是用于存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。
 **第二块：JVM栈**
 JVM栈是线程私有的，每个线程创建的同时都会创建JVM栈，JVM栈中存放的为当前线程中局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、double）、部分的返回结果以及Stack Frame，非基本类型的对象在JVM栈上仅存放一个指向堆上的地址
 **第三块：堆（Heap）**
 它是JVM用来存储对象实例以及数组值的区域，可以认为Java中所有通过new创建的对象的内存都在此分配，Heap中的对象的内存需要等待GC进行回收。
-![](./../../img_lib/java/jvm/jvm-heap.png)
+![](http://img.matosiki.site/image/jvm/jvm-heap.png)
 （1）	堆是JVM中所有线程共享的，因此在其上进行对象内存的分配均需要进行加锁，这也导致了new对象的开销是比较大的
 （2）	Sun Hotspot JVM为了提升对象内存分配的效率，对于所创建的线程都会分配一块独立的空间TLAB（Thread Local Allocation Buffer），其大小由JVM根据运行的情况计算而得，在TLAB上分配对象时不需要加锁，因此JVM在给线程的对象分配内存时会尽量的在TLAB上分配，在这种情况下JVM中分配对象内存的性能和C基本是一样高效的，但如果对象过大的话则仍然是直接使用堆空间分配
 （3）	TLAB仅作用于新生代的Eden Space，因此在编写Java程序时，通常多个小的对象比大的对象分配起来更加高效。

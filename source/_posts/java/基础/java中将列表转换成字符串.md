@@ -7,7 +7,7 @@ banner: http://img.matosiki.site/sky/20180512.jpg
 thumbnail : http://img.matosiki.site/sky/20180510.jpg
 ---
 
-# 1. 直接打印
+### 1. 直接打印
 ```java
 @Test
 public void whenListToString_thenPrintDefault() {
@@ -17,7 +17,7 @@ public void whenListToString_thenPrintDefault() {
 }
 ```
 
-# 2. 实用**stream**方式转换
+### 2. 实用**stream**方式转换
 ```java
 @Test
 public void whenCollectorsJoining_thenPrintCustom() {
@@ -30,7 +30,7 @@ public void whenCollectorsJoining_thenPrintCustom() {
 }
 ```
 
-# 3. 实用**Common lang** 工具
+### 3. 实用**Common lang** 工具
 ```java
 @Test
 public void whenStringUtilsJoin_thenPrintCustom() {
