@@ -1,0 +1,8 @@
+[submodule "blog"]
+	path = source/_posts/blog
+	url = git@e.coding.net:iki/blog.git
+
+
+[submodule "hexo-theme-varaint"]
+	path = themes/hexo-theme-varaint
+	url =  git@github.com:gorpher/hexo-theme-varaint.git
