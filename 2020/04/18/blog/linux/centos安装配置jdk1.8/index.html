@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="/favicon.png" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+    <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<h1 id="centos安装配置jdk1-8"><a href="#centos安装配置jdk1-8" class="headerlink" title="centos安装配置jdk1.8"></a>centos安装配置jdk1.8</h1><h2 id="清理之前的openjdk"><a href="#清理之前的openjdk" class="headerlink" title="清理之前的openjdk"></a>清理之前的openjdk</h2><blockquote>
+<p>yum -y remove java java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="下载jdk"><a href="#下载jdk" class="headerlink" title="下载jdk"></a>下载jdk</h2><ol>
+<li>手动去官网<a href="http://www.oracle.com/technetwork/Java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载</a> 或者使用自己的对象存储地址<a href="http://tar.matosiki.site/tart/jdk-8u181-linux-x64.tar.gz" target="_blank" rel="noopener">下载</a></li>
+<li>下载tar或者rpm （jdk-8u181-linux-x64.tar.gz | jdk-8u172-linux-x64.rpm）</li>
+</ol>
+<blockquote>
+<p>wget <a href="http://tar.matosiki.site/tart/jdk-8u181-linux-x64.tar.gz" target="_blank" rel="noopener">http://tar.matosiki.site/tart/jdk-8u181-linux-x64.tar.gz</a></p>
+</blockquote>
+<p>如果是rpm使用命令安装</p>
+<blockquote>
+<p>rpm -ivh jdk-8u172-linux-x64.rpm</p>
+</blockquote>
+<h2 id="上传到服务器-解压到固定目录"><a href="#上传到服务器-解压到固定目录" class="headerlink" title="上传到服务器  解压到固定目录"></a>上传到服务器  解压到固定目录</h2><blockquote>
+<p>tar -zvxf jdk-8u181-linux-x64.tar.gz -C /usr/local/</p>
+</blockquote>
+<p>更改解压后jdk主目录文件夹名称</p>
+<blockquote>
+<p>mv /usr/local/jdk1.8.0_181 /usr/local/jdk1.8</p>
+</blockquote>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><blockquote>
+<p>vi /etc/profile</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/jdk1.8</span><br><span class="line">export JAVA_BIN=/usr/local/jdk1.8/bin</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">export CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export JAVA_HOME JAVA_BIN PATH CLASSPATHSPH</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+<p>测试java</p>
+<blockquote>
+<p>java -version</p>
+</blockquote>
+<h1 id="快速安装方式"><a href="#快速安装方式" class="headerlink" title="快速安装方式"></a>快速安装方式</h1><blockquote>
+<p>yum install java-1.8.0-openjdk* -y</p>
+</blockquote>
+<h1 id="自己编写的shell脚本"><a href="#自己编写的shell脚本" class="headerlink" title="自己编写的shell脚本"></a>自己编写的shell脚本</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;install_jdk1.8.sh</span><br><span class="line">yum install -y wget</span><br><span class="line"></span><br><span class="line">yum -y remove java java-1.8.0-openjdk</span><br><span class="line"></span><br><span class="line">wget http://tar.matosiki.site/tart/jdk-8u181-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zvxf jdk-8u181-linux-x64.tar.gz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"></span><br><span class="line">mv /usr/<span class="built_in">local</span>/jdk1.8.0_181 /usr/<span class="built_in">local</span>/jdk1.8</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"请手动在/etc/profile 中添加环境变量 ,source /etc/profie,测试安装是否成功"</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-04-18T07:01:23.082Z" itemprop="datePublished">2020-04-18</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='matosiki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../../../../js/lib.js"></script>
+		<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../../../../js/module.js"></script>
+		<script src="../../../../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>

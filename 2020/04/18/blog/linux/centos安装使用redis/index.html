@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="/favicon.png" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+    <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<h1 id="centos安装使用redis"><a href="#centos安装使用redis" class="headerlink" title="centos安装使用redis"></a>centos安装使用redis</h1><p>参考链接 <a href="https://redis.io/topics/quickstart" target="_blank" rel="noopener">Quickstart</a></p>
+<h2 id="简单安装"><a href="#简单安装" class="headerlink" title="简单安装"></a>简单安装</h2><ol>
+<li>获取安装包 安装redis<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">wget http://download.redis.io/redis-stable.tar.gz</span><br><span class="line"></span><br><span class="line">tar xvzf redis-stable.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> redis-stable</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2 . 解压后会看到redis五大组件</p>
+<ul>
+<li>redis-server  （核心服务）</li>
+<li>redis-sentinel  （相当于监视器）</li>
+<li>redis-cli （客户端命令行接口）</li>
+<li>redis-benchmark （reids 性能检查）</li>
+<li>redis-check-aof （检查数据故障）</li>
+</ul>
+<ol start="3">
+<li>移动redis，将redis 做成可直接命令启动软件 （注意：<strong>/user/local/bin</strong> 需要在环境变量下也就是 $PATH下）</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将redis-server拷贝到 用户自行安装软件执行位置</span></span><br><span class="line">sudo cp src/redis-server /usr/<span class="built_in">local</span>/bin/</span><br><span class="line"></span><br><span class="line">sudo cp src/redis-cli /usr/<span class="built_in">local</span>/bin/</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>暂不配置启动redis-server测试</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ redis-server</span><br><span class="line">15153:C 16 Aug 11:39:26.998 <span class="comment"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span></span><br><span class="line">15153:C 16 Aug 11:39:26.998 <span class="comment"># Redis version=4.0.11, bits=64, commit=00000000, modified=0, pid=15153, just started</span></span><br><span class="line">15153:C 16 Aug 11:39:26.999 <span class="comment"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+<p>表示启动成功<br>检查redis-server是否可以使用<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-cli ping</span><br><span class="line"></span><br><span class="line">PONG</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接进入cli</span></span><br><span class="line">$ redis-cli                                                                </span><br><span class="line">redis 127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; <span class="built_in">set</span> mykey somevalue</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; get mykey</span><br><span class="line"><span class="string">"somevalue"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><ol>
+<li>准备redis配置文件夹</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mkdir /etc/redis</span><br><span class="line">sudo mkdir /var/redis</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>复制配置模板 制作启动服务</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp utils/redis_init_script /etc/init.d/redis_6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置服务</span></span><br><span class="line">sudo vi /etc/init.d/redis_6379</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>复制redis配置</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp redis.conf /etc/redis/6379.conf</span><br><span class="line">sudo mkdir /var/redis/6379</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑6379配置文件</p>
+</li>
+</ol>
+<ul>
+<li>设置<strong>daemonize</strong>为<strong><em>yes</em></strong> 默认为 <strong><strong>no</strong></strong> （进程守护）</li>
+<li>设置<strong>pidfile</strong> 为 <strong><em>/var/run/redis_6379.pid</em></strong></li>
+<li>改变端口 <strong>port</strong></li>
+<li>改变日志等级 <strong>loglevel</strong></li>
+<li>改变日志输出文件地址 <strong>logfile</strong>= <strong><em>/var/log/redis_6379.log</em></strong></li>
+<li>设置默认目录 <strong><em>/var/redis/6379</em></strong></li>
+</ul>
+<ol start="5">
+<li>设置服务开机启动等级</li>
+</ol>
+<blockquote>
+<p>sudo update-rc.d redis_6379 defaults</p>
+</blockquote>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chkconfig --add redis_6379</span><br><span class="line"></span><br><span class="line">echo -e &quot;redis-server /etc/redis/6379.conf\n&quot; &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>启动服务</li>
+</ol>
+<blockquote>
+<p>sudo /etc/init.d/redis_6379 start</p>
+</blockquote>
+<h2 id="关闭redis服务的三种方式"><a href="#关闭redis服务的三种方式" class="headerlink" title="关闭redis服务的三种方式"></a>关闭redis服务的三种方式</h2><ol>
+<li><p>使用默认开启关闭服务方式</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/redis_6379 stop</span><br><span class="line">/etc/init.d/redis_6379 start</span><br><span class="line">/etc/init.d/redis_6379 restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果是通过源码安装的redis，则可以通过redis的客户端程序redis-cli的shutdown命令来重启redis</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 6379 shutdown</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看进程pid 使用 kill命令杀死 使用终极武器 kill -9</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -ntlp </span><br><span class="line"></span><br><span class="line"><span class="built_in">kill</span> -9 [pid]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-04-18T07:01:23.081Z" itemprop="datePublished">2020-04-18</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='matosiki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../../../../js/lib.js"></script>
+		<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../../../../js/module.js"></script>
+		<script src="../../../../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>

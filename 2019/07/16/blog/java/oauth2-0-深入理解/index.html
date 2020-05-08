@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>oauth2.0-深入理解 | 大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="/favicon.png" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" style='background-image: url(http://img.matosiki.site/image/banner/20190716/prague-photos.jpg)' data-enable=false></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
+      oauth2.0-深入理解
+    </h1>
+  
+
+	<div class='post-body mb'>
+		<h3 id="OAuth2-0是什么"><a href="#OAuth2-0是什么" class="headerlink" title="OAuth2.0是什么"></a>OAuth2.0是什么</h3><p>用于REST/APIS的代理授权框架（delegatedauthorizetion framework）,基于令牌token的授权，在无需暴露用户密码的情况下，使应用能够对用户数据有效访问权限，充分解耦认证和授权，实际上是标准的安全架构，支持多种应用场景，服务器端WebApp,浏览器单页面SPA，无线原生App,服务器与服务器之间访问。像仆从钥匙，给应用授权优先的访问权限，代表用户访问用户数据。OAoth是系统之间代理授权协议</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>易实现</li>
+<li>安全，服务端不接触用户密码，服务单更容易集中保护。</li>
+<li>广泛传播被持续采用</li>
+<li>短寿命和封装的token</li>
+<li>资源服务器和授权服务器解耦</li>
+<li>集中授权简化客户端</li>
+<li>HTTP/JSON友好易于请求和传递token</li>
+<li>考虑多种客户端架构场景</li>
+<li>客户可以具有不同的信任级别</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>协议框架太宽泛，造成各种实现的兼容性和互操作性</li>
+<li>与OAuth1.0不兼容</li>
+<li>OAuth 2.0 不是一个认证协议，OAuth2.0本身并不能告诉你任何用户信息</li>
+</ol>
+<h3 id="架构角色"><a href="#架构角色" class="headerlink" title="架构角色"></a>架构角色</h3><p>1.授权服务 Authorization Service<br>客户应用成功认证并获得授权之后，向客户应用颁发访问令牌。</p>
+<p>2.资源服务 Resource Service<br>一个web服务或者web应用，保存用户受保护的数据</p>
+<p>3.客户端应用 Client Application<br>通常是一个浏览器或者手机app，它需要用户受保护的数据</p>
+<p>4.资源拥有者 owner<br>数据拥有者，想把数据分享给他人使用</p>
+<p>客户端应用需要访问资源服务,但是没有认证,此时客户端去授权服务获取认证令牌,拿到令牌后交给资源服务器,资源服务器拿到令牌后也去授权服务比较一次,如果是对的,就认证通过.</p>
+<p><img src="http://img.matosiki.site/image/oauth2.0_simple_arch.png" alt="OAuth2.0简单架构"></p>
+<h3 id="OAuth2-0语术概念"><a href="#OAuth2-0语术概念" class="headerlink" title="OAuth2.0语术概念"></a>OAuth2.0语术概念</h3><p>1.客户凭证 Client Credentials<br>客户的clientId和密码用户认证客户</p>
+<p>2.令牌 Tokens<br>授权服务器在接收到客户请求后颁发的资源服务器<br><strong>令牌类型</strong></p>
+<ul>
+<li>授权码 (Authorization Code Token)  仅用于授权码类型，用于交换获取访问令牌和刷新令牌</li>
+<li>刷新令牌 (Refresh Token) 用于去授权服务器获取一个新的token</li>
+<li>访问令牌 (Access Token) 代表用户直接访问受保护的资源服务器</li>
+<li>Bearer Token 不管谁拿到都可以访问资源</li>
+<li>Proof of Prosession Token   可以校验Client是否对Token有明确的权限</li>
+</ul>
+<p>3.作用域<br>客户请求访问令牌时，有资源拥有者额外指定的细分权限</p>
+<h3 id="应用场景-解决方案"><a href="#应用场景-解决方案" class="headerlink" title="应用场景,解决方案"></a>应用场景,解决方案</h3><h4 id="一、开放间系统授权"><a href="#一、开放间系统授权" class="headerlink" title="一、开放间系统授权"></a>一、开放间系统授权</h4><p>1.社交联合登陆</p>
+<p>2.开放API平台</p>
+<h4 id="二、现代微服务安全"><a href="#二、现代微服务安全" class="headerlink" title="二、现代微服务安全"></a>二、现代微服务安全</h4><p>1.单页面浏览器APP</p>
+<p>2.无线原生APP</p>
+<p>3.服务端WebApp</p>
+<p>4.微服务和原生API调用</p>
+<h4 id="三、企业内部认证授权-IAM-SSO"><a href="#三、企业内部认证授权-IAM-SSO" class="headerlink" title="三、企业内部认证授权(IAM,SSO)"></a>三、企业内部认证授权(IAM,SSO)</h4><h3 id="AOuth-Flow"><a href="#AOuth-Flow" class="headerlink" title="AOuth Flow"></a>AOuth Flow</h3><p>推荐两篇文章</p>
+<p><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">https://tools.ietf.org/html/rfc6749</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">理解OAuth 2.0 - 阮一峰的网络日志</a></p>
+<p><img src="http://img.matosiki.site/image/oauth_protocl_flow.png" alt=""></p>
+<h3 id="客户端的授权模式"><a href="#客户端的授权模式" class="headerlink" title="客户端的授权模式"></a>客户端的授权模式</h3><h4 id="1-授权码模式"><a href="#1-授权码模式" class="headerlink" title="1. 授权码模式"></a>1. 授权码模式</h4><p><img src="http://img.matosiki.site/image/oauth_mode_authorization_code.png" alt=""></p>
+<p><strong>授权步骤</strong></p>
+<ul>
+<li>A.用户访问客户端,客户端重定向到认证服务器.</li>
+<li>B.用户选择授权客户端</li>
+<li>C.如果用户授权,授权服务器重定向到客户端带来的url并附加一个授权码</li>
+<li>D.客户端附带重定向url和授权码后台请求授权服务器申请令牌</li>
+<li>E.授权服务器校对授权码和重定向url,确认无误,向客户端发送访问令牌(Access Token)和刷新令牌(Refresh Token)</li>
+</ul>
+<h5 id="基于spring-security-oauth2-0搭建最简授权码模式服务器"><a href="#基于spring-security-oauth2-0搭建最简授权码模式服务器" class="headerlink" title="基于spring security oauth2.0搭建最简授权码模式服务器"></a>基于spring security oauth2.0搭建最简授权码模式服务器</h5><h6 id="一、-源码"><a href="#一、-源码" class="headerlink" title="一、 源码"></a>一、 源码</h6><p>资源服务器和授权服务器一起案例</p>
+<ol>
+<li><p>引入jar包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">   	&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- OAuth 2.0 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.security.oauth&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-security-oauth2&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加授权服务器配置</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">//授权服务器配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OAuth2AuthorizationServer extends</span><br><span class="line">        AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(&quot;clientapp&quot;)</span><br><span class="line">                .secret(&quot;123456&quot;)</span><br><span class="line">                .redirectUris(&quot;http://localhost:9001/callback&quot;)</span><br><span class="line">                // 授权码模式</span><br><span class="line">                .authorizedGrantTypes(&quot;authorization_code&quot;)</span><br><span class="line">                .scopes(&quot;read_userinfo&quot;, &quot;read_contacts&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>添加资源服务器配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//资源服务配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableResourceServer</span><br><span class="line">public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .anyRequest()</span><br><span class="line">                .authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .requestMatchers()</span><br><span class="line">                .antMatchers(&quot;/api/**&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>配置添加授权用户</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Spring Security Setting</span><br><span class="line">security.user.name=user1</span><br><span class="line">security.user.password=passwd1</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>添加资源服务器api入口</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class UserController &#123;</span><br><span class="line"></span><br><span class="line">	// 资源API</span><br><span class="line">    @RequestMapping(&quot;/api/userinfo&quot;)</span><br><span class="line">    public ResponseEntity&lt;UserInfo&gt; getUserInfo() &#123;</span><br><span class="line">        User user = (User) SecurityContextHolder.getContext()</span><br><span class="line">                .getAuthentication().getPrincipal();</span><br><span class="line">        String email = user.getUsername() + &quot;@hello.com&quot;;</span><br><span class="line"></span><br><span class="line">        UserInfo userInfo = new UserInfo();</span><br><span class="line">        userInfo.setName(user.getUsername());</span><br><span class="line">        userInfo.setEmail(email);</span><br><span class="line"></span><br><span class="line">        return ResponseEntity.ok(userInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>启动服务器</li>
+</ol>
+<h6 id="二、实践"><a href="#二、实践" class="headerlink" title="二、实践"></a>二、实践</h6><ol>
+<li>获取授权码</li>
+</ol>
+<p>请求：<br>打开浏览器 输入地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:8080/oauth/authorize?client_id=clientapp&amp;redirect_uri=http://localhost:9001/callback&amp;response_type=code&amp;scope=read_userinfo</span><br></pre></td></tr></table></figure>
+<p>输入用户名和密码，选择授权。</p>
+<p>请求：<br>页面会跳转一个callback地址加授权码<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:9001/callback?code=4PFZ2w</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>获取令牌</li>
+</ol>
+<p>请求：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X POST --user clientapp:123456 http://localhost:8080/oauth/token -H</span><br><span class="line">&quot;content-type: application/x-www-form-urlencoded&quot; -d</span><br><span class="line">&quot;code=4PFZ2w&amp;grant_type=authorization_code&amp;redirect_uri=http%3A%2F%2Flocalh</span><br><span class="line">ost%3A9001%2Fcallback&amp;scope=read_userinfo&quot;</span><br></pre></td></tr></table></figure></p>
+<p>响应：<br><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">"access_token"</span>:<span class="string">"44a572ca-3a05-40ba-a557-35955179e143"</span>,<span class="attr">"token_type"</span>:<span class="string">"bearer"</span>,<span class="attr">"expires_in"</span>:<span class="number">43199</span>,<span class="attr">"scope"</span>:<span class="string">"read_userinfo"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>访问资源，调用API<br>请求：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET http://localhost:8080/api/userinfo -H &quot;authorization: Bearer 44a572ca-3a05-40ba-a557-35955179e143&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;user1&quot;,&quot;email&quot;:&quot;user1@hello.com&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong></p>
+<ul>
+<li>通过前端渠道客户获取授权码</li>
+<li>通过后端渠道,客户使用authorization code 交换access token 或refresh token</li>
+<li>假定资源拥有者和客户在不同的设备上</li>
+<li>最安全的流程,因为令牌不会传递经过User-Agent</li>
+</ul>
+<p>总结: <strong>授权码模式本质上是客户端通过用户名密码发起获取授权码请求,服务端根据回调地址返回授权码,客户端根据授权码访问资源服务器,资源服务器根据授权码拿到授权服务器给的access token返回给客户端,客户端就可以带着这个access token访问资源服务器上的有效资源.</strong></p>
+<h4 id="2-简化模式"><a href="#2-简化模式" class="headerlink" title="2. 简化模式"></a>2. 简化模式</h4><p><img src="http://img.matosiki.site/image/oauth_mode_implit.png" alt=""></p>
+<p><strong>授权步骤</strong></p>
+<ul>
+<li>客户端重定向用户到认证服务器</li>
+<li>用户选择是否授权给客户端</li>
+<li>用户授权,授权服务器根据客户端请求参数uri重定向到客户端,并将token放入url的hash部分</li>
+<li>资源服务返回一个页面,可以获取hash值</li>
+<li>浏览器执行脚本获取令牌</li>
+<li>浏览器叫令牌发送给客户端</li>
+</ul>
+<h5 id="基于spring-security-oauth2-0搭建简化模式服务器"><a href="#基于spring-security-oauth2-0搭建简化模式服务器" class="headerlink" title="基于spring security oauth2.0搭建简化模式服务器"></a>基于spring security oauth2.0搭建简化模式服务器</h5><h6 id="一、-源码-1"><a href="#一、-源码-1" class="headerlink" title="一、 源码"></a>一、 源码</h6><p>资源服务器和授权服务器一起案例</p>
+<ol>
+<li>引入spring security 和 oauth jar包</li>
+<li>授权服务器配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//简化服务器配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OAuth2AuthorizationServer extends</span><br><span class="line">        AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(&quot;clientapp&quot;)</span><br><span class="line">                .secret(&quot;123456&quot;)</span><br><span class="line">                .redirectUris(&quot;http://localhost:9001/callback&quot;)</span><br><span class="line">                // 授权码模式</span><br><span class="line">                //.authorizedGrantTypes(&quot;authorization_code&quot;)</span><br><span class="line">                // 简化模式</span><br><span class="line">                .authorizedGrantTypes(&quot;implicit&quot;)</span><br><span class="line">                .accessTokenValiditySeconds(120)</span><br><span class="line">                .scopes(&quot;read_userinfo&quot;, &quot;read_contacts&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="二、操作"><a href="#二、操作" class="headerlink" title="二、操作"></a>二、操作</h6><ol>
+<li>获取令牌<br>访问浏览器<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:8080/oauth/authorize?client_id=clientapp&amp;redirect_uri=http://localhost:9001/callback&amp;response_type=token&amp;scope=read_userinfo&amp;state=abc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>输入配置的用户和密码，选择授权。<br>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:9001/callback#access_token=d678754d-752c-46cc-9a9b-d59ae830cddb&amp;token_type=bearer&amp;state=abc&amp;expires_in=119</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>访问资源，调用API</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET http://localhost:8080/api/userinfo -H &quot;authorization: Bearer d678754d-752c-46cc-9a9b-d59ae830cddb&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;user1&quot;,&quot;email&quot;:&quot;user1@hello.com&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>特点</strong></p>
+<ul>
+<li>适用于公开的浏览器单页面应用</li>
+<li>Access Token 直接从授权服务器返回</li>
+<li>不支持Refresh Token</li>
+<li>假定资源拥有者和客户在同一设备上</li>
+<li>最容易受安全攻击</li>
+</ul>
+<p>总结：<strong>简化模式，就是没有授权码的授权模式，去掉了授权码这个步骤。</strong></p>
+<h4 id="3-密码模式-Resource-Owner-Password-Credential-Grant"><a href="#3-密码模式-Resource-Owner-Password-Credential-Grant" class="headerlink" title="3. 密码模式 Resource Owner Password Credential Grant"></a>3. 密码模式 Resource Owner Password Credential Grant</h4><p><img src="http://img.matosiki.site/image/oauth_mode_password_credential.png" alt=""></p>
+<p><strong>授权步骤</strong></p>
+<ul>
+<li>用户向客户端提供用户名和密码</li>
+<li>客户端将用户名和密码发送给认证服务器去认证授权</li>
+<li>认证服务器验证无误，返回给客户端令牌</li>
+</ul>
+<h5 id="基于spring-security-oauth2-0搭建密码模式服务器"><a href="#基于spring-security-oauth2-0搭建密码模式服务器" class="headerlink" title="基于spring security oauth2.0搭建密码模式服务器"></a>基于spring security oauth2.0搭建密码模式服务器</h5><h6 id="一、代码"><a href="#一、代码" class="headerlink" title="一、代码"></a>一、代码</h6><p>授权服务器配置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 授权服务器配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OAuth2AuthorizationServer extends</span><br><span class="line">        AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">	// 用户认证</span><br><span class="line">    @Autowired</span><br><span class="line">    private AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(AuthorizationServerEndpointsConfigurer endpoints)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        endpoints.authenticationManager(authenticationManager);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">            .withClient(&quot;clientapp&quot;)</span><br><span class="line">            .secret(&quot;123456&quot;)</span><br><span class="line">            // 密码模式</span><br><span class="line">            .authorizedGrantTypes(&quot;password&quot;)</span><br><span class="line">            .scopes(&quot;read_userinfo&quot;, &quot;read_contacts&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="一、操作"><a href="#一、操作" class="headerlink" title="一、操作"></a>一、操作</h6><ol>
+<li>获取令牌</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X POST --user clientapp:123456 http://localhost:8080/oauth/token -H &quot;accept: application/json&quot; -H &quot;content-type: application/x-www-form-urlencoded&quot; -d &quot;grant_type=password&amp;username=user1&amp;password=passwd1&amp;scope=read_userinfo&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;access_token&quot;:&quot;9247e26e-b9d7-488b-88b0-25fb046ac7ce&quot;,&quot;token_type&quot;:&quot;bearer&quot;,&quot;expires_in&quot;:43163,&quot;scope&quot;:&quot;read_userinfo&quot;&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>访问资源，调用API</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET http://localhost:8080/api/userinfo -H &quot;authorization: Bearer 9247e26e-b9d7-488b-88b0-25fb046ac7ce&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;user1&quot;,&quot;email&quot;:&quot;user1@hello.com&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong></p>
+<ul>
+<li>使用用户名密码登录的应用,比如桌面应用</li>
+<li>使用用户名/密码作为授权方式从授权服务器上获取access token</li>
+<li>一般不支持refresh token</li>
+<li>假定资源拥有者和公开客户在相同设备上</li>
+</ul>
+<p>总结：<strong>密码授权模式，是对客户端极度信任的情况下，将用户名和密码交给客户端，客户端去授权服务器获取令牌。</strong></p>
+<h4 id="4-客户端模式"><a href="#4-客户端模式" class="headerlink" title="4. 客户端模式"></a>4. 客户端模式</h4><p><img src="http://img.matosiki.site/image/oauth_mode_client_credential.png" alt=""></p>
+<p><strong>授权步骤</strong></p>
+<ul>
+<li>客户端直接向授权服务器发起授权认证，获取令牌</li>
+<li>授权服务器校验通过，颁发令牌</li>
+</ul>
+<h5 id="基于spring-security-oauth2-0搭建客户端模式服务器"><a href="#基于spring-security-oauth2-0搭建客户端模式服务器" class="headerlink" title="基于spring security oauth2.0搭建客户端模式服务器"></a>基于spring security oauth2.0搭建客户端模式服务器</h5><h6 id="一、代码-1"><a href="#一、代码-1" class="headerlink" title="一、代码"></a>一、代码</h6><p>授权服务器配置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 授权服务器配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OAuth2AuthorizationServer extends</span><br><span class="line">        AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">            .withClient(&quot;clientdevops&quot;)</span><br><span class="line">            // 密码模式</span><br><span class="line">            .secret(&quot;123456&quot;)</span><br><span class="line">            .authorizedGrantTypes(&quot;client_credentials&quot;)</span><br><span class="line">            .scopes(&quot;devops&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="二、操作-1"><a href="#二、操作-1" class="headerlink" title="二、操作"></a>二、操作</h6><ol>
+<li>获取令牌</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X POST &quot;http://localhost:8080/oauth/token&quot; --user clientdevops:123456 -d</span><br><span class="line">&quot;grant_type=client_credentials&amp;scope=devops&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;access_token&quot;:&quot;ab5e2936-7463-456b-9ded-aac79d9311e1&quot;,&quot;token_type&quot;:&quot;bearer&quot;,&quot;expires_in&quot;:43199,&quot;scope&quot;:&quot;devops&quot;&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>访问资源，调用API</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X GET http://localhost:8080/api/userinfo -H &quot;authorization: Bearer ab5e2936-7463-456b-9ded-aac79d9311e1&quot;</span><br></pre></td></tr></table></figure>
+<p>响应：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;user1&quot;,&quot;email&quot;:&quot;user1@hello.com&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>特点</strong></p>
+<ul>
+<li>适用于服务间通信,机器代表用户或者它自己</li>
+<li>只有后端渠道,使用客户凭证获取一个access token</li>
+<li>因为客户凭证可以使用对称或者非对称加密,该方式支持共享密码或者证书</li>
+</ul>
+<p><strong>刷新令牌</strong></p>
+<p><img src="http://img.matosiki.site/image/oauth_mode_refresh_token.png" alt=""></p>
+<h6 id="一、代码-2"><a href="#一、代码-2" class="headerlink" title="一、代码"></a>一、代码</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//授权服务器配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OAuth2AuthorizationServer extends</span><br><span class="line">        AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        clients.inMemory()</span><br><span class="line">                .withClient(&quot;clientapp&quot;)</span><br><span class="line">                .secret(&quot;123456&quot;)</span><br><span class="line">                .redirectUris(&quot;http://localhost:9001/callback&quot;)</span><br><span class="line">                // 密码模式</span><br><span class="line">                .authorizedGrantTypes(&quot;password&quot;, &quot;refresh_token&quot;)</span><br><span class="line">                .accessTokenValiditySeconds(120)</span><br><span class="line">                .refreshTokenValiditySeconds(60)</span><br><span class="line">                .scopes(&quot;read_userinfo&quot;, &quot;read_contacts&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDetailsService userDetailsService;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception &#123;</span><br><span class="line">        endpoints.authenticationManager(authenticationManager);</span><br><span class="line">        endpoints.userDetailsService(userDetailsService);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>安全配置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">@EnableWebSecurity</span><br><span class="line">@EnableGlobalMethodSecurity(prePostEnabled = true) //启用方法级的权限认证</span><br><span class="line">public class SecurityConfiguration extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    @Override</span><br><span class="line">    protected UserDetailsService userDetailsService() &#123;</span><br><span class="line">        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();</span><br><span class="line">        manager.createUser(User.withUsername(&quot;user1&quot;).password(&quot;passwd1&quot;).authorities(&quot;USER&quot;).build());</span><br><span class="line">        manager.createUser(User.withUsername(&quot;root&quot;).password(&quot;root&quot;).authorities(&quot;USER&quot;).build());</span><br><span class="line">        return manager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @Override</span><br><span class="line">    public AuthenticationManager authenticationManagerBean() throws Exception &#123;</span><br><span class="line">        return super.authenticationManagerBean();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="二、操作-2"><a href="#二、操作-2" class="headerlink" title="二、操作"></a>二、操作</h6><p>获取令牌<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -i -X POST --user clientapp:123456 http://localhost:8080/oauth/token -H &quot;accept: application/json&quot; -H &quot;content-type: application/x-www-form-urlencoded&quot; -d &quot;grant_type=refresh_token&amp;refresh_token=dda1413c-86e8-4612-8e13-e9044e530c66&quot;</span><br></pre></td></tr></table></figure></p>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200</span><br><span class="line">X-Content-Type-Options: nosniff</span><br><span class="line">X-XSS-Protection: 1; mode=block</span><br><span class="line">Cache-Control: no-cache, no-store, max-age=0, must-revalidate</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Expires: 0</span><br><span class="line">X-Frame-Options: DENY</span><br><span class="line">X-Application-Context: application</span><br><span class="line">Cache-Control: no-store</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Content-Type: application/json;charset=UTF-8</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Date: Fri, 12 Jul 2019 07:43:15 GMT</span><br><span class="line"></span><br><span class="line">&#123;&quot;access_token&quot;:&quot;052f2239-6231-4537-bc93-33fce4c58d0c&quot;,&quot;token_type&quot;:&quot;bearer&quot;,&quot;refresh_token&quot;:&quot;dda1413c-86e8-4612-8e13-e9044e530c66&quot;,&quot;expires_in&quot;:119,&quot;scope&quot;:&quot;read_userinfo&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="认证方式选择"><a href="#认证方式选择" class="headerlink" title="认证方式选择"></a>认证方式选择</h4><p><img src="http://img.matosiki.site/image/auth_mode_select_method.png" alt=""></p>
+<h4 id="授权服务器端点"><a href="#授权服务器端点" class="headerlink" title="授权服务器端点"></a>授权服务器端点</h4><ol>
+<li>Authorize Endpoint (/oauth2/authorize) 认证端点</li>
+<li>Token Endpoint (/oauth2/token) 令牌端点</li>
+<li>Introspection Endpoint (/oauth2/instrospection) 检查端点</li>
+<li>Revocation Endpoint (/aouth2/revoke) 吊销端点</li>
+</ol>
+<h4 id="Spring-Security-OAuth2-0架构"><a href="#Spring-Security-OAuth2-0架构" class="headerlink" title="Spring Security OAuth2.0架构"></a>Spring Security OAuth2.0架构</h4><p><a href="http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html" target="_blank" rel="noopener">http://terasolunaorg.github.io/guideline/5.3.0.RELEASE/en/Security/OAuth.html</a></p>
+<p><img src="http://img.matosiki.site/image/OAuth_OAuth2Architecture.png" alt=""></p>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2019-07-16T02:52:58.000Z" itemprop="datePublished">2019-07-16</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='matosiki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../../../../js/lib.js"></script>
+		<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../../../../js/module.js"></script>
+		<script src="../../../../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
