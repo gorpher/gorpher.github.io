@@ -3,7 +3,7 @@
   <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     
-    <title>大道至简</title>
+    <title>安装centos mini版 解决无法上网问题 | 大道至简</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
@@ -61,7 +61,7 @@
 		</div>
 	</section>
 	
-		<figure class="top-image" data-enable=true></figure>
+		<figure class="top-image" style='background-image: url(http://img.matosiki.site/beautiful-sunset-panorama-with-swans-and-charles-bridge-in-prague_free_stock_photos_picjumbo_dsc01300.jpg)' data-enable=false></figure>
 	
 </div>
 
@@ -71,8 +71,14 @@
     <!--文章-->
 <article>
 	
+  
+    <h1 class="post-title" itemprop="name">
+      安装centos mini版 解决无法上网问题
+    </h1>
+  
+
 	<div class='post-body mb'>
-		<h1 id="安装centos-mini版-解决无法上网"><a href="#安装centos-mini版-解决无法上网" class="headerlink" title="安装centos mini版 解决无法上网"></a>安装centos mini版 解决无法上网</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  更改网卡配置</span></span><br><span class="line">进入/etc/sysconfig/network-scripts目录</span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">cd</span> /etc/sysconfig/network-scripts</span><br><span class="line"></span><br><span class="line">&gt; vi ifcfg-ens33  </span><br><span class="line"></span><br><span class="line">将ONBOOT改为 ***ONBOOT=YES***</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启网络</span></span><br><span class="line"></span><br><span class="line">&gt; service network restart </span><br><span class="line">或者</span><br><span class="line">&gt; systemctl restart network</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yum 安装 ifconfig</span></span><br><span class="line"></span><br><span class="line">&gt; yum provides ifconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yum 安装网络工具 </span></span><br><span class="line"></span><br><span class="line">&gt; yum install net-tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新软件 </span></span><br><span class="line"></span><br><span class="line">&gt; yum -y update</span><br></pre></td></tr></table></figure>
+		<h1 id="安装centos-mini版-解决无法上网问题"><a href="#安装centos-mini版-解决无法上网问题" class="headerlink" title="安装centos mini版 解决无法上网问题"></a>安装centos mini版 解决无法上网问题</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  更改网卡配置</span></span><br><span class="line">进入/etc/sysconfig/network-scripts目录</span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">cd</span> /etc/sysconfig/network-scripts</span><br><span class="line"></span><br><span class="line">&gt; vi ifcfg-ens33  </span><br><span class="line"></span><br><span class="line">将ONBOOT改为 ***ONBOOT=YES***</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启网络</span></span><br><span class="line"></span><br><span class="line">&gt; service network restart </span><br><span class="line">或者</span><br><span class="line">&gt; systemctl restart network</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yum 安装 ifconfig</span></span><br><span class="line"></span><br><span class="line">&gt; yum provides ifconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yum 安装网络工具 </span></span><br><span class="line"></span><br><span class="line">&gt; yum install net-tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新软件 </span></span><br><span class="line"></span><br><span class="line">&gt; yum -y update</span><br></pre></td></tr></table></figure>
 
 	</div>
 	<div class="meta split">

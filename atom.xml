@@ -310,31 +310,6 @@
   </entry>
   
   <entry>
-    <title>java中将列表转换成字符串</title>
-    <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%AD%E5%B0%86%E5%88%97%E8%A1%A8%E8%BD%AC%E6%8D%A2%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    <id>http://www.matosiki.site/2020/05/08/blog/java/java中将列表转换成字符串/</id>
-    <published>2020-05-08T03:44:42.540Z</published>
-    <updated>2020-05-08T03:44:42.540Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-直接打印"><a href="#1-直接打印" class="headerlink" title="1. 直接打印"></a>1. 直接打印</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenListToString_thenPrintDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intLIst = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(intLIst);  <span class="comment">//这个方式,对简单类型对象适用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-实用stream方式转换"><a href="#2-实用stream方式转换" class="headerlink" title="2. 实用stream方式转换"></a>2. 实用<strong>stream</strong>方式转换</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenCollectorsJoining_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    String result = intList.stream()</span><br><span class="line">      .map(n -&gt; String.valueOf(n))</span><br><span class="line">      .collect(Collectors.joining(<span class="string">"-"</span>, <span class="string">"&#123;"</span>, <span class="string">"&#125;"</span>));</span><br><span class="line">  </span><br><span class="line">    System.out.println(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="3-实用Common-lang-工具"><a href="#3-实用Common-lang-工具" class="headerlink" title="3. 实用Common lang 工具"></a>3. 实用<strong>Common lang</strong> 工具</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenStringUtilsJoin_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(StringUtils.join(intList, <span class="string">"|"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>总结: 简单的类型可以直接打印,但是复杂自定义对象建议使用流方式打印.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;1-直接打印&quot;&gt;&lt;a href=&quot;#1-直接打印&quot; class=&quot;headerlink&quot; title=&quot;1. 直接打印&quot;&gt;&lt;/a&gt;1. 直接打印&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;co
-      
-    
-    </summary>
-    
-      <category term="learn" scheme="http://www.matosiki.site/categories/learn/"/>
-    
-    
-      <category term="java" scheme="http://www.matosiki.site/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>java中将异常栈跟踪信息转字符串</title>
     <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%AD%E5%B0%86%E5%BC%82%E5%B8%B8%E6%A0%88%E8%B7%9F%E8%B8%AA%E4%BF%A1%E6%81%AF%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     <id>http://www.matosiki.site/2020/05/08/blog/java/java中将异常栈跟踪信息转字符串/</id>
@@ -348,6 +323,31 @@
       
       
         &lt;h1 id=&quot;1-使用原生java代码&quot;&gt;&lt;a href=&quot;#1-使用原生java代码&quot; class=&quot;headerlink&quot; title=&quot;1. 使用原生java代码&quot;&gt;&lt;/a&gt;1. 使用原生java代码&lt;/h1&gt;&lt;figure class=&quot;highlight java&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="learn" scheme="http://www.matosiki.site/categories/learn/"/>
+    
+    
+      <category term="java" scheme="http://www.matosiki.site/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java中将列表转换成字符串</title>
+    <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%AD%E5%B0%86%E5%88%97%E8%A1%A8%E8%BD%AC%E6%8D%A2%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <id>http://www.matosiki.site/2020/05/08/blog/java/java中将列表转换成字符串/</id>
+    <published>2020-05-08T03:44:42.540Z</published>
+    <updated>2020-05-08T03:44:42.540Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-直接打印"><a href="#1-直接打印" class="headerlink" title="1. 直接打印"></a>1. 直接打印</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenListToString_thenPrintDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intLIst = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(intLIst);  <span class="comment">//这个方式,对简单类型对象适用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-实用stream方式转换"><a href="#2-实用stream方式转换" class="headerlink" title="2. 实用stream方式转换"></a>2. 实用<strong>stream</strong>方式转换</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenCollectorsJoining_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    String result = intList.stream()</span><br><span class="line">      .map(n -&gt; String.valueOf(n))</span><br><span class="line">      .collect(Collectors.joining(<span class="string">"-"</span>, <span class="string">"&#123;"</span>, <span class="string">"&#125;"</span>));</span><br><span class="line">  </span><br><span class="line">    System.out.println(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="3-实用Common-lang-工具"><a href="#3-实用Common-lang-工具" class="headerlink" title="3. 实用Common lang 工具"></a>3. 实用<strong>Common lang</strong> 工具</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenStringUtilsJoin_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(StringUtils.join(intList, <span class="string">"|"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>总结: 简单的类型可以直接打印,但是复杂自定义对象建议使用流方式打印.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;1-直接打印&quot;&gt;&lt;a href=&quot;#1-直接打印&quot; class=&quot;headerlink&quot; title=&quot;1. 直接打印&quot;&gt;&lt;/a&gt;1. 直接打印&lt;/h3&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;co
       
     
     </summary>
@@ -435,31 +435,6 @@
   </entry>
   
   <entry>
-    <title>java中StringTokenizer使用</title>
-    <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%ADStringTokenizer%E4%BD%BF%E7%94%A8/"/>
-    <id>http://www.matosiki.site/2020/05/08/blog/java/java中StringTokenizer使用/</id>
-    <published>2020-05-08T03:44:42.539Z</published>
-    <updated>2020-05-08T03:44:42.539Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="使用特殊分割符分割String类型一般使用StringTokenize"><a href="#使用特殊分割符分割String类型一般使用StringTokenize" class="headerlink" title="使用特殊分割符分割String类型一般使用StringTokenize()"></a>使用特殊分割符分割String类型一般使用<strong>StringTokenize()</strong></h2><h1 id="1-使用逗号分割-再用枚举递归"><a href="#1-使用逗号分割-再用枚举递归" class="headerlink" title="1. 使用逗号分割,再用枚举递归"></a>1. 使用逗号分割,再用枚举递归</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokens</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    StringTokenizer tokenizer = <span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>);</span><br><span class="line">    <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">        tokens.add(tokenizer.nextToken());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="2-使用java8"><a href="#2-使用java8" class="headerlink" title="2. 使用java8"></a>2. 使用java8</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensWithCollection</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.list(<span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>)).stream()</span><br><span class="line">      .map(token -&gt; (String) token)  <span class="comment">// 注意这里返回类型为Object类型需要强转</span></span><br><span class="line">      .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="3-自定义分割符"><a href="#3-自定义分割符" class="headerlink" title="3. 自定义分割符"></a>3. 自定义分割符</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">tokens.add(tokenizer.nextToken(<span class="string">"e"</span>));</span><br></pre></td></tr></table></figure><h1 id="读取CVS文件"><a href="#读取CVS文件" class="headerlink" title="读取CVS文件"></a>读取CVS文件</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensFromFile</span><span class="params">( String path , String delim )</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    String currLine = <span class="string">""</span>;</span><br><span class="line">    StringTokenizer tokenizer;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> InputStreamReader(Application.class.getResourceAsStream( </span><br><span class="line">          <span class="string">"/"</span> + path )))) &#123;</span><br><span class="line">        <span class="keyword">while</span> (( currLine = br.readLine()) != <span class="keyword">null</span> ) &#123;</span><br><span class="line">            tokenizer = <span class="keyword">new</span> StringTokenizer( currLine , delim );</span><br><span class="line">            <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">                tokens.add(tokenizer.nextToken());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerTest</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> MyTokenizer myTokenizer = <span class="keyword">new</span> MyTokenizer();</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForString = Arrays.asList(</span><br><span class="line">      <span class="string">"Welcome"</span> , <span class="string">"to"</span> , <span class="string">"baeldung.com"</span> );</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForFile = Arrays.asList(</span><br><span class="line">      <span class="string">"1"</span> , <span class="string">"IND"</span> , <span class="string">"India"</span> , </span><br><span class="line">      <span class="string">"2"</span> , <span class="string">"MY"</span> , <span class="string">"Malaysia"</span> , </span><br><span class="line">      <span class="string">"3"</span>, <span class="string">"AU"</span> , <span class="string">"Australia"</span> );</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenString_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"Welcome,to,baeldung.com"</span>;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokens( str );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForString, actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenFile_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokensFromFile( </span><br><span class="line">          <span class="string">"data.csv"</span>, <span class="string">"|"</span> );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForFile , actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;使用特殊分割符分割String类型一般使用StringTokenize&quot;&gt;&lt;a href=&quot;#使用特殊分割符分割String类型一般使用StringTokenize&quot; class=&quot;headerlink&quot; title=&quot;使用特殊分割符分割String类型一般使用S
-      
-    
-    </summary>
-    
-      <category term="learn" scheme="http://www.matosiki.site/categories/learn/"/>
-    
-    
-      <category term="java" scheme="http://www.matosiki.site/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>java中String类型转Integer或int类型</title>
     <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%ADString%E7%B1%BB%E5%9E%8B%E8%BD%ACInteger%E6%88%96int%E7%B1%BB%E5%9E%8B/"/>
     <id>http://www.matosiki.site/2020/05/08/blog/java/java中String类型转Integer或int类型/</id>
@@ -500,6 +475,31 @@
         &lt;h1 id=&quot;将字符串转换成十六进制&quot;&gt;&lt;a href=&quot;#将字符串转换成十六进制&quot; class=&quot;headerlink&quot; title=&quot;将字符串转换成十六进制&quot;&gt;&lt;/a&gt;将字符串转换成十六进制&lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;将每个字符串转换成数组&lt;/li&gt;
 &lt;li&gt;将数组中字符转
+      
+    
+    </summary>
+    
+      <category term="learn" scheme="http://www.matosiki.site/categories/learn/"/>
+    
+    
+      <category term="java" scheme="http://www.matosiki.site/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java中StringTokenizer使用</title>
+    <link href="http://www.matosiki.site/2020/05/08/blog/java/java%E4%B8%ADStringTokenizer%E4%BD%BF%E7%94%A8/"/>
+    <id>http://www.matosiki.site/2020/05/08/blog/java/java中StringTokenizer使用/</id>
+    <published>2020-05-08T03:44:42.539Z</published>
+    <updated>2020-05-08T03:44:42.539Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用特殊分割符分割String类型一般使用StringTokenize"><a href="#使用特殊分割符分割String类型一般使用StringTokenize" class="headerlink" title="使用特殊分割符分割String类型一般使用StringTokenize()"></a>使用特殊分割符分割String类型一般使用<strong>StringTokenize()</strong></h2><h1 id="1-使用逗号分割-再用枚举递归"><a href="#1-使用逗号分割-再用枚举递归" class="headerlink" title="1. 使用逗号分割,再用枚举递归"></a>1. 使用逗号分割,再用枚举递归</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokens</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    StringTokenizer tokenizer = <span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>);</span><br><span class="line">    <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">        tokens.add(tokenizer.nextToken());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="2-使用java8"><a href="#2-使用java8" class="headerlink" title="2. 使用java8"></a>2. 使用java8</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensWithCollection</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.list(<span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>)).stream()</span><br><span class="line">      .map(token -&gt; (String) token)  <span class="comment">// 注意这里返回类型为Object类型需要强转</span></span><br><span class="line">      .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="3-自定义分割符"><a href="#3-自定义分割符" class="headerlink" title="3. 自定义分割符"></a>3. 自定义分割符</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">tokens.add(tokenizer.nextToken(<span class="string">"e"</span>));</span><br></pre></td></tr></table></figure><h1 id="读取CVS文件"><a href="#读取CVS文件" class="headerlink" title="读取CVS文件"></a>读取CVS文件</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensFromFile</span><span class="params">( String path , String delim )</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    String currLine = <span class="string">""</span>;</span><br><span class="line">    StringTokenizer tokenizer;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> InputStreamReader(Application.class.getResourceAsStream( </span><br><span class="line">          <span class="string">"/"</span> + path )))) &#123;</span><br><span class="line">        <span class="keyword">while</span> (( currLine = br.readLine()) != <span class="keyword">null</span> ) &#123;</span><br><span class="line">            tokenizer = <span class="keyword">new</span> StringTokenizer( currLine , delim );</span><br><span class="line">            <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">                tokens.add(tokenizer.nextToken());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerTest</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> MyTokenizer myTokenizer = <span class="keyword">new</span> MyTokenizer();</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForString = Arrays.asList(</span><br><span class="line">      <span class="string">"Welcome"</span> , <span class="string">"to"</span> , <span class="string">"baeldung.com"</span> );</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForFile = Arrays.asList(</span><br><span class="line">      <span class="string">"1"</span> , <span class="string">"IND"</span> , <span class="string">"India"</span> , </span><br><span class="line">      <span class="string">"2"</span> , <span class="string">"MY"</span> , <span class="string">"Malaysia"</span> , </span><br><span class="line">      <span class="string">"3"</span>, <span class="string">"AU"</span> , <span class="string">"Australia"</span> );</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenString_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"Welcome,to,baeldung.com"</span>;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokens( str );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForString, actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenFile_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokensFromFile( </span><br><span class="line">          <span class="string">"data.csv"</span>, <span class="string">"|"</span> );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForFile , actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;使用特殊分割符分割String类型一般使用StringTokenize&quot;&gt;&lt;a href=&quot;#使用特殊分割符分割String类型一般使用StringTokenize&quot; class=&quot;headerlink&quot; title=&quot;使用特殊分割符分割String类型一般使用S
       
     
     </summary>
