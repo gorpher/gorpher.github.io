@@ -33,16 +33,21 @@ $ hexo generate
 $ hexo deploy
 ```
 
+一键发布
+
+```bash
+hexo clean & hexo g && gulp & hexo deploy
+```
 
 git 发布错误插件解决办法
 
-> npm install hexo-deployer-git –-save  
+> npm i hexo-deployer-git
 
 More info: [hexo](https://hexo.io/)
 
 
 ## 使用gulp压缩博客发布
-> npm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save
+> npm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp
 
 > hexo g && gulp
 
