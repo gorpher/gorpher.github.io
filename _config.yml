@@ -7,7 +7,7 @@ title: 大道至简
 subtitle: 以不变应万变
 description:  不积跬步无以至千里
 keywords: 博客,Golang,IT
-author: matosiki
+author: iki
 language: zh-CN
 timezone: Asia/Shanghai
 
@@ -21,9 +21,6 @@ permalink_defaults:
 # Directory
 source_dir: source
 public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
@@ -55,8 +52,7 @@ index_generator:
   
 # Category & Tag
 default_category: uncategorized
-category_map: 
-tag_map:
+
  
 
 # Date / Time format

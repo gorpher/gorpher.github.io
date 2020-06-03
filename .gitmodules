@@ -6,3 +6,6 @@
 [submodule "hexo-theme-varaint"]
 	path = themes/hexo-theme-varaint
 	url =  git@github.com:gorpher/hexo-theme-varaint.git
+[submodule "submodule/bash-tutorial"]
+	path = submodule/bash-tutorial
+	url = git@github.com:gorpher/bash-tutorial.git
