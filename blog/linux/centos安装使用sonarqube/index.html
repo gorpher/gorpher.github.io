@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="http://img.matosiki.site/favicon.svg">
+    
+
+    <link rel="stylesheet" href="../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+				
+				<li class="current-menu-item">
+					<a href="./bash" target="_self">bash教程</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+	<figure class="top-image" data-enable=true></figure>
+	
+</div>
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+  <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<h1 id="centos安装使用sonarqube"><a href="#centos安装使用sonarqube" class="headerlink" title="centos安装使用sonarqube"></a>centos安装使用sonarqube</h1><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="http://img.matosiki.site/image/architecture_sonarqube.png" alt="架构"></p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>centos 7<br>mysql<br>sonarqube7.1</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a><a href="https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-7.3.zip" target="_blank" rel="noopener">下载</a></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install unzip -y</span><br><span class="line"></span><br><span class="line">wget http://tar.matosiki.site/zip/sonarqube-7.3.zip</span><br><span class="line"></span><br><span class="line">unzip sonarqube-7.3.zip</span><br><span class="line"></span><br><span class="line">mv sonarqube-7.3 /opt/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo groupadd sonar</span><br><span class="line"></span><br><span class="line">sudo useradd -g sonar sonar</span><br><span class="line"></span><br><span class="line">chown -R sonar.sonar /opt/sonarqube-7.3/</span><br></pre></td></tr></table></figure>
+<h2 id="进入mysql创建数据库"><a href="#进入mysql创建数据库" class="headerlink" title="进入mysql创建数据库"></a>进入mysql创建数据库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;</span><br><span class="line"></span><br><span class="line">CREATE USER &apos;sonar&apos;@&apos;%&apos; IDENTIFIED BY &apos;sonar&apos;;</span><br><span class="line"></span><br><span class="line">GRANT all privileges ON sonar.* TO &apos;sonar&apos;@&apos;%&apos; IDENTIFIED BY &apos;sonar&apos;;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>cd  /opt/sonarqube-7.3/conf/</p>
+</blockquote>
+<blockquote>
+<p>vi sonar.properties</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> #数据库用户</span><br><span class="line">sonar.jdbc.username=root</span><br><span class="line">#数据库密码</span><br><span class="line">sonar.jdbc.password=123456</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance</span><br><span class="line"></span><br><span class="line">sonar.web.host=0.0.0.0</span><br><span class="line">sonar.web.port=9000</span><br></pre></td></tr></table></figure>
+<p>##启动<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">su sonar</span><br><span class="line"></span><br><span class="line">/opt/sonarqube-7.3/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure></p>
+<h2 id="登录-访问地址http-172-27-82-119-9000"><a href="#登录-访问地址http-172-27-82-119-9000" class="headerlink" title="登录 访问地址http://172.27.82.119:9000/"></a>登录 <a href="http://172.27.82.119:9000/" target="_blank" rel="noopener">访问地址http://172.27.82.119:9000/</a></h2><p>用户名和密码都是admin</p>
+<p>然后紧接着官方引导教程</p>
+<ol>
+<li><p>输入name做为tokenn</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">matosiki</span><br><span class="line"></span><br><span class="line">生成token：6a831d80491fe2e2d43c5d19270741c2b619ac05</span><br><span class="line">把token复制保存下来</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择项目得开发语言</p>
+</li>
+</ol>
+<p>java&gt;maven</p>
+<p>执行测试<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mvn sonar:sonar \</span><br><span class="line">  -Dsonar.host.url=http://172.27.82.119:9000 \</span><br><span class="line">  -Dsonar.login=d81cb0f66e3ec4dd87adb782c6bdc67f0f7fe96c</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>安装插件<br>安装汉化包Administrator中MarketPlace搜索<strong>chinese</strong><br><strong>Checkstyle</strong></li>
+</ol>
+<p>重启生效</p>
+<h2 id="maven-配置sonar使用"><a href="#maven-配置sonar使用" class="headerlink" title="maven 配置sonar使用"></a>maven 配置sonar使用</h2><p>配置settings.xml文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">    &lt;pluginGroups&gt;</span><br><span class="line">        &lt;pluginGroup&gt;org.sonarsource.scanner.maven&lt;/pluginGroup&gt;</span><br><span class="line">    &lt;/pluginGroups&gt;</span><br><span class="line">    &lt;profiles&gt;</span><br><span class="line">        &lt;profile&gt;</span><br><span class="line">            &lt;id&gt;sonar&lt;/id&gt;</span><br><span class="line">            &lt;activation&gt;</span><br><span class="line">                &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;</span><br><span class="line">            &lt;/activation&gt;</span><br><span class="line">            &lt;properties&gt;</span><br><span class="line">                &lt;!-- Optional URL to server. Default value is http://localhost:9000 --&gt;</span><br><span class="line">                &lt;sonar.host.url&gt;</span><br><span class="line">                  http://myserver:9000</span><br><span class="line">                &lt;/sonar.host.url&gt;</span><br><span class="line">            &lt;/properties&gt;</span><br><span class="line">        &lt;/profile&gt;</span><br><span class="line">     &lt;/profiles&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="jenkins-插件使用sonar"><a href="#jenkins-插件使用sonar" class="headerlink" title="jenkins 插件使用sonar"></a>jenkins 插件使用sonar</h2><ol>
+<li><p>jenkins安装插件<br><strong>系统管理—&gt;插件管理,搜索一下sonar安装 </strong></p>
+</li>
+<li><p>配置sonar</p>
+</li>
+</ol>
+<p><strong>系统管理—&gt;系统设置，配置name和server url</strong></p>
+<p>粘贴保存下的token</p>
+<ol start="3">
+<li>配置全局工具<br><a href="https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/" target="_blank" rel="noopener">下载地址</a></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http://tar.matosiki.site/zip/sonar-scanner-2.8.zip</span><br><span class="line"></span><br><span class="line">unzip sonar-scanner-2.8.zip</span><br><span class="line"></span><br><span class="line">mv sonar-scanner-2.8 /opt/</span><br><span class="line"></span><br><span class="line">vi /opt/sonar-scanner-2.8/conf/sonar-scanner.properties</span><br><span class="line"></span><br><span class="line"># 编辑配置文件</span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line">sonar.sourceEncoding=UTF-8</span><br><span class="line">sonar.jdbc.username=sonar</span><br><span class="line">sonar.jdbc.password=sonar</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://172.27.82.11:3306/sonar?useUnicode=true&amp;amp;characterEncoding=utf8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 添加环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">export SCANNER_HOME=/opt/sonar-scanner-2.8</span><br><span class="line">export PATH=$PATH:$SCANNER_HOME/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 测试是否设置成功</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">sonar-scanner -h</span><br></pre></td></tr></table></figure>
+<p>jekins中配置：<br>global tool configuration &gt; SonarQube Scanner&gt;add&gt;</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SONAR_RUNNER_HOME=/opt/sonar-scanner-2.8</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>选择项目</li>
+</ol>
+<p>项目构建&gt;配置&gt;构建&gt; Add build step&gt;Execute SonarQube Scanner<br>execute shell<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MAVEN_HOME=/opt/apache-maven3.5</span><br><span class="line">export PATH=$PATH:$MAVEN_HOME/bin</span><br><span class="line">cd $&#123;WORKSPACE&#125;</span><br><span class="line">mvn install</span><br></pre></td></tr></table></figure></p>
+<p>###千万不要在Task to run中输入值<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sonar.projectKey=spring-boot-example</span><br><span class="line">sonar.projectName=spring-boot-example</span><br><span class="line">sonar.projectVersion=1.0</span><br><span class="line">sonar.language=java</span><br><span class="line">sonar.sources=$&#123;WORKSPACE&#125;</span><br><span class="line">sonar.java.binaries=$&#123;WORKSPACE&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>在项目中配置 project properties    文件<br>编辑<strong>sonar-project.properties</strong><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sonar.projectKey=org.sonarqube:spring-boot-example</span><br><span class="line"></span><br><span class="line">#在SonarQube中展示的项目名称</span><br><span class="line"></span><br><span class="line">sonar.projectName=项目名称</span><br><span class="line"></span><br><span class="line">#在SonarQube中展示的版本号</span><br><span class="line">sonar.projectVersion=1.0</span><br><span class="line">  </span><br><span class="line">#设置源代码的路径</span><br><span class="line"></span><br><span class="line">sonar.sources=/var/lib/jenkins/workspace/spring-boot-example/spring-boot-email/src/</span><br><span class="line"></span><br><span class="line">#设置字节码文件的路径</span><br><span class="line">sonar.binaries=/var/lib/jenkins/workspace/spring-boot-example/spring-boot-email/target/classes</span><br><span class="line">sonar.language=java</span><br><span class="line">sonar.sourceEncoding=UTF-8</span><br><span class="line">   </span><br><span class="line">#设置字报告存放的路径</span><br><span class="line"></span><br><span class="line">sonar.jacoco.itReportPath=/var/lib/jenkins/workspace/spring-boot-example/spring-boot-email/reports/jacoco.exec</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>maven检查代码命令<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mvn clean verify sonar:sonar</span><br><span class="line">或者</span><br><span class="line">mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.5.0.1254:sonar</span><br></pre></td></tr></table></figure></p>
+<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p><strong>elasticsearch</strong> 错误</p>
+<p>解决方案<br>查看es日志</p>
+<blockquote>
+<p> cat /opt/sonarqube-7.1/logs/es.log </p>
+</blockquote>
+<p><strong>can not run elasticsearch as root</strong></p>
+<p>新建sonar用户 和sonar组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo groupadd sonar</span><br><span class="line"></span><br><span class="line">sudo useradd -g sonar sonar</span><br><span class="line"></span><br><span class="line">chown -R sonar:sonar /opt/sonarqube-7.1</span><br></pre></td></tr></table></figure>
+<p><strong>failed to obtain node locks</strong><br>查看进程</p>
+<blockquote>
+<p> ps aux | grep ‘elastic’</p>
+</blockquote>
+<p>获取pid</p>
+<blockquote>
+<p> kill -9 90123</p>
+</blockquote>
+<p>删除elasticsearch data文件</p>
+<p><strong>Cannot execute statement: impossible to write to binary log since BINLOG_FORMAT = STATEMENT and at least one table uses a storage engine limited to row-based logging. InnoDB is limited to row-logging when transaction isolation level is READ COMMITTED or READ UNCOMMITTED.</strong></p>
+<p>在mysql里设置binlog_format为ROW，此时binlog会增大，但是一般来说对数据复制支持的更好，建议单机高性能环境下使用。</p>
+<p>删除初始化得database*<em>sonar</em><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/my.conf</span><br><span class="line"></span><br><span class="line">binlog_format=ROW</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://www.jianshu.com/p/365db8b181cc" target="_blank" rel="noopener">参考1</a><br><a href="https://blog.csdn.net/qq_35981283/article/details/81072852" target="_blank" rel="noopener">参考2</a></p>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-04-18T07:01:23.081Z" itemprop="datePublished">2020-04-18</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+  
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='iki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../js/lib.js"></script>
+		<script src="../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../js/module.js"></script>
+		<script src="../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>

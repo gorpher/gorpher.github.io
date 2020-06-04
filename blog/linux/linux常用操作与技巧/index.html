@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="http://img.matosiki.site/favicon.svg">
+    
+
+    <link rel="stylesheet" href="../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+				
+				<li class="current-menu-item">
+					<a href="./bash" target="_self">bash教程</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+	<figure class="top-image" data-enable=true></figure>
+	
+</div>
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+  <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<h1 id="linux常用操作与技巧"><a href="#linux常用操作与技巧" class="headerlink" title="linux常用操作与技巧"></a>linux常用操作与技巧</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h2 id="账户安全"><a href="#账户安全" class="headerlink" title="账户安全"></a>账户安全</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换用户</span></span><br><span class="line">su - username</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 更改权限</span></span><br><span class="line">chmod +x filename</span><br></pre></td></tr></table></figure>
+<h2 id="搜索与查找"><a href="#搜索与查找" class="headerlink" title="搜索与查找"></a>搜索与查找</h2><h3 id="which-寻找执行文档"><a href="#which-寻找执行文档" class="headerlink" title="which 寻找执行文档"></a>which 寻找执行文档</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> [-a] <span class="built_in">command</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -a 将所有可以找到的指令均列出，而不止第一个被找到的指令名称</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">which</span> -a java</span><br></pre></td></tr></table></figure>
+<h3 id="whereis-寻找特定文档"><a href="#whereis-寻找特定文档" class="headerlink" title="whereis 寻找特定文档"></a>whereis 寻找特定文档</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">whereis [-bmsu] 档案或目录名</span><br><span class="line"><span class="comment">#参数∶</span></span><br><span class="line"><span class="comment">#-b    :只找 binary 的档案</span></span><br><span class="line"><span class="comment">#-m    :只找在说明档 manual 路径下的档案</span></span><br><span class="line"><span class="comment">#-s    :只找 source 来源档案</span></span><br><span class="line"><span class="comment">#-u    :没有说明档的档案！</span></span><br><span class="line">whieris passwd</span><br><span class="line">whereis -b passwd</span><br></pre></td></tr></table></figure>
+<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">locate filename</span><br><span class="line">locate passwd</span><br></pre></td></tr></table></figure>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将过去系统上面 24 小时内有更动过内容 (mtime) 的档案列出</span></span><br><span class="line">find / -mtime 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 寻找 /etc 底下的档案，如果档案日期比 /etc/passwd 新就列出</span></span><br><span class="line"></span><br><span class="line">find /etc -newer /etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜寻 /home 底下属于 dmtsai 的档案</span></span><br><span class="line">find /home -user dmtsai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜寻系统中不属于任何人的档案</span></span><br><span class="line">find / -nouser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找出档名为 passwd 这个档案</span></span><br><span class="line">find / -name passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜寻档案属性为 f (一般档案) 的档案</span></span><br><span class="line">find /home -<span class="built_in">type</span> f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜寻档案当中含有 SGID/SUID/SBIT 的属性</span></span><br><span class="line"></span><br><span class="line">find / -perm +7000 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 将上个范例找到的档案使用 ls -l 列出来～</span></span><br><span class="line">find / -perm +7000 -<span class="built_in">exec</span> ls -l &#123;&#125; \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找出系统中，大于 1MB 的档案</span></span><br><span class="line">find / -size +1000k</span><br></pre></td></tr></table></figure>
+<h2 id="程序安装"><a href="#程序安装" class="headerlink" title="程序安装"></a>程序安装</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装软件</span></span><br><span class="line">rpm -ivh filename.rpm </span><br><span class="line"><span class="comment"># 列出所有仓库</span></span><br><span class="line">yum repolist all</span><br><span class="line"><span class="comment"># 列出仓库中所有软件包</span></span><br><span class="line">yum list all</span><br><span class="line"><span class="comment"># 安装软件包</span></span><br><span class="line">yum install </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line">systemctl start foo.service	</span><br><span class="line"><span class="comment"># 重启服务</span></span><br><span class="line">systemctl restart foo.service</span><br><span class="line"><span class="comment"># 停止服务</span></span><br><span class="line">systemctl stop foo.service</span><br><span class="line"><span class="comment"># 重新加载配置文件（不终止服务）</span></span><br><span class="line">systemctl reload foo.service</span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status foo.service</span><br></pre></td></tr></table></figure>
+<h2 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h2><h3 id="系统运行时命令"><a href="#系统运行时命令" class="headerlink" title="系统运行时命令"></a>系统运行时命令</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看进程运行时间</span></span><br><span class="line">ps -p 7890 -o lstart,etime</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看网络网卡状况</span></span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看系统内核与系统版本等信息</span></span><br><span class="line">uname -sr</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用于查看系统的负载信息</span></span><br><span class="line">uptime -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以M为单位查看内存</span></span><br><span class="line">free -m -t -s 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看当前登入主机的用户终端信息</span></span><br><span class="line">who</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看所有系统的登录记录</span></span><br><span class="line">last -iw</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 显示历史执行过的命令</span></span><br><span class="line"><span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 收集系统配置及架构信息并输出诊断文档</span></span><br><span class="line">sosreport -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打印固定格式时间</span></span><br><span class="line">date <span class="string">"+%Y-%m-%d %H:%M:%S"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重启</span></span><br><span class="line">reboot</span><br><span class="line"><span class="comment"># 关机</span></span><br><span class="line">poweroff</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看所有进程状况</span></span><br><span class="line">ps -aux</span><br><span class="line"><span class="comment"># 查看占用前10的进程</span></span><br><span class="line">ps aux | sort -k3nr |head -n 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 监视系统负载状况</span></span><br><span class="line">top</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询系统进程pid</span></span><br><span class="line">pidof [参数] [服务名称]</span><br><span class="line"><span class="comment"># 根据名称查找进程id</span></span><br><span class="line">pgrep hello</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 关闭进程</span></span><br><span class="line"><span class="built_in">kill</span>  -9 [进程PID]</span><br><span class="line"></span><br><span class="line">killall [参数] [进程]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 计算程序运行时间</span></span><br><span class="line">time ./fibo 30</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> PATH=PATH:/opt/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看系统端口</span></span><br><span class="line">netstat -tunlp</span><br></pre></td></tr></table></figure>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 用户当前所处的工作目录</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换工作路径</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示目录中的文件信息 </span></span><br><span class="line">ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 纯文本文件</span></span><br><span class="line">cat</span><br><span class="line"><span class="comment"># 查看纯文本文件（内容较多的）</span></span><br><span class="line">more</span><br><span class="line"><span class="comment"># 查看纯文本文档的前N行</span></span><br><span class="line">head</span><br><span class="line"><span class="comment"># 查看纯文本文档的后N行或持续刷新内容</span></span><br><span class="line">tail -f filename.txt</span><br><span class="line"><span class="comment"># 替换文本文件中的字符  tr [原始字符] [目标字符]</span></span><br><span class="line">tr</span><br><span class="line"><span class="comment"># 统计指定文本的行数、字数、字节数</span></span><br><span class="line"></span><br><span class="line">wc [参数] 文本    -l 只显示行数   -w 只显示单词数  -c 只显示字节数</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件的具体存储信息和时间等信息</span></span><br><span class="line"><span class="built_in">stat</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 按“列”提取文本字符</span></span><br><span class="line">cut [参数] 文本</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较多个文本文件的差异，格式为“diff [参数] 文件”</span></span><br><span class="line">diff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建空白文件或设置文件的时间</span></span><br><span class="line">touch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建空白的目录</span></span><br><span class="line">mkdir</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制文件或目录</span></span><br><span class="line">cp [选项] 源文件 目标文件</span><br><span class="line"></span><br><span class="line"><span class="comment"># 剪切文件或将文件重命名</span></span><br><span class="line">mv [选项] 源文件 [目标路径|目标文件名]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除文件或目录</span></span><br><span class="line">rm [选项] 文件”</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照指定大小和个数的数据块来复制文件或转换文件</span></span><br><span class="line">dd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看磁盘情况</span></span><br><span class="line">df -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件的类型</span></span><br><span class="line">file 文件名</span><br><span class="line"></span><br><span class="line">tar -czvf testfile.tar.gz</span><br><span class="line">tar -xzvf testfile.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在文本中执行关键词搜索</span></span><br><span class="line">grep [选项] [文件]</span><br><span class="line">-c 仅显示找到的行数  -i 忽略大小写 -n 显示行号 -v 反向选择——仅列出没有“关键词”的行。</span><br><span class="line">grep -rn <span class="string">"test"</span></span><br><span class="line"><span class="comment"># 按照指定条件来查找文件</span></span><br><span class="line">find [查找路径] 寻找条件 操作</span><br><span class="line"><span class="comment"># 预设权限</span></span><br><span class="line"><span class="built_in">umask</span></span><br></pre></td></tr></table></figure>
+<h2 id="文本操作"><a href="#文本操作" class="headerlink" title="文本操作"></a>文本操作</h2><h3 id="文本重定向"><a href="#文本重定向" class="headerlink" title="文本重定向"></a>文本重定向</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将文件作为命令的标准输入</span></span><br><span class="line">命令 &lt; 文件</span><br><span class="line"><span class="comment"># 从标准输入中读入，直到遇见分界符才停止</span></span><br><span class="line">命令 &lt;&lt; 分界符</span><br><span class="line"><span class="comment"># 将文件1作为命令的标准输入并将标准输出到文件2</span></span><br><span class="line">命令 &lt; 文件1 &gt; 文件2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将标准输出重定向到一个文件中（清空原有文件的数据）</span></span><br><span class="line">命令 &gt; 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将错误输出重定向到一个文件中（清空原有文件的数据）</span></span><br><span class="line">命令 2&gt; 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将标准输出重定向到一个文件中（追加到原有内容的后面）</span></span><br><span class="line">命令 &gt;&gt; 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将错误输出重定向到一个文件中（追加到原有内容的后面）</span></span><br><span class="line">命令 2&gt;&gt; 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将标准输出与错误输出共同写入到文件中（追加到原有内容的后面</span></span><br><span class="line">命令 &gt;&gt; 文件 2&gt;&amp;1  或 命令 &amp;&gt;&gt; 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用cat创建文件</span></span><br><span class="line">cat &lt;&lt;EOF&gt;testfile.txt</span><br><span class="line">输入文本</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="命令行光标与屏幕"><a href="#命令行光标与屏幕" class="headerlink" title="命令行光标与屏幕"></a>命令行光标与屏幕</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 删除从开头到光标出的文本</span></span><br><span class="line">ctrl+u </span><br><span class="line"><span class="comment"># 删除从光标出到结尾处的文本 </span></span><br><span class="line">ctrl+k</span><br><span class="line"><span class="comment"># 光标移动到命令开头</span></span><br><span class="line">ctrl+a</span><br><span class="line"><span class="comment"># 光标移动到命令结尾</span></span><br><span class="line">ctrl+e</span><br><span class="line"><span class="comment"># 光标向前移动一个字母</span></span><br><span class="line">ctrl+f</span><br><span class="line"><span class="comment"># 光标向后移动一个字母</span></span><br><span class="line">ctrl+b</span><br><span class="line"><span class="comment"># 光标向前移动一个单词</span></span><br><span class="line">alt+f</span><br><span class="line"><span class="comment"># 光标小后移动一个单词</span></span><br><span class="line">alt+b</span><br><span class="line"><span class="comment"># 删除一个单词</span></span><br><span class="line">ctrl+w</span><br><span class="line"><span class="comment"># 冻结屏幕</span></span><br><span class="line">ctrl+s</span><br><span class="line"><span class="comment"># 冻结恢复</span></span><br><span class="line">ctrl+q</span><br></pre></td></tr></table></figure>
+<h2 id="远程管理"><a href="#远程管理" class="headerlink" title="远程管理"></a>远程管理</h2><h3 id="使用lrzsz上传和下载文件"><a href="#使用lrzsz上传和下载文件" class="headerlink" title="使用lrzsz上传和下载文件"></a>使用lrzsz上传和下载文件</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装命令 yum install lrzsz </span></span><br><span class="line"><span class="comment"># 上传文件</span></span><br><span class="line">rz</span><br><span class="line"><span class="comment"># 下载文件</span></span><br><span class="line">sz</span><br></pre></td></tr></table></figure>
+<h2 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">man -h </span><br><span class="line"><span class="comment"># 向下翻一页</span></span><br><span class="line">space</span><br><span class="line"><span class="comment"># 向下翻一页</span></span><br><span class="line">Page down</span><br><span class="line"><span class="comment"># 向上翻一页</span></span><br><span class="line">Page up	</span><br><span class="line"><span class="comment"># 直接前往首页</span></span><br><span class="line">home</span><br><span class="line"><span class="comment"># 直接前往尾页</span></span><br><span class="line">end</span><br><span class="line"><span class="comment"># 从上至下搜索某个关键词，如“/linux”</span></span><br><span class="line">/</span><br><span class="line"><span class="comment"># 从下至上搜索某个关键词，如“?linux”</span></span><br><span class="line">?</span><br><span class="line"><span class="comment"># 定位到下一个搜索到的关键词</span></span><br><span class="line">n</span><br><span class="line"><span class="comment"># 定位到上一个搜索到的关键词</span></span><br><span class="line">N</span><br><span class="line"><span class="comment"># 退出帮助文档</span></span><br><span class="line">q</span><br></pre></td></tr></table></figure>
+<h2 id="其他技巧"><a href="#其他技巧" class="headerlink" title="其他技巧"></a>其他技巧</h2><h3 id="感叹号-使用"><a href="#感叹号-使用" class="headerlink" title="感叹号!使用"></a>感叹号!使用</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 命令位置</span></span><br><span class="line">whereis bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次执行上一条名称</span></span><br><span class="line">!!</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用上一条名称最后一个参数</span></span><br><span class="line"><span class="comment"># 上一条名称是 ls /proc/1/task/1/net/tcp</span></span><br><span class="line"><span class="comment"># 添加 -al参数</span></span><br><span class="line">ls -al !$  <span class="comment">#实际执行 ls -al /proc/1/task/1/net/tcp</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用上一条命令第一个参数</span></span><br><span class="line">ls -al !^</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去掉最后一个参数执行上一条命令</span></span><br><span class="line">!:-</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用上一条名称所有参数</span></span><br><span class="line"><span class="comment">#fin -name "test.zip"  #这里find输错了。</span></span><br><span class="line">find !*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用上一条名称指定参数</span></span><br><span class="line"><span class="comment"># cp -rf dira dirb/   #将dira拷贝到dirb</span></span><br><span class="line">ls -l !cp:2        <span class="comment">#查看dira的内容</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行history中的命令</span></span><br><span class="line"><span class="built_in">history</span></span><br><span class="line"><span class="comment"># 执行history 2225条命令</span></span><br><span class="line">!2225</span><br><span class="line"><span class="comment"># 执行倒数第二条名称</span></span><br><span class="line">!-2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行上一条find命令</span></span><br><span class="line">!find</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换上条命令的参数</span></span><br><span class="line"><span class="comment">#  find ./ -name "old*" -a -name "*.zip"</span></span><br><span class="line">!!:gs/old/new</span><br><span class="line"></span><br><span class="line"><span class="comment"># !感叹号参数时做非运算</span></span><br><span class="line"><span class="comment"># 删除不是cfg结尾的所有文件</span></span><br><span class="line">rm !(*.cfg)</span><br></pre></td></tr></table></figure>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-04-18T07:01:23.086Z" itemprop="datePublished">2020-04-18</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+  
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='iki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../js/lib.js"></script>
+		<script src="../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../js/module.js"></script>
+		<script src="../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
