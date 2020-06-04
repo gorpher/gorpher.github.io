@@ -3,16 +3,16 @@
   <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     
-    <title>个人简历 | 大道至简</title>
+    <title>大道至简</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
       <link rel="icon" href="http://img.matosiki.site/favicon.png">
     
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 
-    <link rel="stylesheet" href="../js/google-code-prettify/tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="../../js/google-code-prettify/tomorrow-night-eighties.min.css">
 
   </head>
 
@@ -75,24 +75,18 @@
   <!--文章-->
 <article>
 	
-  
-    <h1 class="post-title" itemprop="name">
-      个人简历
-    </h1>
-  
-
 	<div class='post-body mb'>
-		<div align="center"><br>    <p><strong> 我是虾,不皮皮虾的的那种!!</strong></p><br>    <a href="https://resume.matosiki.cn" target="_blank">基本介绍</a><br></div>
+		<h3 id="1-直接打印"><a href="#1-直接打印" class="headerlink" title="1. 直接打印"></a>1. 直接打印</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenListToString_thenPrintDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intLIst = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(intLIst);  <span class="comment">//这个方式,对简单类型对象适用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-实用stream方式转换"><a href="#2-实用stream方式转换" class="headerlink" title="2. 实用stream方式转换"></a>2. 实用<strong>stream</strong>方式转换</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenCollectorsJoining_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    String result = intList.stream()</span><br><span class="line">      .map(n -&gt; String.valueOf(n))</span><br><span class="line">      .collect(Collectors.joining(<span class="string">"-"</span>, <span class="string">"&#123;"</span>, <span class="string">"&#125;"</span>));</span><br><span class="line">  </span><br><span class="line">    System.out.println(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-实用Common-lang-工具"><a href="#3-实用Common-lang-工具" class="headerlink" title="3. 实用Common lang 工具"></a>3. 实用<strong>Common lang</strong> 工具</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whenStringUtilsJoin_thenPrintCustom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; intList = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">  </span><br><span class="line">    System.out.println(StringUtils.join(intList, <span class="string">"|"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结: 简单的类型可以直接打印,但是复杂自定义对象建议使用流方式打印.</p>
 
-<div><br>    性别男，取向女<br>    geek爱好者，脑洞大，敢尝试，乐意思考，有梦想，<br>爱生活，会运动，敢拼搏，敢说敢做，有爱心，知道人情世故<br><br>崇尚<strong>知行合一的</strong>做事方法,喜欢<strong>我思故我在</strong>的人生态度,<br>实践<strong>不积跬步,无以至千里</strong>的学习方式,践行<strong>终生学习</strong>的理念.<br><br>### 个人广告词<br><br>- 我思故我在<br><br>### 曾经<br><br><br></div>
-
-<div align="center" style="font-size: 16px;font-weight: 400">喜欢我☝关注我</div>
 	</div>
 	<div class="meta split">
 		
 			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
 		
-		<time class="post-date" datetime="2020-05-08T01:49:32.490Z" itemprop="datePublished">2020-05-08</time>
+		<time class="post-date" datetime="2020-05-08T03:44:42.540Z" itemprop="datePublished">2020-05-08</time>
 	</div>
 </article>
 
@@ -173,10 +167,10 @@
 
 	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
 	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
-		<script src="../js/lib.js"></script>
-		<script src="../js/google-code-prettify/prettify.js"></script>
-		<script src="../js/module.js"></script>
-		<script src="../js/script.js"></script>
+		<script src="../../js/lib.js"></script>
+		<script src="../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../js/module.js"></script>
+		<script src="../../js/script.js"></script>
 		
 		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 		

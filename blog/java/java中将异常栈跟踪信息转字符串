@@ -3,16 +3,16 @@
   <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     
-    <title>个人简历 | 大道至简</title>
+    <title>大道至简</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
       <link rel="icon" href="http://img.matosiki.site/favicon.png">
     
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 
-    <link rel="stylesheet" href="../js/google-code-prettify/tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="../../js/google-code-prettify/tomorrow-night-eighties.min.css">
 
   </head>
 
@@ -75,24 +75,17 @@
   <!--文章-->
 <article>
 	
-  
-    <h1 class="post-title" itemprop="name">
-      个人简历
-    </h1>
-  
-
 	<div class='post-body mb'>
-		<div align="center"><br>    <p><strong> 我是虾,不皮皮虾的的那种!!</strong></p><br>    <a href="https://resume.matosiki.cn" target="_blank">基本介绍</a><br></div>
+		<h1 id="1-使用原生java代码"><a href="#1-使用原生java代码" class="headerlink" title="1. 使用原生java代码"></a>1. 使用原生java代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StringWriter sw = <span class="keyword">new</span> StringWriter();</span><br><span class="line">PrintWriter pw = <span class="keyword">new</span> PrintWriter(sw);</span><br><span class="line">e.printStackTrace(pw);</span><br></pre></td></tr></table></figure>
+<h1 id="2-使用Common-lang工具在类"><a href="#2-使用Common-lang工具在类" class="headerlink" title="2. 使用Common lang工具在类"></a>2. 使用<strong>Common lang</strong>工具在类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String stacktrace = ExceptionUtils.getStacktrace(e);</span><br></pre></td></tr></table></figure>
+<p>总结 获取跟踪栈异常默认不能用String,在java9中添加了<strong>StackWalking API</strong>支持栈异常跟踪</p>
 
-<div><br>    性别男，取向女<br>    geek爱好者，脑洞大，敢尝试，乐意思考，有梦想，<br>爱生活，会运动，敢拼搏，敢说敢做，有爱心，知道人情世故<br><br>崇尚<strong>知行合一的</strong>做事方法,喜欢<strong>我思故我在</strong>的人生态度,<br>实践<strong>不积跬步,无以至千里</strong>的学习方式,践行<strong>终生学习</strong>的理念.<br><br>### 个人广告词<br><br>- 我思故我在<br><br>### 曾经<br><br><br></div>
-
-<div align="center" style="font-size: 16px;font-weight: 400">喜欢我☝关注我</div>
 	</div>
 	<div class="meta split">
 		
 			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
 		
-		<time class="post-date" datetime="2020-05-08T01:49:32.490Z" itemprop="datePublished">2020-05-08</time>
+		<time class="post-date" datetime="2020-05-08T03:44:42.540Z" itemprop="datePublished">2020-05-08</time>
 	</div>
 </article>
 
@@ -173,10 +166,10 @@
 
 	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
 	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
-		<script src="../js/lib.js"></script>
-		<script src="../js/google-code-prettify/prettify.js"></script>
-		<script src="../js/module.js"></script>
-		<script src="../js/script.js"></script>
+		<script src="../../js/lib.js"></script>
+		<script src="../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../js/module.js"></script>
+		<script src="../../js/script.js"></script>
 		
 		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 		

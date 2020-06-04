@@ -96,33 +96,53 @@
                 $('.author-info').toggle();
             });
         }
-
+        $.ajaxSettings.async = false;
+        var changeIMG = function () {
+            $.getJSON("/js/images.json", function (data) {
+                console.log(data)
+                var length = data.length;
+                var index = parseInt(Math.random() * length);
+                var url = 'http://img.matosiki.site/' + data[index].url;
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function () {
+                        // console.log(url)
+                        bannerNode.attr('style', 'background-image:url(' + url + ')');
+                        // console.log("改变背景")
+                    }, error: function () {
+                        // console.log("改变背景失败");
+                        bannerNode.attr('style', 'background-image:url(' + defualtImageURL + ')');
+                    }
+                });
+            });
+        }
+        // console.log(site.data.images)
         var bannerNode = $('.top-image');
+        var defualtImageURL = 'http://img.matosiki.site/image/banner/rand/1.jpg'
         if (bannerNode.data('enable')) {
-            bannerNode.attr('style', 'background-image:url(/banner/1.jpg)');
+            // bannerNode.attr('style', 'background-image:url(' + defualtImageURL + ')');
+            changeIMG()
             var i = 1
             var fac = 100.0
+            var fv = (20 / fac)
+            var origin = true
             setInterval(() => {
-                var index = parseInt((Math.random() * 4) + 1);
-                var url = 'http://img.matosiki.site/image/banner/rand/' + index + '.jpg'
-                var flag = i % fac == 0
-                console.log(flag)
-                if (flag) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function () {
-                            bannerNode.attr('style', 'background-image:url(' + url + ')');
-                            console.log("改变背景")
-                        }, error: function () {
-                            console.log("改变背景失败");
-                            bannerNode.attr('style', 'background-image:url(/banner/1.jpg)');
-                        }
-                    });
+                if (origin) {
+                    i++
+                    if (i >= fac - (fac * fv)) {
+                        origin = false
+                        changeIMG()
+                    }
+                } else {
+                    i--
+                    if (i <= 0) {
+                        origin = true
+                    }
                 }
-                var opacity = 1 - i % fac / fac
+                var opacity = 1 - (i % fac / fac)
                 bannerNode.css("opacity", opacity);
-                i++
+                // console.log(i, opacity, fv)
             }, 100);
         }
     })
