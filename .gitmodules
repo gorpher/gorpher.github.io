@@ -9,3 +9,6 @@
 [submodule "submodule/bash-tutorial"]
 	path = submodule/bash-tutorial
 	url = git@github.com:gorpher/bash-tutorial.git
+[submodule "source/_posts/blog"]
+	path = source/_posts/blog
+	url = git@e.coding.net:iki/blog.git
