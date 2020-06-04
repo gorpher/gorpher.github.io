@@ -79,6 +79,12 @@ social:
   weibo: http://weibo.com/matosiki
   linkedin:
 
+algolia:
+  chunkSize: 5000
+  fields:
+    - content:strip:truncate,0,500
+    - permalink
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
