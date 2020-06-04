@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="utf-8">
-    
-    <title>大道至简</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    
-      <link rel="icon" href="http://img.matosiki.site/favicon.svg">
-    
 
-    <link rel="stylesheet" href="../../../css/style.css">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  <link rel="icon" href="http://img.matosiki.site/favicon.svg">
+  
 
-    <link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <link rel="stylesheet" href="../../../css/search.css">
+  <link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
 
-  </head>
+</head>
 
-  <body>
-</body></html>
+<body></body></html>
 <header>
 	<a id="logo" href="/" title="大道至简">
 	<img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a>
@@ -27,11 +27,22 @@
 		<i class="js-toggle-search iconfont icon-search"></i>
 
 
-<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+<form class="js-search search-form search-form--modal" role="search">
 	<div class="search-form__inner">
 		<div>
-			<i class="iconfont icon-search"></i>
-			<input class="text-input" placeholder="你想知道什么?" type="search">
+			<div class="algolia-search-input-icon">
+				<i class="fa fa-search"></i>
+			</div>
+			<input id="algolia-search-input" class="text-input algolia-search-input"
+				placeholder="你想知道什么?" type="search">
+			<div class="algolia-results">
+				<div id="algolia-stats"></div>
+				<div id="algolia-hits"></div>
+				<div id="algolia-pagination" class="algolia-pagination"></div>
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa fa-times-circle"></i>
+			</span>
 		</div>
 	</div>
 </form>
@@ -176,6 +187,10 @@
 		<script src="../../../js/google-code-prettify/prettify.js"></script>
 		<script src="../../../js/module.js"></script>
 		<script src="../../../js/script.js"></script>
+		<script src="../../../assets/algolia/algoliasearch.min.js"></script>
+		<script src="//cdn.bootcss.com/instantsearch.js/1.7.1/instantsearch.min.js"></script>
+		<script src="../../../js/search.js"></script>
+
 		
 		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 		

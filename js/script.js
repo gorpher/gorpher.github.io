@@ -74,14 +74,14 @@
             var header = $('header');
 
             if ($(this).scrollTop() > 1) {
-                header.addClass("scrolled");
-                console.log('改变状态')
+                // header.addClass("scrolled");
+                // console.log('改变状态')
             } else {
                 header.removeClass("scrolled");
-                console.log('移除状态')
+                // console.log('移除状态')
             }
             if (getScrollTop() + getClientHeight() == getScrollHeight()) {
-                console.log('下拉刷新了')
+                // console.log('下拉刷新了')
                 //此处发起AJAX请求
             }
         });
@@ -148,6 +148,7 @@
     })
 
 }(jQuery, window));
+
 //获取滚动条当前的位置
 function getScrollTop() {
     var scrollTop = 0;
