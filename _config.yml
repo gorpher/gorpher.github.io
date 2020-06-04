@@ -79,8 +79,14 @@ social:
   weibo: http://weibo.com/matosiki
   linkedin:
 
+
+search: true
+
 algolia:
+  appId: "L5Y6TGO99A"
+  apiKey: "5b03f938f8555900ee9e0a33cfd27369"
   chunkSize: 5000
+  indexName: "matosiki.site"
   fields:
     - content:strip:truncate,0,500
     - permalink
