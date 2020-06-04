@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>大道至简</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="http://img.matosiki.site/favicon.svg">
+    
+
+    <link rel="stylesheet" href="../../../css/style.css">
+
+    <link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  </head>
+
+  <body>
+</body></html>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="你想知道什么?" type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+				
+				<li class="current-menu-item">
+					<a href="./bash" target="_self">bash教程</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+	<figure class="top-image" data-enable=true></figure>
+	
+</div>
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+  <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在postman使用中,很多接口使用共同的请求地址和相同的参数,这样我们可以定义一些公共的环境变量,每个collection可以使用变量.postman也内置了一些变量,比如生成随机数,生成字符串,生成id,这些变量用于表单测试是非常方便的.</p>
+<p>下面我就简简单单定义变量和请求参数自定义装饰器并测试结果.</p>
+<h3 id="定义环境变量"><a href="#定义环境变量" class="headerlink" title="定义环境变量"></a>定义环境变量</h3><p><img src="http://img.matosiki.site/image/postman/postman_def_env_variable.png" alt="img"><br>在postman中可以自定义环境变量,我们可以添加全局变量也可以添加自定义collection的变量,这里我定义了一个,eureka集合的变量,其中包含主机名和端口地址等变量.</p>
+<h3 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h3><p>使用变量目前有三种方式:</p>
+<ul>
+<li>第一种如图,在表单中添加变量,注意使用<strong>  </strong>中的变量将会被定义的变量值替换掉</li>
+</ul>
+<p><img src="http://img.matosiki.site/image/postman/postman_use_env_variable_form_data.png" alt="img"></p>
+<ul>
+<li>第二种如图, 在使用application/json的方式发送请求时,就没办法使用<strong>  </strong>形式的变量.此时我们需要在pre-request-Srcipt中手动些装饰器,将<strong></strong>替换掉.<br>在这种方式下可分为两种具体实现:</li>
+</ul>
+<ol>
+<li>方式一:将使用replace替换<strong>  </strong>内置变量</li>
+<li>方式二:解析json为obj对象,然后更改obj对象的值</li>
+</ol>
+<p><img src="http://img.matosiki.site/image/postman/postman_use_env_variable_json.png" alt="img"></p>
+<p>json请求值:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;instance&quot;: &#123;</span><br><span class="line">        &quot;instanceId&quot;: &quot;&#123;&#123;appID&#125;&#125;:11101&quot;,</span><br><span class="line">        &quot;app&quot;: &quot;&#123;&#123;appID&#125;&#125;&quot;,</span><br><span class="line">        &quot;appGroutName&quot;: null,</span><br><span class="line">        &quot;ipAddr&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">        &quot;sid&quot;: &quot;na&quot;,</span><br><span class="line">        &quot;homePageUrl&quot;: null,</span><br><span class="line">        &quot;statusPageUrl&quot;: null,</span><br><span class="line">        &quot;healthCheckUrl&quot;: null,</span><br><span class="line">        &quot;secureHealthCheckUrl&quot;: null,</span><br><span class="line">        &quot;vipAddress&quot;: &quot;tf-service&quot;,</span><br><span class="line">        &quot;secureVipAddress&quot;: &quot;tf-service&quot;,</span><br><span class="line">        &quot;countryId&quot;: 1,</span><br><span class="line">        &quot;dataCenterInfo&quot;: &#123;</span><br><span class="line">            &quot;@class&quot;: &quot;com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo&quot;,</span><br><span class="line">            &quot;name&quot;: &quot;MyOwn&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;hostName&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">        &quot;status&quot;: &quot;UP&quot;,</span><br><span class="line">        &quot;leaseInfo&quot;: null,</span><br><span class="line">        &quot;isCoordinatingDiscoveryServer&quot;: false,</span><br><span class="line">        &quot;lastUpdatedTimestamp&quot;: 1529391461000,</span><br><span class="line">        &quot;lastDirtyTimestamp&quot;: 1529391461000,</span><br><span class="line">        &quot;actionType&quot;: null,</span><br><span class="line">        &quot;asgName&quot;: null,</span><br><span class="line">        &quot;overridden_status&quot;: &quot;UNKNOWN&quot;,</span><br><span class="line">        &quot;port&quot;: &#123;</span><br><span class="line">            &quot;$&quot;: 11102,</span><br><span class="line">            &quot;@enabled&quot;: &quot;false&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;securePort&quot;: &#123;</span><br><span class="line">            &quot;$&quot;: 7002,</span><br><span class="line">            &quot;@enabled&quot;: &quot;false&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;metadata&quot;: &#123;</span><br><span class="line">            &quot;@class&quot;: &quot;java.util.Collections$EmptyMap&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>pre-request-Srcipt中的内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 检查请求头是否是json</span><br><span class="line"></span><br><span class="line">function isJsonReq()&#123;</span><br><span class="line">   var header =  pm.request.headers;</span><br><span class="line">   header.each(function(v)&#123;</span><br><span class="line">       if(v[&apos;key&apos;]==&apos;Content-Type&apos;&amp;&amp;v[&apos;value&apos;]==&quot;application/json&quot;)&#123;</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   return false;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 方法一: 替换全局变量</span><br><span class="line">pm.request.body.raw = replace(pm.request.body.raw);</span><br><span class="line">console.log(pm.request)</span><br><span class="line"></span><br><span class="line">function replace(reqbody)&#123;</span><br><span class="line">    if(reqbody&amp;&amp;isJsonReq())&#123;</span><br><span class="line">        var values = pm.environment.values;</span><br><span class="line">        values.each(function(v)&#123;</span><br><span class="line">          reqbody = reqbody.replace(new RegExp(&quot;&#123;&#123;&quot;+v[&apos;key&apos;]+&quot;&#125;&#125;&quot;,&apos;g&apos;),v[&apos;value&apos;])</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    return reqbody;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 方法二: 动态生成编号</span><br><span class="line"></span><br><span class="line">gen(pm.request.body.raw);</span><br><span class="line"></span><br><span class="line">console.log(pm.ace)</span><br><span class="line"></span><br><span class="line">function gen(reqbody)&#123;</span><br><span class="line">    if(reqbody&amp;&amp;isJsonReq())&#123;</span><br><span class="line">       var obj = JSON.parse(reqbody)</span><br><span class="line">       obj = doit(obj) //实现对象属性值替换</span><br><span class="line">       pm.request.body.raw =  JSON.stringify(obj)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function doit(obj)&#123;</span><br><span class="line">    obtuoj[&apos;instance&apos;][&apos;instanceID&apos;]=require(&apos;uuid&apos;)();</span><br><span class="line">    // todo 替换变量</span><br><span class="line">    console.log(obj)</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用高级js库"><a href="#使用高级js库" class="headerlink" title="使用高级js库"></a>使用高级js库</h3><p>在postman的沙盒环境中,我们可以使用一些高级的js库.<br>我们可以在pre-request-script和end-test中使用.<br><img src="http://img.matosiki.site/image/postman/postman_pre_script.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var Ajv = require(&apos;ajv&apos;);</span><br><span class="line">var ajv = new Ajv();</span><br><span class="line">// 根据schema验证json</span><br><span class="line">// var validate = ajv.compile(schema);</span><br><span class="line">// var valid = validate(data);</span><br><span class="line">// if (!valid) console.log(validate.errors);</span><br><span class="line"></span><br><span class="line">// atob </span><br><span class="line">var atob = require(&apos;atob&apos;);</span><br><span class="line">var b64 = &quot;SGVsbG8sIFdvcmxkIQ==&quot;;</span><br><span class="line">var bin = atob(b64); // base64转ascii码</span><br><span class="line">console.log(bin);</span><br><span class="line"></span><br><span class="line">var btoa = require(&apos;btoa&apos;);</span><br><span class="line">var b64 = btoa(bin);</span><br><span class="line">console.log(b64);</span><br><span class="line"></span><br><span class="line">var should = require(&apos;chai&apos;).should() // BDD/TDD assert 库</span><br><span class="line">  , foo = &apos;bar&apos;</span><br><span class="line">  , beverages = &#123; tea: [ &apos;chai&apos;, &apos;matcha&apos;, &apos;oolong&apos; ] &#125;;</span><br><span class="line"></span><br><span class="line">foo.should.be.a(&apos;string&apos;);</span><br><span class="line">foo.should.equal(&apos;bar&apos;);</span><br><span class="line">foo.should.have.lengthOf(3);</span><br><span class="line">beverages.should.have.property(&apos;tea&apos;).with.lengthOf(3)</span><br><span class="line"></span><br><span class="line">var CryptoJS = require(&quot;crypto-js&quot;);</span><br><span class="line">console.log(CryptoJS.HmacSHA1(&quot;Message&quot;, &quot;Key&quot;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var moment = require(&apos;moment&apos;);</span><br><span class="line">console.log(moment().format())</span><br><span class="line"></span><br><span class="line">const uuidv1 = require(&apos;uuid&apos;);</span><br><span class="line">console.log(uuidv1())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123; StringDecoder &#125; = require(&apos;string_decoder&apos;);</span><br><span class="line">const decoder = new StringDecoder(&apos;utf8&apos;);</span><br><span class="line">const cent = Buffer.from([0xC2, 0xA2]);</span><br><span class="line">console.log(decoder.write(cent));</span><br><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">console.log(path.basename(&apos;C:\\temp\\myfile.html&apos;))</span><br><span class="line">const assert = require(&apos;assert&apos;);</span><br><span class="line"></span><br><span class="line">assert.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, &apos;3&apos;]], 4, 5]);</span><br><span class="line"></span><br><span class="line">const util = require(&apos;util&apos;);</span><br><span class="line"></span><br><span class="line">// console.log(require(&apos;lodash&apos;).join([1,24,5],[1234]))</span><br><span class="line"></span><br><span class="line">var _ = require(&apos;lodash&apos;);</span><br><span class="line">console.log(_.random(5, true)) //生成随机数1-5</span><br><span class="line">var abc = function(a,b,c)&#123;</span><br><span class="line">    return [a,b,c];</span><br><span class="line">&#125;</span><br><span class="line">var curried = _.curry(abc);</span><br><span class="line">console.log(curried(1)(2)(3)) //函数柯里化</span><br><span class="line">console.log(_.now()) //获取当前时间搓</span><br><span class="line"></span><br><span class="line">var timer = require(&apos;timers&apos;)</span><br><span class="line">console.log(timer)</span><br></pre></td></tr></table></figure>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p>在每次请求后还可以编写断言脚本验证结果</p>
+<p><img src="http://img.matosiki.site/image/postman/postman_end_test.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tests[&quot;请求成功&quot;] = responseCode.code === 204;</span><br><span class="line">pm.test(&quot;注册新实例成功&quot;, function () &#123;</span><br><span class="line">    pm.response.to.have.body(&quot;&quot;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>参考:</p>
+<ul>
+<li><a href="https://learning.getpostman.com/docs/postman/scripts/postman_sandbox_api_reference/" target="_blank" rel="noopener">postman官方文档-sanbox</a></li>
+</ul>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-05-08T03:44:42.543Z" itemprop="datePublished">2020-05-08</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+  
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='iki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+		<script src="../../../js/lib.js"></script>
+		<script src="../../../js/google-code-prettify/prettify.js"></script>
+		<script src="../../../js/module.js"></script>
+		<script src="../../../js/script.js"></script>
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
