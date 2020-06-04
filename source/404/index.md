@@ -1,5 +1,4 @@
 ---
-title: page not find!
 date: {{ date }}
 type: "404"
 ---
