@@ -1,0 +1,1232 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>高德地图坐标转换工具</title>
+    <style>
+        html {
+            font-size: 12px;
+        }
+
+        .amap-copyright {
+            box-sizing: content-box
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        .input-textarea {
+            color: grey;
+            height: 8em;
+            overflow: auto;
+            border-radius: 0.4rem;
+            border: 1px solid #ced4da;
+            margin-bottom: 1rem;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.5;
+            font-weight: 300;
+            color: #111213;
+        }
+
+        hr {
+            margin: 0.5rem 0;
+            box-sizing: content-box;
+            height: 0;
+            overflow: visible;
+            border: 0;
+            border-top: 1px solid rgba(0, 0, 0, .1)
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        label,
+        .btn {
+            margin-left: 0;
+            font-size: 1rem;
+        }
+
+        button,
+        input,
+        select {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            overflow: visible;
+            text-transform: none
+        }
+
+        [type=button]::-moz-focus-inner,
+        [type=reset]::-moz-focus-inner,
+        [type=submit]::-moz-focus-inner,
+        button::-moz-focus-inner {
+            padding: 0;
+            border-style: none;
+        }
+
+        input[type=checkbox],
+        input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0 0.5rem 0 0;
+        }
+
+        h4 {
+            font-family: inherit;
+            line-height: 1.8;
+            font-weight: 300;
+            color: inherit;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: .5rem
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            background-color: transparent;
+            background-image: none;
+            color: #25A5F7;
+            border-color: #25A5F7;
+            padding: .25rem .5rem;
+            line-height: 1.5;
+            border-radius: 1rem;
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            color: #fff;
+            background-color: #25A5F7;
+            border-color: #25A5F7
+        }
+
+        .btn:hover {
+            text-decoration: none
+        }
+
+        .input-item {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -ms-flex-align: center;
+            align-items: center;
+            width: 100%;
+            height: 3rem;
+        }
+
+        .input-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-item>select,
+        .input-item>input[type=text],
+        .input-item>input[type=date] {
+            position: relative;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            width: 1%;
+            margin-bottom: 0;
+        }
+
+        .input-item>select:not(:last-child),
+        .input-item>input[type=text]:not(:last-child),
+        .input-item>input[type=date]:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0
+        }
+
+        .input-item>select:not(:first-child),
+        .input-item>input[type=text]:not(:first-child),
+        .input-item>input[type=date]:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0
+        }
+
+        .input-item-prepend {
+            margin-right: -1px;
+        }
+
+        .input-item-text,
+        input[type=text],
+        input[type=date],
+        select {
+            height: calc(2.2rem + 2px);
+        }
+
+        .input-item-text {
+            width: 6rem;
+            text-align: justify;
+            padding: 0.4rem 0.7rem;
+            display: inline-block;
+            text-justify: distribute-all-lines;
+            /*ie6-8*/
+            text-align-last: justify;
+            /* ie9*/
+            -moz-text-align-last: justify;
+            /*ff*/
+            -webkit-text-align-last: justify;
+            /*chrome 20+*/
+            -ms-flex-align: center;
+            align-items: center;
+            margin-bottom: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .input-item-text input[type=checkbox],
+        .input-item-text input[type=radio] {
+            margin-top: 0
+        }
+
+        .input-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: .25rem;
+            width: 22rem;
+            border-width: 0;
+            border-radius: 0.4rem;
+            box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .input-text {
+            line-height: 2rem;
+            margin-right: 2rem;
+        }
+
+        .info hr {
+            margin-right: 0;
+            margin-left: 0;
+            border-top-color: grey;
+        }
+
+        .info {
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: .25rem;
+            position: fixed;
+            top: 1rem;
+            background-color: white;
+            width: auto;
+            min-width: 22rem;
+            border-width: 0;
+            right: 1rem;
+            box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
+        }
+
+        .code {
+            left: 1.5rem;
+            right: 1.5rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            overflow: auto;
+            margin-bottom: 0rem;
+        }
+
+        .code .btn {
+            top: 1rem;
+            position: absolute;
+            right: 1rem;
+        }
+
+        .code .result {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            bottom: 1rem;
+            position: absolute;
+            top: 5.5rem;
+            right: 1rem;
+            left: 1rem;
+            overflow: auto;
+        }
+
+        .code .status {
+            color: #80adff;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .code h4 {
+            display: inline-block;
+            max-width: 20rem;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        select,
+        input[type=text],
+        input[type=date] {
+            display: inline-block;
+            width: 100%;
+            padding: .375rem 1.75rem .375rem .75rem;
+            line-height: 1.5;
+            color: #495057;
+            vertical-align: middle;
+            background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+            background-size: 8px 10px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none
+        }
+
+        input[type=text],
+        input[type=date] {
+            background: #fff;
+            padding: .375rem .75rem;
+        }
+
+        select:focus,
+        input[type=text]:focus,
+        input[type=date]:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 .1rem rgba(128, 189, 255, .1)
+        }
+
+        .btn:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+
+        select:focus::-ms-value,
+        input[type=text]:focus::-ms-value,
+        input[type=date]:focus::-ms-value {
+            color: #495057;
+            background-color: #fff
+        }
+
+
+        /* native toastr */
+        .native-toast {
+            position: fixed;
+            background-color: rgba(50, 50, 50, .8);
+            border-radius: 33px;
+            color: white;
+            left: 50%;
+            text-align: center;
+            padding: 6px 12px;
+            opacity: 0;
+            z-index: 99999;
+            transition: transform .25s, opacity .25s, top .25s;
+            box-sizing: border-box;
+        }
+
+        .native-toast-bottom {
+            bottom: 50px;
+            -ms-transform: translateX(-50%) translateY(50px);
+            transform: translateX(-50%) translateY(50px)
+        }
+
+        .native-toast-bottom.native-toast-shown {
+            opacity: 1;
+            -ms-transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .native-toast-bottom.native-toast-edge {
+            bottom: 0;
+        }
+
+        .native-toast-top {
+            top: 50px;
+            -ms-transform: translateX(-50%) translateY(-50px);
+            transform: translateX(-50%) translateY(-50px)
+        }
+
+        .native-toast-top.native-toast-shown {
+            opacity: 1;
+            -ms-transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .native-toast-top.native-toast-edge {
+            top: 0;
+        }
+
+        .native-toast-center {
+            top: 0;
+            -ms-transform: translateX(-50%) translateY(-50px);
+            transform: translateX(-50%) translateY(-50px)
+        }
+
+        .native-toast-center.native-toast-shown {
+            opacity: 1;
+            top: 50%;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .native-toast-edge {
+            border-radius: 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        @media screen and (min-width: 40rem) {
+            .native-toast:not(.native-toast-edge) {
+                max-width: 18rem;
+            }
+        }
+
+        /*
+  max-width does not seem to work in small screen?
+*/
+
+        /*@media screen and (max-width: 768px) {
+  .native-toast:not(.native-toast-edge) {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .native-toast:not(.native-toast-edge) {
+    max-width: 300px;
+  }
+}*/
+
+        /* types */
+
+        .native-toast-error {
+            background-color: #d92727;
+            color: white;
+        }
+
+        .native-toast-success {
+            background-color: #62a465;
+            color: white;
+        }
+
+        .native-toast-warning {
+            background-color: #fdaf17;
+            color: white;
+        }
+
+        .native-toast-info {
+            background-color: #5060ba;
+            color: white;
+        }
+
+        [class^="native-toast-icon-"] {
+            vertical-align: middle;
+            margin-right: 8px
+        }
+
+        [class^="native-toast-icon-"] svg {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+
+
+    <style>
+        html,
+        body,
+        #container {
+            height: 100%;
+            width: 100%;
+        }
+
+        .btn-box {
+            position: absolute;
+            right: 5rem;
+            top: 5rem;
+        }
+
+        .btn {
+            background: #0277bd;
+            width: 14em;
+            margin-left: 3.2rem;
+            margin-top: 0.8rem;
+        }
+
+        .input-item-append {
+            margin-left: -1px;
+        }
+
+        .input-card {
+            width: auto;
+            bottom: auto;
+            right: auto;
+        }
+
+        .input-item-text {
+            width: auto;
+        }
+
+        .input-item-btn {
+            color: #c0e7ff;
+            background-color: #0477bd;
+        }
+
+        .input-item-btn:hover {
+            color: #fff;
+            background-color: #25A5F7;
+            border-color: #25A5F7
+        }
+
+        .top_left {
+            top: 1rem;
+            left: 1rem;
+        }
+
+        .top_right {
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .bottom_left {
+            left: 1rem;
+            bottom: 1rem;
+        }
+
+        .bottom_right {
+            right: 1rem;
+            bottom: 1rem;
+        }
+
+        #divCoordinate {
+            position: absolute;
+            height: 26px;
+            line-height: 26px;
+            padding: 0 10px;
+            border: 1px solid #999;
+            background: #FFF;
+            z-index: 99;
+        }
+
+        hide {
+            display: none;
+        }
+
+        .radio {
+            cursor: pointer;
+            display: inline-block;
+            line-height: 1.25;
+            position: relative;
+        }
+
+        input[type=radio] {
+            vertical-align: baseline;
+        }
+
+        .radio+.radio {
+            margin-left: .5em;
+        }
+
+        .input-search {
+
+            top: 1rem;
+            left: 30rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="divCoordinate" class="hide"></div>
+    <div id="container"></div>
+    <div class="input-card top_left">
+        <label style="color:grey">请输入或点击地图获取经纬度：(经度,纬度)</label>
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text">经纬度</span>
+            </div>
+            <input id="lnglat" type="text" value="">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="lnglat" value="复制">
+            </div>
+        </div>
+        <label style="color:grey">如果是gps坐标,转换成高德地图坐标</label>
+
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text">gps->高德</span>
+            </div>
+            <input id="gps2gaode" type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="gps2gaode" value="复制">
+            </div>
+        </div>
+
+        <label style="color:grey">如果是baidu坐标,转换成高德地图坐标</label>
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text ">baidu->高德</span>
+            </div>
+            <input id="baidu2gaode" type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="baidu2gaode" value="复制">
+            </div>
+        </div>
+
+        <label style="color:grey">如果是图吧坐标,转换成高德地图坐标</label>
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text">mapbar->高德</span>
+            </div>
+            <input id="mapbar2gaode" type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="mapbar2gaode" value="复制">
+            </div>
+        </div>
+
+        <label style="color:grey">如果是高德坐标,转换成gps坐标</label>
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text">高德->gps</span>
+            </div>
+            <input id="gaode2gps" type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="gaode2gps" value="复制">
+            </div>
+        </div>
+
+        <div><input id="toLocate" type="button" class="btn" value="转换" /></div>
+    </div>
+    <div class="input-card top_right">
+        <label style="color:grey">请输入查询IP：<span id="nowIp"></span></label>
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text">IP</span>
+            </div>
+            <input id="ip" type="text" value="">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn" id="ip-btn" type="button" value="查询">
+            </div>
+        </div>
+    </div>
+    <div class="input-card bottom_right">
+        <div class="input-item">
+            <label class="radio" for="pm"><input type="radio" name="pixel" id="planeOption" value="planeOption"
+                    checked>平面坐标</label>
+
+            <label class="radio" for="rq"><input type="radio" name="pixel" id="containerOption"
+                    value="containerOption">容器坐标</label>
+
+            <label class="radio" for="sw"><input type="radio" name="pixel" id="threeDimOption"
+                    value="threeDimOption">三维坐标</label>
+
+            <label class="radio" for="pgs"><input type="radio" name="pixel" id="pgsOption"
+                    value="gpsOption">gps度分秒坐标</label>
+
+        </div>
+
+        <label style="color:#808080" id="pleaseLabel">请输入平面地图像素坐标：(x,y)</label>
+
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text" id="targetLabel">平面像素坐标</span>
+            </div>
+            <input id="pixel" type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn btn-copy" type="button" copy-for="pixel" value="复制">
+            </div>
+        </div>
+        <div>
+            <input id="lnglat2pixel" type="button" class="btn" value="经纬度 -> 平面像素坐标" />
+            <input id="pixel2lnglat" type="button" class="btn" value="平面像素坐标 -> 经纬度" />
+        </div>
+    </div>
+    <div class="input-card input-search">
+        <div class="input-item">
+            <div class="input-item-prepend">
+                <span class="input-item-text" style="width:8rem;">请输入关键字</span>
+            </div>
+            <input id='tipinput' type="text">
+            <div class="input-item-append">
+                <input class="input-item-text input-item-btn" id="tipinput-btn" type="button" value="查询">
+            </div>
+        </div>
+    </div>
+    <div id="copySuccessMessage">复制成功</div>
+    <script type=" text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=f6ee7f2a60774cdb679f5ecd16dca79d&plugin=AMap.Geocoder&plugin=AMap.Autocomplete&plugin=AMap.PlaceSearch">
+            </script>
+    <script>
+        var GPS = {
+            PI: 3.14159265358979324,
+            x_pi: 3.14159265358979324 * 3000.0 / 180.0,
+            delta: function (lat, lon) {
+                var a = 6378245.0; //  a: 卫星椭球坐标投影到平面地图坐标系的投影因子。
+                var ee = 0.00669342162296594323; //  ee: 椭球的偏心率。
+                var dLat = this.transformLat(lon - 105.0, lat - 35.0);
+                var dLon = this.transformLon(lon - 105.0, lat - 35.0);
+                var radLat = lat / 180.0 * this.PI;
+                var magic = Math.sin(radLat);
+                magic = 1 - ee * magic * magic;
+                var sqrtMagic = Math.sqrt(magic);
+                dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * this.PI);
+                dLon = (dLon * 180.0) / (a / sqrtMagic * Math.cos(radLat) * this.PI);
+                return { 'lat': dLat, 'lon': dLon };
+            },
+
+            //WGS-84 to GCJ-02
+            gcj_encrypt: function (wgsLat, wgsLon) {
+                if (this.outOfChina(wgsLat, wgsLon))
+                    return { 'lat': wgsLat, 'lon': wgsLon };
+
+                var d = this.delta(wgsLat, wgsLon);
+                return { 'lat': wgsLat + d.lat, 'lon': wgsLon + d.lon };
+            },
+            //GCJ-02 to WGS-84
+            gcj_decrypt: function (gcjLat, gcjLon) {
+                if (this.outOfChina(gcjLat, gcjLon))
+                    return { 'lat': gcjLat, 'lon': gcjLon };
+
+                var d = this.delta(gcjLat, gcjLon);
+                return { 'lat': gcjLat - d.lat, 'lon': gcjLon - d.lon };
+            },
+            //GCJ-02 to WGS-84 exactly
+            gcj_decrypt_exact: function (gcjLat, gcjLon) {
+                var initDelta = 0.01;
+                var threshold = 0.000000001;
+                var dLat = initDelta, dLon = initDelta;
+                var mLat = gcjLat - dLat, mLon = gcjLon - dLon;
+                var pLat = gcjLat + dLat, pLon = gcjLon + dLon;
+                var wgsLat, wgsLon, i = 0;
+                while (1) {
+                    wgsLat = (mLat + pLat) / 2;
+                    wgsLon = (mLon + pLon) / 2;
+                    var tmp = this.gcj_encrypt(wgsLat, wgsLon)
+                    dLat = tmp.lat - gcjLat;
+                    dLon = tmp.lon - gcjLon;
+                    if ((Math.abs(dLat) < threshold) && (Math.abs(dLon) < threshold))
+                        break;
+
+                    if (dLat > 0) pLat = wgsLat; else mLat = wgsLat;
+                    if (dLon > 0) pLon = wgsLon; else mLon = wgsLon;
+
+                    if (++i > 10000) break;
+                }
+                //console.log(i);
+                return { 'lat': wgsLat, 'lon': wgsLon };
+            },
+            //GCJ-02 to BD-09
+            bd_encrypt: function (gcjLat, gcjLon) {
+                var x = gcjLon, y = gcjLat;
+                var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * this.x_pi);
+                var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * this.x_pi);
+                bdLon = z * Math.cos(theta) + 0.0065;
+                bdLat = z * Math.sin(theta) + 0.006;
+                return { 'lat': bdLat, 'lon': bdLon };
+            },
+            //BD-09 to GCJ-02
+            bd_decrypt: function (bdLat, bdLon) {
+                var x = bdLon - 0.0065, y = bdLat - 0.006;
+                var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * this.x_pi);
+                var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * this.x_pi);
+                var gcjLon = z * Math.cos(theta);
+                var gcjLat = z * Math.sin(theta);
+                return { 'lat': gcjLat, 'lon': gcjLon };
+            },
+            //WGS-84 to Web mercator
+            //mercatorLat -> y mercatorLon -> x
+            mercator_encrypt: function (wgsLat, wgsLon) {
+                var x = wgsLon * 20037508.34 / 180.;
+                var y = Math.log(Math.tan((90. + wgsLat) * this.PI / 360.)) / (this.PI / 180.);
+                y = y * 20037508.34 / 180.;
+                return { 'lat': y, 'lon': x };
+            },
+            // Web mercator to WGS-84
+            // mercatorLat -> y mercatorLon -> x
+            mercator_decrypt: function (mercatorLat, mercatorLon) {
+                var x = mercatorLon / 20037508.34 * 180.;
+                var y = mercatorLat / 20037508.34 * 180.;
+                y = 180 / this.PI * (2 * Math.atan(Math.exp(y * this.PI / 180.)) - this.PI / 2);
+                return { 'lat': y, 'lon': x };
+            },
+            // two point's distance
+            distance: function (latA, lonA, latB, lonB) {
+                var earthR = 6371000.;
+                var x = Math.cos(latA * this.PI / 180.) * Math.cos(latB * this.PI / 180.) * Math.cos((lonA - lonB) * this.PI / 180);
+                var y = Math.sin(latA * this.PI / 180.) * Math.sin(latB * this.PI / 180.);
+                var s = x + y;
+                if (s > 1) s = 1;
+                if (s < -1) s = -1;
+                var alpha = Math.acos(s);
+                var distance = alpha * earthR;
+                return distance;
+            },
+            outOfChina: function (lat, lon) {
+                if (lon < 72.004 || lon > 137.8347)
+                    return true;
+                if (lat < 0.8293 || lat > 55.8271)
+                    return true;
+                return false;
+            },
+            transformLat: function (x, y) {
+                var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+                ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;
+                ret += (20.0 * Math.sin(y * this.PI) + 40.0 * Math.sin(y / 3.0 * this.PI)) * 2.0 / 3.0;
+                ret += (160.0 * Math.sin(y / 12.0 * this.PI) + 320 * Math.sin(y * this.PI / 30.0)) * 2.0 / 3.0;
+                return ret;
+            },
+            transformLon: function (x, y) {
+                var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+                ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;
+                ret += (20.0 * Math.sin(x * this.PI) + 40.0 * Math.sin(x / 3.0 * this.PI)) * 2.0 / 3.0;
+                ret += (150.0 * Math.sin(x / 12.0 * this.PI) + 300.0 * Math.sin(x / 30.0 * this.PI)) * 2.0 / 3.0;
+                return ret;
+            }
+        };
+    </script>
+    <script type="text/javascript">
+        var getIpURL = 'https://restapi.amap.com/v3/ip?key=57e109003c566da9be39d62ba3e2a5c2&ip='
+        // var lnglat = [110.262222, 30.045833];
+        var map = new AMap.Map("container", {
+            resizeEnable: true,
+            // center: lnglat,
+            zoom: 15
+        });
+        // 添加鼠标移动获取位置事件
+        AMap.event.addListener(map, "mouseover", function (e) {
+            divCoordinate.className = "";
+            // bodyWidth = $body.width();
+            /* //1.2
+            if(!("pageX" in e.originalEvent)){
+                bodyScrollLeft = $body.scrollLeft();
+                bodyScrollTop = $body.scrollTop();
+            }
+            */
+        });
+
+        AMap.event.addListener(map, "mouseout", function (e) {
+            divCoordinate.className = "hide";
+        });
+
+        AMap.event.addListener(map, "mousemove", function (e) {
+            divCoordinate.innerHTML = e.lnglat.toString();
+            var style = divCoordinate.style, event = e.originalEvent, left, width = divCoordinate.offsetWidth;
+
+            //1.3
+            style.top = (e.pixel.y + 105) + "px";
+            style.left = (e.pixel.x + 6) + "px";
+
+            //1.2
+            // if ("pageX" in event) {
+            //     left = event.pageX;
+            //     //style.left = (event.pageX + 6) + "px";
+            //     style.top = (event.pageY - 70) + "px";
+            // } else {
+            //     left = bodyScrollLeft + event.clientX;
+            //     //style.left = (bodyScrollLeft + event.clientX + 6) + "px";
+            //     style.top = (bodyScrollTop + event.clientY - 70) + "px";
+            // }
+
+            // if (left > bodyWidth - width - 6) {
+            //     style.left = (left - divCoordinate.offsetWidth) + "px";
+            // }
+            // else {
+            //     style.left = (left + 6) + "px";
+            // }
+
+        });
+        // 地球坐标系——WGS84：常见于 GPS 设备，Google 地图等国际标准的坐标体系。
+        // 火星坐标系——GCJ-02：中国国内使用的被强制加密后的坐标体系，高德坐标就属于该种坐标体系。
+        // 百度坐标系——BD-09：百度地图所使用的坐标体系，是在火星坐标系的基础上又进行了一次加密处理。
+        var $ = function (elementId) {
+            return document.getElementById(elementId);
+        };
+
+        var lnglatInput = $('lnglat');
+        map.on('click', function (e) {
+            lnglatInput.value = e.lnglat.toString();
+        });
+
+        // 坐标转换
+        function convertFrom(lnglat, type) {
+            AMap.convertFrom(lnglat, type, function (status, result) {
+                console.log(status, result)
+                if (result.info === 'ok') {
+                    var resLnglat = result.locations[0];
+                    setLabel(resLnglat, type)
+                }
+            });
+
+        }
+        var marks = []
+        function setLabel(resLnglat, type) {
+            var m2 = new AMap.Marker({
+                position: resLnglat,
+                icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png"
+            });
+            map.add(m2);
+            // 设置标签
+            m2.setLabel({
+                offset: new AMap.Pixel(20, 20),
+                content: typeContents[type].content
+            });
+            marks = marks.concat(m2)
+            // console.log(resLnglat)
+            // console.log(typeContents[type].content, resLnglat)
+            if (typeContents[type].dom) {
+                typeContents[type].dom.value = resLnglat
+            }
+        }
+
+
+        var types = ['gps', 'mapbar', 'baidu'];
+        var typeContents = {
+            'gps': {
+                content: 'GPS 坐标转为高德坐标',
+                dom: $('gps2gaode')
+            },
+            'mapbar': {
+                content: '图吧坐标转为高德坐标',
+                dom: $('mapbar2gaode')
+            },
+            'baidu': {
+                content: '百度坐标转为高德坐标',
+                dom: $('baidu2gaode')
+            },
+            'gaode': {
+                content: '原始高德坐标',
+                dom: $('lnglat')
+            },
+        };
+
+        $('toLocate').addEventListener('click', function (e) {
+            e.preventDefault()
+            if (marks) {
+                map.remove(marks)
+                marks = []
+            }
+            lnglat = $('lnglat').value.trim().split(',')
+            lnglat[0] = lnglat[0].trim()
+            lnglat[1] = lnglat[1].trim()
+            console.log(lnglat)
+            setLabel(lnglat, 'gaode')
+            for (let i = 0; i < types.length; i++) {
+                const type = types[i];
+                convertFrom(lnglat, type);
+            }
+            map.setCenter(new AMap.LngLat(lnglat[0], lnglat[1]));
+            // 高德转gps坐标
+            var gpsVal = GPS.gcj_decrypt(lnglat[1], lnglat[0])
+            $('gaode2gps').value = gpsVal.lon + ',' + gpsVal.lat;
+        })
+        //=====================复制功能======================
+        function Copy(el) {
+            $(el).select(); // 选择对象
+            document.execCommand("Copy");
+        }
+        var btnCopy = document.getElementsByClassName('btn-copy')
+        var $message = $('copySuccessMessage');
+        for (let i = 0; i < btnCopy.length; i++) {
+            const btn = btnCopy[i];
+            btn.addEventListener('click', function (e) {
+                console.log(e.target.getAttribute('copy-for'))
+                var el = e.target.getAttribute('copy-for')
+                if (el) {
+                    Copy(el);
+                    console.log(复制成功)
+                }
+            })
+        }
+
+    </script>
+    <script>
+
+        var pixelInput = $('pixel');
+        var $lnglat2pixel = $('lnglat2pixel');
+        var $pixel2lnglat = $('pixel2lnglat');
+        var $targetLabel = $('targetLabel');
+        var $pleaseLabel = $('pleaseLabel');
+
+        var options = {
+            'planeOption': {
+                dom: $('planeOption'),
+                content: '平面像素坐标',
+                pleaseText: '请输入平面地图像素坐标：(x,y)'
+            },
+            'threeDimOption': {
+                dom: $('threeDimOption'),
+                content: '三维坐标',
+                pleaseText: '请输入三维坐标：(x,y) (注：z = 0)'
+            },
+            'containerOption': {
+                dom: $('containerOption'),
+                content: '地图容器像素坐标',
+                pleaseText: '请输入容器像素坐标：(x,y)'
+            },
+            'gpsOption': {
+                dom: $('gpsOption'),
+                content: 'gps度分秒坐标',
+                pleaseText: "请输入gps度分秒坐标：(x° y' z\",x° y' z\") 或者用逗号分割(x,y,z)"
+            }
+        }
+        var radioValue = 'planeOption'
+        var radios = document.querySelectorAll('input[type="radio"][name="pixel"]')
+        radios.forEach(function (radio) {
+            if (radio.checked) {
+                radioValue = radio.value
+            }
+            radio.addEventListener('click', function (e) {
+                radioValue = e.target.value
+                var optionValue = options[e.target.value]
+                $lnglat2pixel.value = '经纬度 -> ' + optionValue.content
+                $pixel2lnglat.value = optionValue.content + ' -> 经纬度'
+                $targetLabel.textContent = optionValue.content
+                $pleaseLabel.textContent = optionValue.pleaseText
+            })
+        })
+
+        function lnglat2pixel() {
+            if (!lnglatInput.value) return
+            var zoom = map.getZoom();
+            var inputVal = lnglatInput.value.split(',');
+            var lnglat = new AMap.LngLat(inputVal[0], inputVal[1]);
+            console.log(radioValue)
+            if (radioValue == 'planeOption') {
+                var pixel = map.lnglatToPixel(lnglat, zoom);
+                pixel.x = parseInt(pixel.x);
+                pixel.y = parseInt(pixel.y);
+                pixelInput.value = pixel;
+            }
+            if (radioValue == 'containerOption') {
+                var pixel = map.lngLatToContainer(lnglat);
+                pixelInput.value = pixel.round();
+            }
+            if (radioValue == 'threeDimOption') {
+                var pixel = map.lngLatToGeodeticCoord(lnglat);
+                pixel.x = parseInt(pixel.x);
+                pixel.y = parseInt(pixel.y);
+                pixelInput.value = pixel;
+            }
+
+            if (radioValue == 'gpsOption') {
+                var signlat = 1;
+                var signlon = 1;
+                var latAbs = Math.abs(Math.round(inputVal[0] * 1000000.));
+                var lonAbs = Math.abs(Math.round(inputVal[1] * 1000000.));
+                var x = ((Math.floor(latAbs / 1000000) * signlat) + '° ' + Math.floor(((latAbs / 1000000) - Math.floor(latAbs / 1000000)) * 60) + '\' ' + (Math.floor(((((latAbs / 1000000) - Math.floor(latAbs / 1000000)) * 60) - Math.floor(((latAbs / 1000000) - Math.floor(latAbs / 1000000)) * 60)) * 100000) * 60 / 100000) + "\"");
+                var y = ((Math.floor(lonAbs / 1000000) * signlon) + '° ' + Math.floor(((lonAbs / 1000000) - Math.floor(lonAbs / 1000000)) * 60) + '\' ' + (Math.floor(((((lonAbs / 1000000) - Math.floor(lonAbs / 1000000)) * 60) - Math.floor(((lonAbs / 1000000) - Math.floor(lonAbs / 1000000)) * 60)) * 100000) * 60 / 100000) + "\"");
+                pixelInput.value = x + ',' + y;
+            }
+        }
+
+        function pixel2lnglat() {
+            if (!pixelInput.value) return
+            var zoom = map.getZoom();
+            var inputVal = pixelInput.value.trim().split(',');
+            console.log(radioValue)
+            if (radioValue == 'planeOption') {
+                var pixel = new AMap.Pixel(inputVal[0], inputVal[1]);
+                var lnglat = map.pixelToLngLat(pixel, zoom);
+                lnglatInput.value = lnglat;
+            }
+            if (radioValue == 'containerOption') {
+                var pixel = new AMap.Pixel(inputVal[0], inputVal[1]);
+                var lnglat = map.containerToLngLat(pixel);
+                lnglatInput.value = lnglat;
+            }
+            if (radioValue == 'threeDimOption') {
+                var pixel = new AMap.Pixel(inputVal[0], inputVal[1]);
+                var lnglat = map.geodeticCoordToLngLat(pixel);
+                lnglatInput.value = lnglat;
+            }
+            if (radioValue == 'gpsOption') {
+                var lats = inputVal[0].split('°')
+                var dlat = lats[0].trim()
+                var lats = lats[1].split("'")
+                var mlat = lats[0].trim()
+                var lats = lats[1].split('"')
+                var slat = lats[0].trim()
+
+
+                var lngs = inputVal[1].split('°')
+                var dlon = lngs[0].trim()
+                var lngs = lngs[1].split("'")
+                var mlon = lngs[0].trim()
+                var lngs = lngs[1].split('"')
+                var slon = lngs[0].trim()
+
+                var latsign = 1;
+                var lonsign = 1;
+                var absdlat = Math.abs(Math.round(dlat * 1000000.));
+                var absmlat = Math.abs(Math.round(Math.abs(Math.round(mlat * 1000000.) / 1000000) * 1000000.));  //integer
+                var absslat = Math.abs(Math.round(Math.abs(Math.round(slat * 1000000.) / 1000000) * 1000000.));
+
+
+                var absdlon = Math.abs(Math.round(dlon * 1000000.));
+                var absmlon = Math.abs(Math.round(Math.abs(Math.round(mlon * 1000000.) / 1000000) * 1000000));  //integer
+                var absslon = Math.abs(Math.round(Math.abs(Math.round(slon * 1000000.) / 1000000) * 1000000.));         // Note: kept as big integer for now, even if submitted as decimal
+
+                var x = Math.round(absdlat + (absmlat / 60.) + (absslat / 3600.)) * latsign / 1000000;
+                var y = Math.round(absdlon + (absmlon / 60) + (absslon / 3600)) * lonsign / 1000000;
+                lnglatInput.value = x + ',' + y;
+            }
+        }
+        lnglat2pixel();
+        $lnglat2pixel.onclick = lnglat2pixel;
+        $pixel2lnglat.onclick = pixel2lnglat;
+    </script>
+    <!-- xmlrequest -->
+    <script type="text/javascript">
+        var xmlhttp;
+        function $GetJson(url, callback) {
+            xmlhttp = null;
+            if (window.XMLHttpRequest) {// code for all new browsers
+                xmlhttp = new XMLHttpRequest();
+            }
+            else if (window.ActiveXObject) {// code for IE5 and IE6
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (xmlhttp != null) {
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4) {// 4 = "loaded"
+                        if (xmlhttp.status == 200) {// 200 = OK
+                            callback(JSON.parse(xmlhttp.response))
+                        }
+                        else {
+                            console.error("Problem retrieving XML data");
+                        }
+                    }
+                }
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send(null);
+            }
+            else {
+                console.error("Your browser does not support XMLHTTP.");
+            }
+        }
+
+
+    </script>
+    <script>
+        // ip定位当前位置
+        map.plugin('AMap.Geolocation', function () {
+            geolocation = new AMap.Geolocation({
+                'showButton': true,//是否显示定位按钮
+                'buttonPosition': 'LB',//定位按钮的位置
+                /* LT LB RT RB */
+                'buttonOffset': new AMap.Pixel(10, 20),//定位按钮距离对应角落的距离
+                'showMarker': true,//是否显示定位点
+                'markerOptions': {//自定义定位点样式，同Marker的Options
+                    'offset': new AMap.Pixel(-18, -36),
+                    'content': '<img src="https://a.amap.com/jsapi_demos/static/resource/img/user.png" style="width:36px;height:36px"/>'
+                },
+                'showCircle': true,//是否显示定位精度圈
+                'circleOptions': {//定位精度圈的样式
+                    'strokeColor': '#0093FF',
+                    'noSelect': true,
+                    'strokeOpacity': 0.5,
+                    'strokeWeight': 1,
+                    'fillColor': '#02B0FF',
+                    'fillOpacity': 0.25
+                }
+            });
+            map.addControl(geolocation);
+            geolocation.getCurrentPosition(function (status, result) {
+                if (status == 'complete') {
+                    onComplete(result)
+                } else {
+                    onError(result)
+                }
+            });
+        });
+        //解析定位结果
+        function onComplete(data) {
+            $('lnglat').value = data.position
+        }
+        //解析定位错误信息
+        function onError(data) {
+            $('result').innerHTML = '(失败原因排查信息:' + data.message + ')';
+        }
+        $('ip-btn').addEventListener('click', function (e) {
+            if ($('ip').value) {
+                $GetJson(getIpURL + $('ip').value, function (data) {
+                    // 114.0169501,30.36460893;114.6261227,30.77017755
+                    console.log(data)
+                    if (data.rectangle) {
+                        $('lnglat').value = data.rectangle.split(";")[0];
+                        var lnglat = $('lnglat').value.trim().split(',')
+                        lnglat[0] = lnglat[0].trim()
+                        lnglat[1] = lnglat[1].trim()
+                        map.setCenter(new AMap.LngLat(lnglat[0], lnglat[1]));
+                    }
+                })
+            }
+        })
+        $GetJson('http://httpbin.org/ip', function (data) {
+            console.log(data)
+            if (data && data.origin) {
+                $('ip').value = data.origin
+                $('nowIp').innerText = '当前ip(' + data.origin + ')'
+            }
+        })
+    </script>
+    <script>
+        //输入提示
+        var autocomplete = new AMap.Autocomplete({
+            input: "tipinput"
+        });
+        var placeSearch = new AMap.PlaceSearch({
+            map: map
+        })
+        AMap.event.addListener(autocomplete, 'select', function (e) {
+            console.log(e)
+            //TODO 针对选中的poi实现自己的功能
+            placeSearch.setCity(e.poi.adcode);
+            placeSearch.search(e.poi.name)
+        })
+        $('tipinput-btn').addEventListener('click', function (e) {
+            placeSearch.search($('tipinput').value)
+        })
+    </script>
+
+
+</body>
+
+</html>

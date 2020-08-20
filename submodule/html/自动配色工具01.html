@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Color scheme</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/styl.css" type="text/css" rel="stylesheet">
+    <script src="js/colorblind.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        // < !--
+
+        function objGet(x) {
+            if (typeof x != 'string') return x;
+            else if (Boolean(document.getElementById)) return document.getElementById(x);
+            else if (Boolean(document.all)) return eval('document.all.' + x);
+            else return null;
+        }
+
+        function objSetStyle(obj, prop, val) {
+            var o = objGet(obj);
+            if (o && o.style) {
+                eval('o.style.' + prop + '="' + val + '"');
+                return true;
+            }
+            else return false;
+        }
+
+        function objDisplay(obj, on, type) {
+            if (on && !type) type = 'block';
+            return objSetStyle(obj, 'display', (on) ? type : 'none');
+        }
+
+        function dec2hex(n) {
+            var s = n.toString(16);
+            if (s.length < 2) s = '0' + s;
+            return s.toUpperCase();
+        }
+        function hex2dec(n) {
+            return parseInt(n, 16);
+        }
+
+        function col2Gray(r, g, b) {
+            var lum = Math.round(r * 0.299 + g * 0.587 + b * 0.114);
+            return dec2hex(lum) + dec2hex(lum) + dec2hex(lum);
+        }
+
+        // Color object
+
+        function Color(R, G, B, H) {
+            this.setRGB(R, G, B, H);
+        }
+        Color.prototype.copy = function (c) {
+            this.R = c.R; this.G = c.G; this.B = c.B;
+            this.H = c.H; this.S = c.S; this.V = c.V;
+            this.countMinMax();
+        }
+        Color.prototype.setRGB = function (R, G, B, H) {
+            this.R = R;
+            this.G = G;
+            this.B = B;
+            this.checkRange();
+            this.countMinMax();
+            if (H > -1) {
+                this.H = H;
+                this.S = (this.max) ? (this.max - this.min) / this.max : 0;
+                this.V = this.max / 255;
+                this.baseR = R; this.baseG = G; this.baseB = B;
+            }
+            else if (R == G && G == B) {
+                this.H = 0;
+                this.S = 0;
+                this.V = this.max / 255;
+                this.baseR = R; this.baseG = G; this.baseB = B;
+            }
+            else this.countHSVByRGB();
+        }
+        Color.prototype.setHex = function (hex) {
+            this.setRGB(hex2dec(hex.substr(0, 2)), hex2dec(hex.substr(2, 2)), hex2dec(hex.substr(4, 2)))
+        }
+        Color.prototype.getHex = function (webColors, CBMode) {
+            var r, g, b;
+            if (webColors) {
+                r = Math.round(this.R / 51) * 51;
+                g = Math.round(this.G / 51) * 51;
+                b = Math.round(this.B / 51) * 51;
+            }
+            else {
+                r = this.R; g = this.G; b = this.B;
+            }
+            if (CBMode) {
+                if (CBMode == 7) return col2Gray(r, g, b);
+                else return getColorBlindColor(r, g, b, CBMode);
+            }
+            else return dec2hex(r) + dec2hex(g) + dec2hex(b);
+        }
+        Color.prototype.setHSV = function (h, s, v) {
+            this.H = h;
+            this.S = s;
+            this.V = v;
+            if (this.S > 1 || this.S < 0) this.S = (this.S < 0) ? 0 : 1;
+            if (this.V > 1 || this.V < 0) this.V = (this.V < 0) ? 0 : 1;
+            this.countRGBByHSV();
+        }
+        Color.prototype.checkRange = function () {
+            if (this.R > 255) this.R = 255;
+            if (this.G > 255) this.G = 255;
+            if (this.B > 255) this.B = 255;
+        }
+        Color.prototype.countMinMax = function () {
+            this.max = Math.max(Math.max(this.R, this.G), this.B);
+            this.min = Math.min(Math.min(this.R, this.G), this.B);
+            this.r2max = (this.R > 0) ? this.R / this.max : 0;
+            this.g2max = (this.G > 0) ? this.G / this.max : 0;
+            this.b2max = (this.B > 0) ? this.B / this.max : 0;
+        }
+        Color.prototype.setBaseColors = function () {
+            function avrg(v1, v2, k) { return v1 + Math.round((v2 - v1) * k); }
+            var hue = Math.round(this.H) % 360;
+            var d = hue % 15 + (this.H - Math.floor(this.H));
+            var k = d / 15;
+            var d1 = hue - Math.floor(d);
+            var c1 = colWheel[d1];
+            d1 = (d1 + 15) % 360;
+            var c2 = colWheel[d1];
+            this.baseR = avrg(c1.R, c2.R, k);
+            this.baseG = avrg(c1.G, c2.G, k);
+            this.baseB = avrg(c1.B, c2.B, k);
+        }
+        Color.prototype.countHSVByRGB = function () {
+            var c, c1, c2, f1, f2, d, dx, d1 = null, d2 = null;
+            for (var i = 0; i < 360; i += 15) {
+                c = colWheel[i];
+                dx = Math.abs(this.r2max - c.r2max) + Math.abs(this.g2max - c.g2max) + Math.abs(this.b2max - c.b2max);
+                if (d1 == null || dx < d1) { d1 = dx; f2 = f1; f1 = i }
+                if ((d1 != dx) && (d2 == null || dx < d2)) { d2 = dx; f2 = i }
+            }
+            c1 = colWheel[f1];
+            c2 = colWheel[f2];
+            var cnt = 0;
+            d = 0;
+            if (c1.R != c2.R) { cnt++; d += (this.R - c1.R) / (c2.R - c1.R); }
+            if (c1.G != c2.G) { cnt++; d += (this.G - c1.G) / (c2.G - c1.G); }
+            if (c1.B != c2.B) { cnt++; d += (this.B - c1.B) / (c2.B - c1.B); }
+            if (cnt) d = d / cnt;
+            this.H = f1 + 15 * d;
+            this.S = (this.max) ? (this.max - this.min) / this.max : 0;
+            this.V = this.max / 255;
+            this.setBaseColors();
+        }
+        Color.prototype.countRGBByHSV = function () {
+            this.setBaseColors();
+            var max = Math.max(Math.max(this.baseR, this.baseG), this.baseB);
+            var min = Math.min(Math.min(this.baseR, this.baseG), this.baseB);
+            var v = this.V * 255;
+            var k = (max > 0) ? v / max : 0;
+            this.R = Math.round(v - (v - this.baseR * k) * this.S);
+            this.G = Math.round(v - (v - this.baseG * k) * this.S);
+            this.B = Math.round(v - (v - this.baseB * k) * this.S);
+            this.checkRange();
+            this.countMinMax();
+        }
+        Color.prototype.rotate = function (angle) {
+            if (this.S > 0 && this.V > 0) {
+                var c = new Color(this.baseR, this.baseG, this.baseB);
+                var S1 = (c.S) ? this.S / c.S : 1;
+                var V1 = (c.V) ? this.V / c.V : 1;
+                var nh = (this.H + angle) % 360;
+                this.setHSV(nh, this.S, this.V);
+                c.setRGB(this.baseR, this.baseG, this.baseB);
+                var S2 = (c.S) ? this.S / c.S : 1;
+                var V2 = (c.V) ? this.V / c.V : 1;
+                this.setHSV(nh, this.S * S1 / S2, this.V * V1 / V2);
+            }
+        }
+
+        var colWheel = new Array(12);
+        colWheel['0'] = new Color(255, 0, 0, 0);
+        colWheel['15'] = new Color(255, 51, 0, 15);
+        colWheel['30'] = new Color(255, 102, 0, 30);
+        colWheel['45'] = new Color(255, 128, 0, 45);
+        colWheel['60'] = new Color(255, 153, 0, 60);
+        colWheel['75'] = new Color(255, 178, 0, 75);
+        colWheel['90'] = new Color(255, 204, 0, 90);
+        colWheel['105'] = new Color(255, 229, 0, 105);
+        colWheel['120'] = new Color(255, 255, 0, 120);
+        colWheel['135'] = new Color(204, 255, 0, 135);
+        colWheel['150'] = new Color(153, 255, 0, 150);
+        colWheel['165'] = new Color(51, 255, 0, 165);
+        colWheel['180'] = new Color(0, 204, 0, 180);
+        colWheel['195'] = new Color(0, 178, 102, 195);
+        colWheel['210'] = new Color(0, 153, 153, 210);
+        colWheel['225'] = new Color(0, 102, 178, 225);
+        colWheel['240'] = new Color(0, 51, 204, 240);
+        colWheel['255'] = new Color(25, 25, 178, 255);
+        colWheel['270'] = new Color(51, 0, 153, 270);
+        colWheel['285'] = new Color(64, 0, 153, 285);
+        colWheel['300'] = new Color(102, 0, 153, 300);
+        colWheel['315'] = new Color(153, 0, 153, 315);
+        colWheel['330'] = new Color(204, 0, 153, 330);
+        colWheel['345'] = new Color(229, 0, 102, 345);
+
+        var usedColors = 1;
+        var usedScheme = 'mono';
+        var col = new Array(4);
+        for (var i = 0; i < 4; i++) col[i] = new Color(255, 0, 0, 0);
+        var bussy = false;
+        var helpOn = false;
+        var webSnap = false;
+        var colorblindMode = '';
+
+        function getFormValue(name) { return objGet(name).value; }
+        function setFormValue(name, val) { objGet(name).value = val; }
+
+        function switchWebSnap() {
+            webSnap = objGet('websnapper').checked;
+            drawSample();
+        }
+
+        function switchBlindlessMode() {
+            colorblindMode = getFormValue('cbmodeswitcher');
+            drawSample();
+        }
+
+        function setMainColor() {
+            if (!bussy) {
+                bussy = true;
+                var h = parseInt(getFormValue('colorH'));
+                if (h >= 360) { h = h % 360; setFormValue('colorH', h) }
+                if (h < 0) { h = (h + (Math.floor(-h / 360) + 1) * 360) % 360; setFormValue('colorH', h) }
+                var s = parseFloat(getFormValue('colorS')) / 100;
+                if (s > 1 || s < 0) { s = (s < 0) ? 0 : 1; setFormValue('colorS', s * 100) }
+                var v = parseFloat(getFormValue('colorV')) / 100;
+                if (v > 1 || v < 0) { v = (v < 0) ? 0 : 1; setFormValue('colorV', v * 100) }
+                col[0].setHSV(h, s, v);
+                objGet('colorhex').innerHTML = '#' + col[0].getHex();
+                drawValSat();
+                drawSample();
+                bussy = false;
+            }
+        }
+        function setBasicColor(angle) {
+            var c = colWheel[angle];
+            setHSV(c.H, c.S, c.V);
+        }
+        function setHSV(h, s, v) {
+            if (!bussy) {
+                bussy = true;
+                col[0].setHSV(h, s, v);
+                setFormValue('colorH', parseInt(h * 10) / 10);
+                setFormValue('colorS', parseInt(s * 1000) / 10);
+                setFormValue('colorV', parseInt(v * 1000) / 10);
+                objGet('colorhex').innerHTML = '#' + col[0].getHex();
+                drawValSat();
+                drawSample();
+                bussy = false;
+            }
+        }
+
+        function drawSample() {
+            usedScheme = getFormValue('scheme');
+            objGet('previmg').src = 'images/pre_' + usedScheme + '.gif';
+            if (usedScheme == 'mono') {
+                usedColors = 1;
+                objDisplay('triadplus', 0); objDisplay('tetradplus', 0); objDisplay('analogplus', 0);
+                col[1].setHSV(col[0].H, col[0].S / 2, 1 - (1 - col[0].V) / 2);
+                col[2].setHSV(col[0].H, col[0].S / 4, 1 - (1 - col[0].V) / 4);
+                col[3].setHSV(col[0].H, 2 * col[0].S / 3, 2 * col[0].V / 3);
+                drawRing(0, 1, col[0].H); drawRing(1, 0); drawRing(2, 0); drawRing(3, 0);
+            }
+            else if (usedScheme == 'compl') {
+                usedColors = 2;
+                objDisplay('triadplus', 0); objDisplay('tetradplus', 0); objDisplay('analogplus', 0);
+                col[1].setHSV(col[0].H, col[0].S, col[0].V); col[1].rotate(180);
+                col[2].setHSV(col[0].H, col[0].S / 4, 1 - (1 - col[0].V) / 4);
+                col[3].setHSV(col[1].H, col[1].S / 4, 1 - (1 - col[1].V) / 4);
+                drawRing(0, 1, col[0].H); drawRing(1, 1, col[1].H); drawRing(2, 0, col[2].H); drawRing(3, 0, col[3].H);
+            }
+            else if (usedScheme == 'triad') {
+                usedColors = 3;
+                objDisplay('triadplus', 1); objDisplay('tetradplus', 0); objDisplay('analogplus', 0);
+                var dif = parseInt(getFormValue('triadDif'));
+                if (dif > 60) { dif = 60; setFormValue('triadDif', 60); }
+                if (dif < 0) { dif = 0; setFormValue('triadDif', 0); }
+                col[1].setHSV(col[0].H, col[0].S, col[0].V); col[1].rotate(180 - dif);
+                col[2].setHSV(col[0].H, col[0].S, col[0].V); col[2].rotate(180 + dif);
+                col[3].setHSV(col[0].H, col[0].S / 4, 1 - (1 - col[0].V) / 4);
+                drawRing(0, 1, col[0].H); drawRing(1, 1, col[1].H); drawRing(2, 1, col[2].H); drawRing(3, 0, col[3].H);
+            }
+            else if (usedScheme == 'tetrad') {
+                usedColors = 4;
+                objDisplay('triadplus', 0); objDisplay('tetradplus', 1); objDisplay('analogplus', 0);
+                var dif = parseInt(getFormValue('tetradDif'));
+                if (dif > 90) { dif = 90; setFormValue('tetradDif', 90); }
+                if (dif < -90) { dif = -90; setFormValue('tetradDif', 90); }
+                col[1].setHSV(col[0].H, col[0].S, col[0].V); col[1].rotate(180);
+                col[2].setHSV(col[0].H, col[0].S, col[0].V); col[2].rotate(dif);
+                col[3].setHSV(col[0].H, col[0].S, col[0].V); col[3].rotate(180 + dif);
+                drawRing(0, 1, col[0].H); drawRing(1, 1, col[1].H); drawRing(2, 1, col[2].H); drawRing(3, 1, col[3].H);
+            }
+            else if (usedScheme == 'analog') {
+                usedColors = 3;
+                objDisplay('triadplus', 0); objDisplay('tetradplus', 0); objDisplay('analogplus', 1);
+                var dif = parseInt(getFormValue('analogDif'));
+                if (dif > 60) { dif = 60; setFormValue('analogDif', 60); }
+                if (dif < 0) { dif = 0; setFormValue('analogDif', 0); }
+                var compl = objGet('analogCompl').checked;
+                col[1].setHSV(col[0].H, col[0].S, col[0].V); col[1].rotate(dif);
+                col[2].setHSV(col[0].H, col[0].S, col[0].V); col[2].rotate(360 - dif);
+                col[3].setHSV(col[0].H, col[0].S, col[0].V);
+                if (compl) { usedColors = 4; col[3].rotate(180); }
+                drawRing(0, 1, col[0].H); drawRing(1, 1, col[1].H); drawRing(2, 1, col[2].H); drawRing(3, compl, col[3].H);
+            }
+            var c;
+            for (var i = 0; i < 4; i++) {
+                c = col[i].getHex(webSnap, colorblindMode);
+                objSetStyle('color' + i, 'background', '#' + c);
+                objSetStyle('color' + i + 'v', 'background', '#' + c);
+            }
+            objGet('maincolorsample').style.backgroundColor = '#' + col[0].getHex(webSnap);
+            objDisplay('colscheme', true);
+            objDisplay('colsample', true);
+            drawColTable();
+        }
+
+        function drawColTable() {
+            function addCell(c, cl) {
+                var tc = ((0.5 * c.R + c.G + 0.3 * c.B) > 220) ? 'black' : 'white';
+
+                var hx = c.getHex(webSnap);
+                if (cl) cl = ' class="' + cl + '"';
+                buff += '<td style="background:#' + hx + '"' + cl + '>' +
+                    '<a style="color:' + tc + '" href="javascript:setHSV(' + c.H + ',' + c.S + ',' + c.V + ')">' +
+                    hx + '<' + '/a><' + '/td>';
+            }
+            var buff = '<table id="coltable">';
+            var c, c2 = new Color(0, 0, 0);
+            for (var i = 0; i < usedColors; i++) {
+                buff += '<tr>';
+                addCell(col[i], 'main');
+                c = col[i];
+                c2.setHSV(c.H, c.S / 2, 1 - (1 - c.V) / 2); addCell(c2);
+                c2.setHSV(c.H, c.S / 4, 1 - (1 - c.V) / 4); addCell(c2);
+                c2.setHSV(c.H, 2 * c.S / 3, 2 * c.V / 3); addCell(c2);
+                c2.setHSV(c.H, 2 * c.S / 3, c.V / 3); addCell(c2);
+                c2.setHSV(c.H, c.S / 2, c.V - (c.V - 0.5) / 2); addCell(c2);
+                c2.setHSV(c.H, c.S / 4, c.V - (c.V - 0.5) / 4); addCell(c2);
+                buff += '<' + '/tr>';
+            }
+            buff += '<' + '/table>';
+            objGet('coltablein').innerHTML = buff;
+        }
+
+        function drawRing(n, on, angle) {
+            var x, y, o = objGet('pointer' + n);
+            var r = (angle - 90) / 360 * 2 * Math.PI;
+            if (on) {
+                x = Math.round(112 + 50 * Math.cos(r));
+                y = Math.round(113 + 50 * Math.sin(r));
+                objSetStyle(o, 'left', x + 'px');
+                objSetStyle(o, 'top', y + 'px');
+            }
+            objDisplay(o, on);
+        }
+        function drawValSat() {
+            var v = Math.round(col[0].V * 100);
+            var s = Math.round(col[0].S * 100);
+            var pv = objGet('pointerTop');
+            var ps = objGet('pointerBottom');
+            objSetStyle(pv, 'top', (100 - v + 5) + 'px');
+            objSetStyle(pv, 'left', Math.round(205 + 37 * (100 - v) / 100) + 'px');
+            objSetStyle(pv, 'width', Math.round(3 + 13 * v / 100) + 'px');
+            objSetStyle(ps, 'top', (s + 122) + 'px');
+            objSetStyle(ps, 'left', Math.round(205 + 37 * (100 - s) / 100) + 'px');
+            objSetStyle(ps, 'width', Math.round(3 + 13 * s / 100) + 'px');
+            objDisplay(pv, 1);
+            objDisplay(ps, 1);
+        }
+
+        var dX = 20, dY = 20;
+        var eX, eY;
+        function getEvent(e) {
+            if (!e) e = window.event;
+            eX = (e.x) ? e.x : e.clientX;
+            eY = (e.y) ? e.y : e.clientY;
+        }
+        function moveHue(e) {
+            var a, x, y, h;
+            getEvent(e);
+            x = eX - dX - 113;
+            y = eY - dY - 113;
+            h = Math.round(((Math.atan2(-x, y) * 180 / Math.PI) + 180) % 360);
+            setFormValue('colorH', h);
+            setMainColor();
+        }
+        function showHueInfo(e) {
+            var a, x, y, h;
+            getEvent(e);
+            x = eX - dX - 113;
+            y = eY - dY - 113;
+            h = Math.round(((Math.atan2(-x, y) * 180 / Math.PI) + 180) % 360);
+            window.status = 'angle (hue): ' + h;
+        }
+
+        function moveVal(e) {
+            var a, y, v;
+            getEvent(e);
+            y = eY - dY;
+            v = 105 - y; if (v < 0) v = 0; else if (v > 100) v = 100;
+            setFormValue('colorV', v);
+            setMainColor();
+        }
+        function showValInfo(e) {
+            var a, y, v;
+            getEvent(e);
+            y = eY - dY;
+            v = 105 - y; if (v < 0) v = 0; else if (v > 100) v = 100;
+            window.status = 'brightness: ' + v;
+        }
+
+        function moveSat(e) {
+            var a, y, s;
+            getEvent(e);
+            y = eY - dY;
+            s = y - 122; if (s < 0) s = 0; else if (s > 100) s = 100;
+            setFormValue('colorS', s);
+            setMainColor();
+        }
+        function showSatInfo(e) {
+            var a, y, s;
+            getEvent(e);
+            y = eY - dY;
+            s = y - 122; if (s < 0) s = 0; else if (s > 100) s = 100;
+            window.status = 'saturation: ' + s;
+        }
+
+        window.onload = Init;
+        function Init() {
+            objGet('midarea').onclick = moveHue;
+            objGet('midarea').onmousemove = showHueInfo;
+            objGet('topmover').onclick = moveVal;
+            objGet('topmover').onmousemove = showValInfo;
+            objGet('bottommover').onclick = moveSat;
+            objGet('bottommover').onmousemove = showSatInfo;
+            drawValSat();
+            drawSample();
+        }
+    //-->
+    </script>
+
+    <meta content="MSHTML 6.00.2900.2180" name="GENERATOR">
+</head>
+
+<body oncontextmenu="return false" ondragstart="return false">
+    <div id="image"><img height="228" alt="" src="images/wheel2-en.gif" width="245" usemap="#map" border="0">
+        <div id="pointer0" style="left: 112px; top: 63px; display: block;"></div>
+        <div id="pointer1" style="display: none;"></div>
+        <div id="pointer2" style="display: none;"></div>
+        <div id="pointer3" style="display: none;"></div>
+        <div id="pointerTop" style="top: 5px; left: 205px; width: 16px; display: block;"></div>
+        <div id="pointerBottom" style="top: 222px; left: 205px; width: 16px; display: block;"></div>
+    </div>
+    <map name="map">
+        <area id="midarea" shape="CIRCLE" coords="113,113,54">
+        <area id="topmover" shape="POLY" coords="200,0,230,0,245,110,240,110">
+        <area id="bottommover" shape="POLY" coords="200,228,230,228,245,110,240,110">
+        <area shape="CIRCLE" coords="113,18,19" href="javascript:setBasicColor(0)">
+        <area shape="CIRCLE" coords="131,49,13" href="javascript:setBasicColor(15)">
+        <area shape="CIRCLE" coords="161,31,19" href="javascript:setBasicColor(30)">
+        <area shape="CIRCLE" coords="161,67,13" href="javascript:setBasicColor(45)">
+        <area shape="CIRCLE" coords="197,66,19" href="javascript:setBasicColor(60)">
+        <area shape="CIRCLE" coords="178,97,13" href="javascript:setBasicColor(75)">
+        <area shape="CIRCLE" coords="209,114,19" href="javascript:setBasicColor(90)">
+        <area shape="CIRCLE" coords="179,130,13" href="javascript:setBasicColor(105)">
+        <area shape="CIRCLE" coords="197,161,19" href="javascript:setBasicColor(120)">
+        <area shape="CIRCLE" coords="161,161,13" href="javascript:setBasicColor(135)">
+        <area shape="CIRCLE" coords="162,197,19" href="javascript:setBasicColor(150)">
+        <area shape="CIRCLE" coords="131,177,13" href="javascript:setBasicColor(165)">
+        <area shape="CIRCLE" coords="113,209,19" href="javascript:setBasicColor(180)">
+        <area shape="CIRCLE" coords="96,178,13" href="javascript:setBasicColor(195)">
+        <area shape="CIRCLE" coords="66,197,19" href="javascript:setBasicColor(210)">
+        <area shape="CIRCLE" coords="66,161,13" href="javascript:setBasicColor(225)">
+        <area shape="CIRCLE" coords="31,161,19" href="javascript:setBasicColor(240)">
+        <area shape="CIRCLE" coords="49,131,13" href="javascript:setBasicColor(255)">
+        <area shape="CIRCLE" coords="18,114,19" href="javascript:setBasicColor(270)">
+        <area shape="CIRCLE" coords="49,96,13" href="javascript:setBasicColor(285)">
+        <area shape="CIRCLE" coords="31,66,19" href="javascript:setBasicColor(300)">
+        <area shape="CIRCLE" coords="66,66,13" href="javascript:setBasicColor(315)">
+        <area shape="CIRCLE" coords="66,31,19" href="javascript:setBasicColor(330)">
+        <area shape="CIRCLE" coords="96,49,13" href="javascript:setBasicColor(345)">
+    </map>
+    <div id="colform">
+        <p class="center">基色： <span id="colorhex">#FF0000</span> </p>
+        <div id="maincolorsample" style="background-color: rgb(255, 0, 0);"></div>
+        <p></p>
+        <p class="center lineup">
+            　</p>
+        <form id="form2" onsubmit="setMainColor();return false">
+            <table id="hsvtable">
+                <tbody>
+                    <tr>
+                        <td><input id="colorH" onchange="setMainColor()" size="6" value="0"></td>
+                        <td><input id="colorS" onchange="setMainColor()" size="6" value="100"></td>
+                        <td><input id="colorV" onchange="setMainColor()" size="6" value="100"></td>
+                    </tr>
+                    <tr>
+                        <td>色调 °</td>
+                        <td>饱和度 %</td>
+                        <td>亮度 %</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="setMainColor();return false">确定</button>
+        </form>
+        <p></p>
+    </div>
+    <div id="colscheme" style="display: block;">
+        <form id="form3" onsubmit="drawSample();return false">
+            <img id="previmg" height="51" alt="" src="images/pre_mono.gif" width="51" align="right">
+            <p>方案：
+                <select id="scheme" onchange="drawSample()">
+                    <option value="mono" selected="" checked="checked">单色配色</option>
+                    <option value="compl">补色配色 （基色 + 补色）</option>
+                    <option value="triad">可调补色配色 （分离补色）</option>
+                    <option value="tetrad">双补色 （2 邻近色 + 补色）</option>
+                    <option value="analog">类似色 （基色 + 邻近色）</option>
+                </select>
+            </p>
+            <p class="hide" id="triadplus" style="display: none;">色差 [0°- 60°]：
+                <input id="triadDif" onchange="drawSample()" size="5" value="30">°　
+                <button onclick="drawSample();return false">确定</button>
+            </p>
+            <p class="hide" id="tetradplus" style="display: none;">色差 [0°- 90°]：　
+                <input id="tetradDif" onchange="drawSample()" size="5" value="30">°&nbsp;
+                <button onclick="drawSample();return false">确定</button>
+            </p>
+            <p class="hide" id="analogplus" style="display: none;">色差　[0°- 60°]
+                <input id="analogDif" onchange="drawSample()" size="5" value="30">°&nbsp;&nbsp;
+                <button onclick="drawSample();return false">确定</button>
+                　　<input id="analogCompl" onclick="drawSample()" type="checkbox" onchange="drawSample()"><label
+                    for="analogCompl">添加互补色</label>　
+            </p>
+        </form>
+    </div>
+    <div id="colsample" style="display: block;">
+        <div id="color0" style="background: rgb(255, 0, 0);"></div>
+        <div id="color1" style="background: rgb(255, 128, 128);"></div>
+        <div id="color2" style="background: rgb(255, 191, 191);"></div>
+        <div id="color3" style="background: rgb(170, 57, 57);"></div>
+        <div id="color0v" style="background: rgb(255, 0, 0);"></div>
+        <div id="color1v" style="background: rgb(255, 128, 128);"></div>
+        <div id="color2v" style="background: rgb(255, 191, 191);"></div>
+        <div id="color3v" style="background: rgb(170, 57, 57);"></div>
+        <div id="colorBW"></div>
+        <div id="textBlack">黑色文字效果</div>
+        <div id="textWhite">白色文字效果</div>
+    </div>
+    <div id="coltablecover">
+        <div id="coltablein">
+            <table id="coltable">
+                <tbody>
+                    <tr>
+                        <td style="background:#FF0000" class="main"><a style="color:white"
+                                href="javascript:setHSV(0,1,1)">FF0000</a></td>
+                        <td style="background:#FF8080" undefined=""><a style="color:black"
+                                href="javascript:setHSV(0,0.5,1)">FF8080</a></td>
+                        <td style="background:#FFBFBF" undefined=""><a style="color:black"
+                                href="javascript:setHSV(0,0.25,1)">FFBFBF</a></td>
+                        <td style="background:#AA3939" undefined=""><a style="color:white"
+                                href="javascript:setHSV(0,0.6666666666666666,0.6666666666666666)">AA3939</a></td>
+                        <td style="background:#551C1C" undefined=""><a style="color:white"
+                                href="javascript:setHSV(0,0.6666666666666666,0.3333333333333333)">551C1C</a></td>
+                        <td style="background:#BF6060" undefined=""><a style="color:black"
+                                href="javascript:setHSV(0,0.5,0.75)">BF6060</a></td>
+                        <td style="background:#DFA7A7" undefined=""><a style="color:black"
+                                href="javascript:setHSV(0,0.25,0.875)">DFA7A7</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="center odstup">
+            <input id="websnapper" onclick="switchWebSnap()" type="checkbox" onchange="switchWebSnap()">
+            <label for="websnapper">网页安全色</label>　　　　　
+            <select id="cbmodeswitcher" onchange="switchBlindlessMode()">
+                <option value="" selected="">正常色觉 (约占总人口的85.5 %)</option>
+                <option value="1">红色盲 (1 % 的男性)</option>
+                <option value="2">绿色盲 (1 % 的男性)</option>
+                <option value="3">蓝色盲 (约占总人口的 0.003 %)</option>
+                <option value="4">红色弱 (1 % 男性)</option>
+                <option value="5">绿色弱 (5 % 的男性, 0.4 % 的女性)</option>
+                <option value="6">蓝色弱 (几乎为 0 %)</option>
+                <option value="7">全色盲 (人口的0.005%)</option>
+                <option value="8">非典型全色盲</option>
+            </select>
+        </form>
+    </div>
+
+</body>
+
+</html>

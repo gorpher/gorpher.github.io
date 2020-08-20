@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动配色工具00</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            color: gray;
+            font-family: monospace;
+        }
+
+        h2 {
+            color: gray;
+            font-family: monospace;
+        }
+
+        p {
+            font-size: 0.8em;
+        }
+
+        body {
+            background-color: #FFFADA;
+        }
+
+        ol>li,
+        ul>li {
+            font-size: 0.9rem;
+        }
+    </style>
+    <style>
+        .flex1 {
+            flex: 1;
+        }
+
+        .flex2 {
+            flex: 2;
+        }
+
+        .flex3 {
+            flex: 3;
+        }
+
+        .flex4 {
+            flex: 4;
+        }
+
+        .flex5 {
+            flex: 5;
+        }
+
+        .flex6 {
+            flex: 6;
+        }
+
+        .columns {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .rows {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .Media {
+            display: flex;
+            align-items: flex-start;
+        }
+
+
+        .Media-figure {
+            display: flex;
+            margin-right: 1em;
+            flex-direction: column;
+            font-size: 0.5rem;
+            text-align: center;
+            width: 220px;
+        }
+
+        .Media-body {
+            flex: 1;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .panel {
+            /* padding: 1em;
+                margin: 10px;
+                border-radius: 5px;
+                background-color: #DAE8FC; */
+            background-color: #DAE8FC;
+            padding: 1em;
+            margin: 2em 2em;
+            font-family: Consolas, Monaco, "Andale Mono", monospace;
+            -moz-border-radius: 1em;
+            -webkit-border-radius: 1em;
+            border-radius: 1em;
+            font-family: Consolas, Monaco, "Andale Mono", monospace;
+            border-width: .3em;
+            border-color: #e0dfcc;
+            border-style: solid;
+            text-shadow: 0 1px white;
+            overflow: auto;
+        }
+
+        .menucolor_01 {
+            color: #FF3399;
+        }
+
+
+        a {
+            color: #006f50;
+            text-decoration: none;
+        }
+
+        .color-paper {
+            width: 200px;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .color-paper-large {
+            width: 650px;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .color-paper-font {
+            font-size: 0.5rem;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        .color-paper-margin {
+            margin: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>使用方法</h2>
+    <div class="panel">
+        <p>　　在左上方选择RGB色彩，下方出现相应的十六色代码。</p>
+        <p>　　在左下方选择一个色块，右边将出现其相应的配色。（以RGB方式和十六进制色表表示）</p>
+        <p>　　还可选择左边的变量和变暗使颜色随之改变。</p>
+    </div>
+    <div class="rows panel">
+        <div class="columns panel">
+            <div class="rows">
+                <form name="codes">
+                    <table cellspacing="1" cellpadding="0" width="100" bgcolor="#000000" border="0"
+                        style="text-shadow: none; background: #90afcf;color: #fff;">
+                        <tbody>
+                            <tr>
+                                <td class="tt3" align="middle">选 择 颜 色</td>
+                            </tr>
+                            <tr>
+                                <td class="tt3" align="middle" bgcolor="#90AFCF" height="120">
+                                    <font face="verdana">
+                                        <b>R:&nbsp;&nbsp;<input size="5" value="0" name="r">
+                                            <br>G:&nbsp;&nbsp;<input size="5" value="0" name="g">
+                                            <br>B:&nbsp;&nbsp;<input size="5" value="0" name="b"></b>
+                                        <br><input onclick="ChangeColors(codes.r.value,codes.g.value,codes.b.value);"
+                                            type="button" value="确定">
+                                        <br>&nbsp;&nbsp;<br>
+                                        <a class="tt2"
+                                            href="javascript:ChangeColors(eval(codes.r.value)+17,eval(codes.g.value)+17,eval(codes.b.value)+17)">全
+                                            部 变 亮 </a><br>
+                                        <a class="tt2"
+                                            href="javascript:ChangeColors(eval(codes.r.value)-17,eval(codes.g.value)-17,eval(codes.b.value)-17)">全
+                                            部 变 暗 </a><br><br>
+                                    </font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tt3" align="middle" bgcolor="#EDEFEF"><b>
+                                        <font face="verdana" color="#000000">RGB to HEX:</font>
+                                    </b></td>
+                            </tr>
+                            <tr>
+                                <td class="tt3" align="middle" bgcolor="#90AFCF" height="43"><input size="7"
+                                        value="#000000" name="hex"><br>&nbsp;&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="columns">
+                    <div
+                        style="height: 108px; background-color: #90afcf; text-align: center;  line-height: 108px; color: #fff; ">
+                        网 页 配 色 方 案</div>
+                    <div id="color" style="width: 128px; height: 147px; background-color: #fff; "></div>
+                </div>
+            </div>
+            <div id="blocks">
+                <table cellspacing="1" cellpadding="0" bgcolor="#000000" border="0">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#000000"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#000033"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#000066"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#000099"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0000cc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0000ff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#003300"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#003333"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#003366"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#003399"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0033cc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0033ff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#006600"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#006633"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#006666"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#006699"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0066cc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0066ff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#330000"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#330033"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#330066"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#330099"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3300cc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3300ff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#333300"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#333333"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#333366"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#333399"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3333cc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3333ff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#336600"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#336633"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#336666"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#336699"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3366cc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3366ff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#660000"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#660033"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#660066"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#660099"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6600cc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6600ff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#663300"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#663333"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#663366"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#663399"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6633cc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6633ff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#666600"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#666633"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#666666"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#666699"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6666cc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6666ff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#990000"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#990033"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#990066"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#990099"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9900cc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9900ff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#993300"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#993333"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#993366"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#993399"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9933cc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9933ff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#996600"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#996633"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#996666"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#996699"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9966cc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9966ff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#cc0000"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc0033"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc0066"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc0099"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc00cc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc00ff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc3300"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc3333"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc3366"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc3399"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc33cc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc33ff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc6600"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc6633"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc6666"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc6699"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc66cc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc66ff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ff0000"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff0033"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff0066"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff0099"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff00cc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff00ff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;0&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff3300"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff3333"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff3366"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff3399"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff33cc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff33ff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;51&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff6600"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff6633"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff6666"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff6699"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff66cc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff66ff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;102&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#009900"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#009933"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#009966"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#009999"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0099cc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#0099ff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00cc00"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00cc33"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00cc66"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00cc99"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00cccc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ccff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ff00"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ff33"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ff66"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ff99"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ffcc"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#00ffff"><a
+                                    href="javascript:ChangeColors(&quot;0&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#339900"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#339933"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#339966"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#339999"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3399cc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#3399ff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33cc00"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33cc33"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33cc66"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33cc99"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33cccc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ccff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ff00"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ff33"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ff66"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ff99"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ffcc"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#33ffff"><a
+                                    href="javascript:ChangeColors(&quot;51&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#669900"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#669933"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#669966"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#669999"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6699cc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#6699ff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66cc00"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66cc33"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66cc66"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66cc99"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66cccc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ccff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ff00"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ff33"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ff66"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ff99"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ffcc"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#66ffff"><a
+                                    href="javascript:ChangeColors(&quot;102&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#999900"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#999933"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#999966"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#999999"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9999cc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#9999ff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99cc00"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99cc33"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99cc66"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99cc99"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99cccc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ccff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ff00"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ff33"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ff66"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ff99"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ffcc"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#99ffff"><a
+                                    href="javascript:ChangeColors(&quot;153&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#cc9900"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc9933"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc9966"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc9999"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc99cc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cc99ff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cccc00"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cccc33"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cccc66"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cccc99"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#cccccc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccccff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccff00"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccff33"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccff66"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccff99"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccffcc"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ccffff"><a
+                                    href="javascript:ChangeColors(&quot;204&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ff9900"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff9933"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff9966"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff9999"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff99cc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ff99ff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;153&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffcc00"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffcc33"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffcc66"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffcc99"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffcccc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffccff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;204&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffff00"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;0&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffff33"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;51&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffff66"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;102&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffff99"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;153&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffffcc"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;204&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                            <td bgcolor="#ffffff"><a
+                                    href="javascript:ChangeColors(&quot;255&quot;,&quot;255&quot;,&quot;255&quot;)"><img
+                                        height="12" src="images/clear.gif" width="12" border="0"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="schemes" class="panel">
+            <table height="310" cellspacing="1" cellpadding="0" width="369" bgcolor="#000000" border="0">
+                <tbody>
+                    <tr>
+                        <td valign="bottom" align="middle" bgcolor="#ffffff">
+                            <table cellspacing="0" cellpadding="0" width="342" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row1" bgcolor="#ffffff"
+                                                            style="background-color: rgb(238, 220, 119);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row1" bgcolor="#ffffff"
+                                                            style="background-color: rgb(196, 238, 119);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row1" bgcolor="#ffffff"
+                                                            style="background-color: rgb(137, 238, 119);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row1" bgcolor="#ffffff"
+                                                            style="background-color: rgb(119, 238, 161);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row1RGB"><a
+                                                    href="javascript:ChangeColors(238,220,119)">238.220.119</a>
+                                            </div>
+                                            <div id="row1HEX">#EEDC77</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row1RGB"><a
+                                                    href="javascript:ChangeColors(196,238,119)">196.238.119</a>
+                                            </div>
+                                            <div id="row1HEX">#C4EE77</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row1RGB"><a
+                                                    href="javascript:ChangeColors(137,238,119)">137.238.119</a>
+                                            </div>
+                                            <div id="row1HEX">#89EE77</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row1RGB"><a
+                                                    href="javascript:ChangeColors(119,238,161)">119.238.161</a>
+                                            </div>
+                                            <div id="row1HEX">#77EEA1</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row2" bgcolor="#ffffff"
+                                                            style="background-color: rgb(238, 161, 119);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row2" bgcolor="#ffffff"
+                                                            style="background-color: rgb(187, 170, 68);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row2" bgcolor="#ffffff"
+                                                            style="background-color: rgb(136, 119, 17);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row2" bgcolor="#ffffff"
+                                                            style="background-color: rgb(119, 238, 220);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row2RGB"><a
+                                                    href="javascript:ChangeColors(238,161,119)">238.161.119</a>
+                                            </div>
+                                            <div id="row2HEX">#EEA177</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row2RGB"><a
+                                                    href="javascript:ChangeColors(187,170,68)">187.170.68</a>
+                                            </div>
+                                            <div id="row2HEX">#BBAA44</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row2RGB"><a
+                                                    href="javascript:ChangeColors(136,119,17)">136.119.17</a>
+                                            </div>
+                                            <div id="row2HEX">#887711</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row2RGB"><a
+                                                    href="javascript:ChangeColors(119,238,220)">119.238.220</a>
+                                            </div>
+                                            <div id="row2HEX">#77EEDC</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row3" bgcolor="#000000"
+                                                            style="background-color: rgb(238, 119, 137);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row3" bgcolor="#333333"
+                                                            style="background-color: rgb(68, 85, 187);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row3" bgcolor="#666666"
+                                                            style="background-color: rgb(119, 136, 238);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row3" bgcolor="#ffffff"
+                                                            style="background-color: rgb(119, 196, 238);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row3RGB"><a
+                                                    href="javascript:ChangeColors(238,119,137)">238.119.137</a>
+                                            </div>
+                                            <div id="row3HEX">#EE7789</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row3RGB"><a href="javascript:ChangeColors(68,85,187)">68.85.187</a>
+                                            </div>
+                                            <div id="row3HEX">#4455BB</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row3RGB"><a
+                                                    href="javascript:ChangeColors(119,136,238)">119.136.238</a>
+                                            </div>
+                                            <div id="row3HEX">#7788EE</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row3RGB"><a
+                                                    href="javascript:ChangeColors(119,196,238)">119.196.238</a>
+                                            </div>
+                                            <div id="row3HEX">#77C4EE</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row4" bgcolor="#999999"
+                                                            style="background-color: rgb(238, 119, 196);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row4" bgcolor="#cccccc"
+                                                            style="background-color: rgb(220, 119, 238);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row4" bgcolor="#ffffff"
+                                                            style="background-color: rgb(161, 119, 238);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td width="72" height="50">
+                                            <table height="50" cellspacing="1" cellpadding="0" width="72"
+                                                bgcolor="#000000" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="row4" bgcolor="#ffffff"
+                                                            style="background-color: rgb(119, 137, 238);">　</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row4RGB"><a
+                                                    href="javascript:ChangeColors(238,119,196)">238.119.196</a>
+                                            </div>
+                                            <div id="row4HEX">#EE77C4</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row4RGB"><a
+                                                    href="javascript:ChangeColors(220,119,238)">220.119.238</a>
+                                            </div>
+                                            <div id="row4HEX">#DC77EE</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row4RGB"><a
+                                                    href="javascript:ChangeColors(161,119,238)">161.119.238</a>
+                                            </div>
+                                            <div id="row4HEX">#A177EE</div>
+                                        </td>
+                                        <td width="18" bgcolor="#ffffff">　</td>
+                                        <td class="tt3" valign="center" align="middle" width="72" bgcolor="#ffffff"
+                                            height="26">
+                                            <div id="row4RGB"><a
+                                                    href="javascript:ChangeColors(119,137,238)">119.137.238</a>
+                                            </div>
+                                            <div id="row4HEX">#7789EE</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+<script language="javascript">
+    var tempRGB = new Array(3);
+    var RGB = new Array(256);
+    var HSL = new Array(3);
+    var red = 0, blue = 0, green = 0, compRed = 0, compGreen = 0, compBlue = 0;
+    var increment = 0;
+    var k = 0;
+    var hex = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
+    for (i = 0; i < 16; i++) {
+        for (j = 0; j < 16; j++) {
+            RGB[k] = hex[i] + hex[j];
+            k++;
+        }
+    }
+
+    function ChangeColors(r, g, b) {
+        if (r > 255) r = 255;
+        if (g > 255) g = 255;
+        if (b > 255) b = 255;
+        if (r < 0) r = 0;
+        if (g < 0) g = 0;
+        if (b < 0) b = 0;
+        codes.r.value = r;
+        codes.g.value = g;
+        codes.b.value = b;
+        codes.hex.value = "#" + RGB[r] + RGB[g] + RGB[b];
+        document.all.color.style.backgroundColor = "#" + RGB[r] + RGB[g] + RGB[b];
+        if (eval(r) > 153 || eval(g) > 153 || eval(b) > 153)
+            increment = -51;
+        else
+            increment = 51;
+        RGBtoHSL(r, g, b);
+        GetMono(eval(r) + eval(increment), eval(g) + eval(increment), eval(b) + eval(increment), 1);
+        GetWheel();
+    }
+
+    function GetWheel() {
+        tempHSL = HSL[0];
+        for (i = 0; i < 4; i++) {
+            tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+            red = RGB[tempRGB.r];
+            green = RGB[tempRGB.g];
+            blue = RGB[tempRGB.b];
+            document.all.row1[i].style.backgroundColor = "#" + red + green + blue;
+            document.all.row1HEX[i].innerHTML = "#" + red + green + blue;
+            document.all.row1RGB[i].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+            HSL[0] += 30;
+            if (HSL[0] >= 360)
+                HSL[0] -= 360;
+        }
+
+        tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+        red = RGB[tempRGB.r];
+        green = RGB[tempRGB.g];
+        blue = RGB[tempRGB.b];
+        document.all.row2[3].style.backgroundColor = "#" + red + green + blue;
+        document.all.row2HEX[3].innerHTML = "#" + red + green + blue;
+        document.all.row2RGB[3].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+        HSL[0] += 30;
+        if (HSL[0] >= 360)
+            HSL[0] -= 360;
+
+        tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+        red = RGB[tempRGB.r];
+        green = RGB[tempRGB.g];
+        blue = RGB[tempRGB.b];
+        document.all.row3[3].style.backgroundColor = "#" + red + green + blue;
+        document.all.row3HEX[3].innerHTML = "#" + red + green + blue;
+        document.all.row3RGB[3].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+        HSL[0] += 30;
+        if (HSL[0] >= 360)
+            HSL[0] -= 360;
+
+        for (i = 3; i >= 0; i--) {
+            tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+            red = RGB[tempRGB.r];
+            green = RGB[tempRGB.g];
+            blue = RGB[tempRGB.b];
+            document.all.row4[i].style.backgroundColor = "#" + red + green + blue;
+            document.all.row4HEX[i].innerHTML = "#" + red + green + blue;
+            document.all.row4RGB[i].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+            HSL[0] += 30;
+            if (HSL[0] >= 360)
+                HSL[0] -= 360;
+        }
+        tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+        red = RGB[tempRGB.r];
+        green = RGB[tempRGB.g];
+        blue = RGB[tempRGB.b];
+        document.all.row3[0].style.backgroundColor = "#" + red + green + blue;
+        document.all.row3HEX[0].innerHTML = "#" + red + green + blue;
+        document.all.row3RGB[0].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+        HSL[0] += 30;
+        if (HSL[0] >= 360)
+            HSL[0] -= 360;
+
+        tempRGB = HSLtoRGB(HSL[0], HSL[1], HSL[2]);
+        red = RGB[tempRGB.r];
+        green = RGB[tempRGB.g];
+        blue = RGB[tempRGB.b];
+        document.all.row2[0].style.backgroundColor = "#" + red + green + blue;
+        document.all.row2HEX[0].innerHTML = "#" + red + green + blue;
+        document.all.row2RGB[0].innerHTML = "<a href='javascript:ChangeColors(" + tempRGB.r + "," + tempRGB.g + "," + tempRGB.b + ")'>" + tempRGB.r + "." + tempRGB.g + "." + tempRGB.b + "</a>";
+        HSL[0] += 30;
+        if (HSL[0] >= 360)
+            HSL[0] -= 360;
+
+
+        HSL[0] = tempHSL;
+    }
+
+
+    function HSLtoRGB(H, S, L) {
+        var p1, p2;
+        var rgb = new Array(3);
+        L /= 100;
+        S /= 100;
+        if (L <= 0.5) p2 = L * (1 + S);
+        else p2 = L + S - (L * S);
+        p1 = 2 * L - p2;
+        if (S == 0) {
+            rgb.r = L;
+            rgb.g = L;
+            rgb.b = L;
+        } else {
+            rgb.r = FindRGB(p1, p2, H + 120);
+            rgb.g = FindRGB(p1, p2, H);
+            rgb.b = FindRGB(p1, p2, H - 120);
+        }
+        rgb.r *= 255;
+        rgb.g *= 255;
+        rgb.b *= 255;
+        rgb.r = Math.round(rgb.r);
+        rgb.g = Math.round(rgb.g);
+        rgb.b = Math.round(rgb.b);
+        return rgb;
+    }
+
+    function FindRGB(q1, q2, hue) {
+        if (hue > 360) hue = hue - 360;
+        if (hue < 0) hue = hue + 360;
+        if (hue < 60) return (q1 + (q2 - q1) * hue / 60);
+        else if (hue < 180) return (q2);
+        else if (hue < 240) return (q1 + (q2 - q1) * (240 - hue) / 60);
+        else return (q1);
+    }
+
+
+    function GetMono(r, g, b, index) {
+        if (eval(r) < 0)
+            r = 0;
+        if (eval(g) < 0)
+            g = 0;
+        if (eval(b) < 0)
+            b = 0;
+        if (eval(r) > 255)
+            r = 255;
+        if (eval(g) > 255)
+            g = 255;
+        if (eval(b) > 255)
+            b = 255;
+        red = RGB[r];
+        green = RGB[g];
+        blue = RGB[b];
+
+        compRed = RGB[255 - eval(r)];
+        compGreen = RGB[255 - eval(g)];
+        compBlue = RGB[255 - eval(b)];
+
+        document.all.row2[index].style.backgroundColor = "#" + red + green + blue;
+        document.all.row2HEX[index].innerHTML = "#" + red + green + blue;
+        document.all.row3[index].style.backgroundColor = "#" + compRed + compGreen + compBlue;
+        document.all.row3HEX[index].innerHTML = "#" + compRed + compGreen + compBlue;
+        row2RGB[index].innerHTML = "<a href='javascript:ChangeColors(" + r + "," + g + "," + b + ")'>" + r + "." + g + "." + b + "</a>";
+        row3RGB[index].innerHTML = "<a href='javascript:ChangeColors(" + (255 - eval(r)) + "," + (255 - eval(g)) + "," + (255 - eval(b)) + ")'>" + (255 - eval(r)) + "." + (255 - eval(g)) + "." + (255 - eval(b)) + "</a>";
+
+
+        if (eval(index) < 3)
+            GetMono(eval(r) + eval(increment), eval(g) + eval(increment), eval(b) + eval(increment), eval(index) + 1);
+
+    }
+
+    function RGBtoHSL(r, g, b) {
+
+        var Min = 0;
+        var Max = 0;
+        r = (eval(r) / 51) * .2;
+        g = (eval(g) / 51) * .2;
+        b = (eval(b) / 51) * .2;
+
+        if (eval(r) >= eval(g))
+            Max = eval(r);
+        else
+            Max = eval(g);
+        if (eval(b) > eval(Max))
+            Max = eval(b);
+
+        if (eval(r) <= eval(g))
+            Min = eval(r);
+        else
+            Min = eval(g);
+        if (eval(b) < eval(Min))
+            Min = eval(b);
+
+        HSL[2] = (eval(Max) + eval(Min)) / 2;
+        if (eval(Max) == eval(Min)) {
+            HSL[1] = 0;
+            HSL[0] = 0;
+        }
+        else {
+            if (HSL[2] < .5)
+                HSL[1] = (eval(Max) - eval(Min)) / (eval(Max) + eval(Min));
+            if (HSL[2] >= .5)
+                HSL[1] = (eval(Max) - eval(Min)) / (2 - eval(Max) - eval(Min));
+            if (r == Max)
+                HSL[0] = (eval(g) - eval(b)) / (eval(Max) - eval(Min));
+            if (g == Max)
+                HSL[0] = 2 + ((eval(b) - eval(r)) / (eval(Max) - eval(Min)));
+            if (b == Max)
+                HSL[0] = 4 + ((eval(r) - eval(g)) / (eval(Max) - eval(Min)));
+        }
+        HSL[0] = Math.round(HSL[0] * 60);
+        if (HSL[0] < 0) HSL[0] += 360;
+        if (HSL[0] >= 360) HSL[0] -= 360;
+        HSL[1] = Math.round(HSL[1] * 100);
+        HSL[2] = Math.round(HSL[2] * 100);
+
+    }
+
+</script>
+
+</html>

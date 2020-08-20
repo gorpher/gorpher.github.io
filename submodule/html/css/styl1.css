@@ -1,0 +1,183 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-COLOR: #FFFFFF; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 12px/1.2 verdana,ËÎÌו; PADDING-TOP: 0px; HEIGHT: 100%
+}
+.lineup {
+	BORDER-TOP: silver 1px solid; PADDING-TOP: 1ex
+}
+.center {
+	TEXT-ALIGN: center
+}
+.right {
+	TEXT-ALIGN: right
+}
+.small {
+	FONT-SIZE: 90%
+}
+.odstup {
+	PADDING-TOP: 1em
+}
+.bottomaligner {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; BOTTOM: 0px; PADDING-TOP: 0px; POSITION: absolute
+}
+P {
+	MARGIN: 1ex 0px
+}
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 1em; MARGIN: 1ex 0px
+}
+INPUT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+BUTTON {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+SELECT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+BUTTON {
+	PADDING-RIGHT: 1ex; PADDING-LEFT: 1ex; PADDING-BOTTOM: 2px; PADDING-TOP: 2px
+}
+FORM {
+	MARGIN: 0px
+}
+#maincolorsample {
+	Z-INDEX: 1; LEFT: 100px; WIDTH: 70px; POSITION: absolute; TOP: 100px; HEIGHT: 70px
+}
+#image {
+	Z-INDEX: 2; LEFT: 20px; POSITION: absolute; TOP: 20px
+}
+#wheelarea {
+	BACKGROUND: url(../images/wheel.gif); WIDTH: 232px; CURSOR: hand; HEIGHT: 232px
+}
+#pointer0 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 7px; POSITION: absolute; HEIGHT: 7px
+}
+#pointer1 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 7px; POSITION: absolute; HEIGHT: 7px
+}
+#pointer2 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 7px; POSITION: absolute; HEIGHT: 7px
+}
+#pointer3 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 7px; POSITION: absolute; HEIGHT: 7px
+}
+#pointer0 {
+	Z-INDEX: 10; BACKGROUND: url(../images/ring.gif) no-repeat center 50%
+}
+#maincolorhue {
+	DISPLAY: inline; FONT-SIZE: 12px; Z-INDEX: 1; LEFT: 20px; COLOR: #999; POSITION: absolute; TOP: 225px
+}
+#scheme-select {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; LEFT: 20px; PADDING-BOTTOM: 0px; WIDTH: 232px; PADDING-TOP: 0px; WHITE-SPACE: nowrap; POSITION: absolute; TOP: 270px; TEXT-ALIGN: center
+}
+#scheme-slider {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(../images/slider.gif) no-repeat center 50%; LEFT: 20px; PADDING-BOTTOM: 0px; WIDTH: 232px; CURSOR: hand; PADDING-TOP: 0px; POSITION: absolute; TOP: 330px; HEIGHT: 37px
+}
+#pointer-slider {
+	FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; LEFT: 115px; WIDTH: 7px; POSITION: absolute; TOP: 10px; HEIGHT: 7px
+}
+#scheme-addcompl {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; LEFT: 20px; PADDING-BOTTOM: 0px; WIDTH: 232px; COLOR: #666; PADDING-TOP: 0px; POSITION: absolute; TOP: 370px; TEXT-ALIGN: center
+}
+#scheme-searchrgb {
+	position:absolute; left:310px; top:387px;padding: 1px 0.5em;border: 1px solid #CCCCCC;background:#DFDFDF;
+	}
+#scheme-searchrgb a{
+	text-decoration: none;font-size: 11px;	color: #003366;
+	}
+#colsample {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; DISPLAY: none; LEFT: 300px; BORDER-LEFT: black 1px solid; WIDTH: 300px; BORDER-BOTTOM: black 1px solid; FONT-FAMILY: Verdana, ËÎÌו; POSITION: absolute; TOP: 45px; HEIGHT: 300px
+}
+.col {
+	WIDTH: 120px; POSITION: absolute; HEIGHT: 90px
+}
+#color0 {
+	BORDER-RIGHT: white 1px solid; LEFT: 20px; BORDER-BOTTOM: black 1px solid; TOP: 60px
+}
+#color1 {
+	LEFT: 160px; TOP: 60px
+}
+#color2 {
+	LEFT: 20px; TOP: 170px
+}
+#color3 {
+	LEFT: 160px; TOP: 170px
+}
+.col-0 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 2px; Z-INDEX: 1; PADDING-BOTTOM: 0px; WIDTH: 17px; CURSOR: hand; PADDING-TOP: 0px; POSITION: absolute; HEIGHT: 13px
+}
+.col-1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 2px; Z-INDEX: 1; PADDING-BOTTOM: 0px; WIDTH: 17px; CURSOR: hand; PADDING-TOP: 0px; POSITION: absolute; HEIGHT: 13px
+}
+.col-2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 2px; Z-INDEX: 1; PADDING-BOTTOM: 0px; WIDTH: 17px; CURSOR: hand; PADDING-TOP: 0px; POSITION: absolute; HEIGHT: 13px
+}
+.col-3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 2px; Z-INDEX: 1; PADDING-BOTTOM: 0px; WIDTH: 17px; CURSOR: hand; PADDING-TOP: 0px; POSITION: absolute; HEIGHT: 13px
+}
+.col-0 {
+	BORDER-RIGHT: #808080 1px outset; BORDER-TOP: #808080 1px outset; LEFT: -5px; BORDER-LEFT: #808080 1px outset; WIDTH: 17px; BORDER-BOTTOM: #808080 1px outset; TOP: -5px; HEIGHT: 17px
+}
+.col-on {
+	BORDER-RIGHT: #808080 1px outset; BORDER-TOP: #808080 1px outset; BORDER-LEFT: #808080 1px outset; BORDER-BOTTOM: #808080 1px outset
+}
+.col-1 {
+	LEFT: 25px; TOP: -5px
+}
+.col-2 {
+	LEFT: 50px; TOP: -5px
+}
+.col-3 {
+	LEFT: 75px; TOP: -5px
+}
+#textBlack {
+	FONT-SIZE: 14px; LEFT: 15px; WIDTH: 275px; COLOR: black; BORDER-BOTTOM: white 1px solid; POSITION: absolute; TOP: 15px; TEXT-ALIGN: left
+}
+#textWhite {
+	FONT-SIZE: 14px; LEFT: 15px; WIDTH: 275px; COLOR: white; BOTTOM: 10px; BORDER-BOTTOM: black 1px solid; POSITION: absolute; TEXT-ALIGN: right
+}
+#colsamplevars {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; DISPLAY: none; LEFT: 300px; BORDER-LEFT: black 1px solid; WIDTH: 294px; BORDER-BOTTOM: black 1px solid; FONT-FAMILY: Verdana, ËÎÌו; POSITION: absolute; TOP: 45px; HEIGHT: 294px
+}
+#colsamplevarsswitch {
+	PADDING-RIGHT: 0px; DISPLAY: none; PADDING-LEFT: 0px; LEFT: 300px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 294px; PADDING-TOP: 0px; POSITION: absolute; TOP: 14px; HEIGHT: 30px; TEXT-ALIGN: right
+}
+.colvar {
+	WIDTH: 14px; CURSOR: hand; POSITION: absolute; HEIGHT: 14px
+}
+#coltable {
+	DISPLAY: none; BACKGROUND: white; LEFT: 620px; FONT: 12px/1.1 monospace; OVERFLOW: auto; WIDTH: 130px; COLOR: black; POSITION: absolute; TOP: 40px; HEIGHT: 300px
+}
+.coltbl-item {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; PADDING-BOTTOM: 3px; MARGIN: 5px 0px 0.1em; BORDER-LEFT: white 40px solid; PADDING-TOP: 3px
+}
+.coltbl-itemvar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; PADDING-BOTTOM: 3px; MARGIN: 5px 0px 0.1em; BORDER-LEFT: white 40px solid; PADDING-TOP: 3px
+}
+.coltbl-itemvar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BORDER-LEFT-WIDTH: 25px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0.1em 15px; PADDING-TOP: 0px
+}
+.coltbl-image {
+	FLOAT: right; MARGIN: 10px 0px 0px 10px; CURSOR: hand
+}
+#websnapswitch {
+	LEFT: 300px; POSITION: absolute; TOP: 20px
+}
+#presetswitch {
+	FONT-SIZE: 12px; LEFT: 300px; WIDTH: 450px; WHITE-SPACE: nowrap; POSITION: absolute; TOP: 355px
+}
+#cbmodeswitch {
+	LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 385px; TEXT-ALIGN: right
+}
+A.btn {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 0.5em; BORDER-TOP: black 1px solid; PADDING-LEFT: 0.5em; FONT-SIZE: 12px; BACKGROUND: white; LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: black 1px solid; COLOR: black; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid; POSITION: relative; TEXT-DECORATION: none 
+}
+A.btnon {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 0.5em; BORDER-TOP: black 1px solid; PADDING-LEFT: 0.5em; FONT-SIZE: 12px; BACKGROUND: white; LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: black 1px solid; COLOR: black; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid; POSITION: relative; TEXT-DECORATION: none
+}
+A.btnon {
+	BACKGROUND: black; COLOR: white
+}
+A.btn:hover {
+	BACKGROUND: silver
+}

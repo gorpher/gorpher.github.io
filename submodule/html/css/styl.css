@@ -1,0 +1,144 @@
+BODY {
+	MARGIN: 0px
+}
+BODY {
+	BACKGROUND-COLOR: #FFFFFF; FONT: 12px/120% Verdana,ËÎÌו
+}
+TD {
+	BACKGROUND-COLOR: #FFFFFF; FONT: 12px/120% Verdana,ËÎÌו
+}
+.lineup {
+	BORDER-TOP: silver 1px solid; PADDING-TOP: 1ex
+}
+.center {
+	TEXT-ALIGN: center
+}
+.right {
+	TEXT-ALIGN: right
+}
+.small {
+	FONT-SIZE: 90%
+}
+.odstup {
+	PADDING-TOP: 1em
+}
+P {
+	MARGIN: 1ex 0px
+}
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 1em; MARGIN: 1ex 0px; TEXT-ALIGN: center
+}
+INPUT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+BUTTON {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+SELECT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+BUTTON {
+	PADDING-RIGHT: 0ex; PADDING-LEFT: 0ex; PADDING-BOTTOM: 0px; PADDING-TOP: 1px
+}
+FORM {
+	MARGIN: 0px
+}
+#hsvtable {
+	WIDTH: 100%
+}
+#hsvtable TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; WHITE-SPACE: nowrap; TEXT-ALIGN: center
+}
+#image {
+	LEFT: 20px; POSITION: absolute; TOP: 20px
+}
+#maincolorsample {
+	MARGIN: 0.5ex 15% 1ex; HEIGHT: 25px
+}
+#colform {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; LEFT: 20px; PADDING-BOTTOM: 0px; WIDTH: 230px; PADDING-TOP: 0px; POSITION: absolute; TOP: 260px
+}
+#colscheme {
+	DISPLAY: none; LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 10px
+}
+#colsample {
+	DISPLAY: none; LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 80px
+}
+#help {
+	DISPLAY: none; LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 80px; HEIGHT: 300px
+}
+#color0 {
+	LEFT: 0px; WIDTH: 450px; POSITION: absolute; TOP: 0px; HEIGHT: 80px
+}
+#color1 {
+	LEFT: 0px; WIDTH: 450px; POSITION: absolute; TOP: 80px; HEIGHT: 50px
+}
+#color2 {
+	LEFT: 0px; WIDTH: 450px; POSITION: absolute; TOP: 130px; HEIGHT: 50px
+}
+#color3 {
+	LEFT: 0px; WIDTH: 450px; POSITION: absolute; TOP: 180px; HEIGHT: 50px
+}
+#color1v {
+	LEFT: 100px; WIDTH: 50px; POSITION: absolute; TOP: 30px; HEIGHT: 190px
+}
+#color0v {
+	LEFT: 170px; WIDTH: 50px; POSITION: absolute; TOP: 30px; HEIGHT: 190px
+}
+#color2v {
+	LEFT: 250px; WIDTH: 50px; POSITION: absolute; TOP: 30px; HEIGHT: 190px
+}
+#color3v {
+	LEFT: 320px; WIDTH: 50px; POSITION: absolute; TOP: 30px; HEIGHT: 190px
+}
+#colorBW {
+	BORDER-RIGHT: black 5px solid; BORDER-TOP: white 1px solid; LEFT: 50px; BORDER-LEFT: white 5px solid; WIDTH: 350px; BORDER-BOTTOM: black 1px solid; POSITION: absolute; TOP: 50px; HEIGHT: 150px
+}
+#textBlack {
+	FONT-SIZE: 13px; LEFT: 5px; WIDTH: 440px; COLOR: black; POSITION: absolute; TOP: 10px; TEXT-ALIGN: left
+}
+#textWhite {
+	FONT-SIZE: 13px; LEFT: 5px; WIDTH: 440px; COLOR: white; POSITION: absolute; TOP: 10px; TEXT-ALIGN: right
+}
+#coltablecover {
+	LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 320px
+}
+#coltable {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; PADDING-TOP: 0px
+}
+#coltable TD {
+	PADDING-RIGHT: 0.5ex; PADDING-LEFT: 1em; FONT-SIZE: 9px; PADDING-BOTTOM: 0.5ex; MARGIN: 2px; VERTICAL-ALIGN: bottom; PADDING-TOP: 1em; TEXT-ALIGN: right
+}
+#coltable TD.main {
+	BORDER-RIGHT: white 1em solid
+}
+#midarea {
+	CURSOR: nw-resize
+}
+#topmover {
+	CURSOR: nw-resize
+}
+#bottommover {
+	CURSOR: nw-resize
+}
+#pointer0 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 5px; POSITION: absolute; HEIGHT: 5px
+}
+#pointer1 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 5px; POSITION: absolute; HEIGHT: 5px
+}
+#pointer2 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 5px; POSITION: absolute; HEIGHT: 5px
+}
+#pointer3 {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: url(../images/ring-w.gif) no-repeat center 50%; WIDTH: 5px; POSITION: absolute; HEIGHT: 5px
+}
+#pointer0 {
+	Z-INDEX: 10; BACKGROUND: url(../images/ring.gif) no-repeat center 50%
+}
+#pointerTop {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: #999999; WIDTH: 5px; POSITION: absolute; HEIGHT: 1px
+}
+#pointerBottom {
+	DISPLAY: none; FONT-SIZE: 2px; BACKGROUND: #999999; WIDTH: 5px; POSITION: absolute; HEIGHT: 1px
+}
