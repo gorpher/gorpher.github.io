@@ -1199,7 +1199,7 @@
                 })
             }
         })
-        $GetJson('http://httpbin.org/ip', function (data) {
+        $GetJson('https://httpbin.org/ip', function (data) {
             console.log(data)
             if (data && data.origin) {
                 $('ip').value = data.origin
