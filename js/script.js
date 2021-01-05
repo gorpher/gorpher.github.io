@@ -1,1 +1,175 @@
-function getScrollTop(){var e=0;return document.documentElement&&document.documentElement.scrollTop?e=document.documentElement.scrollTop:document.body&&(e=document.body.scrollTop),e}function getClientHeight(){return document.body.clientHeight&&document.documentElement.clientHeight?Math.min(document.body.clientHeight,document.documentElement.clientHeight):Math.max(document.body.clientHeight,document.documentElement.clientHeight)}function getScrollHeight(){return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)}!function(e,t){var n=n||{init:function(){e(".js-toggle-search").on("click",(function(){e(".js-search").toggleClass("is-visible"),e(".js-search").attr("class").indexOf("is-visible")>0&&e("input.text-input").focus()})),e(".js-next a").on("click",(function(t){e(infinite_scroll.contentSelector).infinitescroll(infinite_scroll);var n=e("body");n.scrollTop(n.scrollTop()-1),t.preventDefault()})),e(t).keydown((function(t){27==t.keyCode&&e(".js-search").attr("class").indexOf("is-visible")>0&&e(".js-search").removeClass("is-visible")})),e(".js-search .text-input").keydown((function(e){if(13==e.keyCode)return!1}))}};e(n.init),e((function(){var n=e("#nav-toggle"),o=e("nav"),i=o.find("a");n.on("click",(function(){return n.toggleClass("active"),o.toggleClass("open"),!1})),i.on("click",(function(){n.toggleClass("active"),o.toggleClass("open")})),e(document).on("click",(function(){o.hasClass("open")&&(n.toggleClass("active"),o.toggleClass("open"))})),e(".btn-slide").click((function(){return e("#panel").slideToggle("slow"),e(this).toggleClass("active"),!1})),e(t).scroll((function(){var t=e("header");e(this).scrollTop()>1||t.removeClass("scrolled"),getScrollTop(),getClientHeight(),getScrollHeight()})),e("#social-share").click((function(){e("#social").toggleClass("visible").slideToggle(200)})),e(".welcome")[0]&&(e(".author-info").hide(),e("span.info-edit").click((function(){e(".author-info").toggle()}))),e.ajaxSettings.async=!1;var l=function(){e.getJSON("/js/images.json",(function(t){console.log(t);var n=t.length,o="http://img.matosiki.site/"+t[parseInt(Math.random()*n)].url;e.ajax({type:"GET",url:o,success:function(){c.attr("style","background-image:url("+o+")")},error:function(){c.attr("style","background-image:url("+s+")")}})}))},c=e(".top-image"),s="http://img.matosiki.site/image/banner/rand/1.jpg";if(c.data("enable")){l();var a=1,r=!0;setInterval(()=>{r?++a>=80&&(r=!1,l()):--a<=0&&(r=!0);var e=1-a%100/100;c.css("opacity",e)},100)}}))}(jQuery,window);
+(function ($, window) {
+
+    var App = App || {
+        init: function () {
+            $('.js-toggle-search').on('click', function () {
+                $('.js-search').toggleClass('is-visible');
+                if ($('.js-search').attr('class').indexOf('is-visible') > 0) {
+                    $('input.text-input').focus()
+                }
+            });
+
+            $('.js-next a').on('click', function (e) {
+                $(infinite_scroll.contentSelector).infinitescroll(infinite_scroll);
+
+                var $body = $('body');
+
+                $body.scrollTop($body.scrollTop() - 1);
+
+                e.preventDefault();
+            })
+
+            $(window).keydown(function (event) {
+                if (event.keyCode == 27) {
+                    if ($('.js-search').attr('class').indexOf('is-visible') > 0) {
+                        $('.js-search').removeClass('is-visible');
+                    }
+                }
+            });
+
+            $('.js-search .text-input').keydown(function (event) {
+                if (event.keyCode == 13) {
+
+                    // todo
+                    // location.href = 'https://www.google.com/search?q=site:yumemor.com' + $(this).val();
+                    return false;
+                }
+            })
+        }
+    };
+
+
+    $(App.init);
+
+    $(function () {
+
+        var navToggle = $('#nav-toggle'),
+            nav = $('nav'),
+            navLinks = nav.find('a');
+
+        navToggle.on('click', function () {
+            navToggle.toggleClass('active');
+            nav.toggleClass('open');
+            return false;
+        });
+        navLinks.on('click', function () {
+            navToggle.toggleClass('active');
+            nav.toggleClass('open');
+        });
+
+        $(document).on('click', function () {
+            if (nav.hasClass('open')) {
+                navToggle.toggleClass('active');
+                nav.toggleClass('open');
+            }
+        });
+
+        $('.btn-slide').click(function () {
+            $('#panel').slideToggle("slow");
+            $(this).toggleClass("active");
+            return false;
+        });
+
+        $(window).scroll(function () {
+            var header = $('header');
+
+            if ($(this).scrollTop() > 1) {
+                // header.addClass("scrolled");
+                // console.log('改变状态')
+            } else {
+                header.removeClass("scrolled");
+                // console.log('移除状态')
+            }
+            if (getScrollTop() + getClientHeight() == getScrollHeight()) {
+                // console.log('下拉刷新了')
+                //此处发起AJAX请求
+            }
+        });
+
+        $("#social-share").click(function () {
+            $("#social").toggleClass("visible").slideToggle(200);
+        });
+
+        if ($('.welcome')[0]) {
+            $('.author-info').hide();
+            $('span.info-edit').click(function () {
+                $('.author-info').toggle();
+            });
+        }
+        // $.ajaxSettings.async = false;
+        // var changeIMG = function () {
+        //     $.getJSON("/js/images.json", function (data) {
+        //         console.log(data)
+        //         var length = data.length;
+        //         var index = parseInt(Math.random() * length);
+        //         var url = 'http://img.matosiki.site/' + data[index].url;
+        //         $.ajax({
+        //             type: "GET",
+        //             url: url,
+        //             success: function () {
+        //                 // console.log(url)
+        //                 bannerNode.attr('style', 'background-image:url(' + url + ')');
+        //                 // console.log("改变背景")
+        //             }, error: function () {
+        //                 // console.log("改变背景失败");
+        //                 bannerNode.attr('style', 'background-image:url(' + defualtImageURL + ')');
+        //             }
+        //         });
+        //     });
+        // }
+        // console.log(site.data.images)
+        // var bannerNode = $('.top-image');
+        // var defualtImageURL = 'http://img.matosiki.site/image/banner/rand/1.jpg'
+        // if (bannerNode.data('enable')) {
+        //     // bannerNode.attr('style', 'background-image:url(' + defualtImageURL + ')');
+        //     changeIMG()
+        //     var i = 1
+        //     var fac = 100.0
+        //     var fv = (20 / fac)
+        //     var origin = true
+        //     setInterval(() => {
+        //         if (origin) {
+        //             i++
+        //             if (i >= fac - (fac * fv)) {
+        //                 origin = false
+        //                 changeIMG()
+        //             }
+        //         } else {
+        //             i--
+        //             if (i <= 0) {
+        //                 origin = true
+        //             }
+        //         }
+        //         var opacity = 1 - (i % fac / fac)
+        //         bannerNode.css("opacity", opacity);
+        //         // console.log(i, opacity, fv)
+        //     }, 100);
+        // }
+    })
+
+}(jQuery, window));
+
+//获取滚动条当前的位置
+function getScrollTop() {
+    var scrollTop = 0;
+    if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop;
+    } else if (document.body) {
+        scrollTop = document.body.scrollTop;
+    }
+    return scrollTop;
+}
+//获取当前可视范围的高度  
+function getClientHeight() {
+    var clientHeight = 0;
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+    } else {
+        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+    }
+    return clientHeight;
+}
+//获取文档完整的高度 
+function getScrollHeight() {
+    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+}

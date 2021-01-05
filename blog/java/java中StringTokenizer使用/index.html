@@ -1,1 +1,227 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>blog/java/java中StringTokenizer使用 | 大道至简</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="icon" href="http://img.matosiki.site/favicon.svg"><link rel="stylesheet" href="../../../css/style.css"><link rel="stylesheet" href="../../../css/search.css"><link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css"><link rel="icon" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.bootcss.com/instantsearch.js/1.7.1/instantsearch.min.js"></script><meta name="generator" content="Hexo 4.2.1"></head><body><header> <a id="logo" href="/" title="大道至简"><img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a><i class="js-toggle-search iconfont icon-search"></i><form class="js-search search-form search-form--modal" role="search"><div class="search-form__inner"><div><div class="algolia-search-input-icon"><i class="fa fa-search"></i></div> <input id="algolia-search-input" class="text-input algolia-search-input" placeholder="你想知道什么?" type="search"><div class="algolia-results"><div id="algolia-stats"></div><div id="algolia-hits"></div><div id="algolia-pagination" class="algolia-pagination"></div></div><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span></div></div></form><a id="nav-toggle" href="#"><span></span></a><nav><div class="menu-top-container"><ul id="menu-top" class="menu"><li class="current-menu-item"> <a href="http://www.matosiki.site/" target="_self">首页</a></li><li class="current-menu-item"> <a href="./bash" target="_self">bash教程</a></li></ul></div></nav></header><div class="m-header"><section id="hero1" class="hero"><div class="inner"></div></section><figure class="top-image" data-enable="true"></figure></div><div class="wrapper" id="wrapper"><article><h1 class="post-title" itemprop="name"> blog/java/java中StringTokenizer使用</h1><div class="post-body mb"><h2 id="使用特殊分割符分割String类型一般使用StringTokenize"><a href="#使用特殊分割符分割String类型一般使用StringTokenize" class="headerlink" title="使用特殊分割符分割String类型一般使用StringTokenize()"></a>使用特殊分割符分割String类型一般使用<strong>StringTokenize()</strong></h2><h1 id="1-使用逗号分割-再用枚举递归"><a href="#1-使用逗号分割-再用枚举递归" class="headerlink" title="1. 使用逗号分割,再用枚举递归"></a>1. 使用逗号分割,再用枚举递归</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokens</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    StringTokenizer tokenizer = <span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>);</span><br><span class="line">    <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">        tokens.add(tokenizer.nextToken());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="2-使用java8"><a href="#2-使用java8" class="headerlink" title="2. 使用java8"></a>2. 使用java8</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensWithCollection</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.list(<span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>)).stream()</span><br><span class="line">      .map(token -&gt; (String) token)  <span class="comment">// 注意这里返回类型为Object类型需要强转</span></span><br><span class="line">      .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="3-自定义分割符"><a href="#3-自定义分割符" class="headerlink" title="3. 自定义分割符"></a>3. 自定义分割符</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">tokens.add(tokenizer.nextToken(<span class="string">"e"</span>));</span><br></pre></td></tr></table></figure><h1 id="读取CVS文件"><a href="#读取CVS文件" class="headerlink" title="读取CVS文件"></a>读取CVS文件</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensFromFile</span><span class="params">( String path , String delim )</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    String currLine = <span class="string">""</span>;</span><br><span class="line">    StringTokenizer tokenizer;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> InputStreamReader(Application<span class="class">.<span class="keyword">class</span>.<span class="title">getResourceAsStream</span>( </span></span><br><span class="line">          "/" + path )))) &#123;</span><br><span class="line">        <span class="keyword">while</span> (( currLine = br.readLine()) != <span class="keyword">null</span> ) &#123;</span><br><span class="line">            tokenizer = <span class="keyword">new</span> StringTokenizer( currLine , delim );</span><br><span class="line">            <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">                tokens.add(tokenizer.nextToken());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerTest</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> MyTokenizer myTokenizer = <span class="keyword">new</span> MyTokenizer();</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForString = Arrays.asList(</span><br><span class="line">      <span class="string">"Welcome"</span> , <span class="string">"to"</span> , <span class="string">"baeldung.com"</span> );</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForFile = Arrays.asList(</span><br><span class="line">      <span class="string">"1"</span> , <span class="string">"IND"</span> , <span class="string">"India"</span> , </span><br><span class="line">      <span class="string">"2"</span> , <span class="string">"MY"</span> , <span class="string">"Malaysia"</span> , </span><br><span class="line">      <span class="string">"3"</span>, <span class="string">"AU"</span> , <span class="string">"Australia"</span> );</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenString_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"Welcome,to,baeldung.com"</span>;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokens( str );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForString, actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenFile_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokensFromFile( </span><br><span class="line">          <span class="string">"data.csv"</span>, <span class="string">"|"</span> );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForFile , actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="meta split"> <span>本文总阅读量<span id="busuanzi_value_page_pv"></span> 次</span> <time class="post-date" datetime="2020-06-04T02:02:07.177Z" itemprop="datePublished">2020-06-04</time></div></article></div><svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none"><path d="M0 0 50 100 100 0Z"></path></svg><div class="wrapper"></div><div class="fat-footer"><div class="wrapper"><div class="layout layout--center"><div class="layout__item palm-mb"><div class="media"> <img class="headimg" src="http://img.matosiki.site/avatar.jpg" alt="iki"><div class="media__body"><h4>不积跬步无以至千里</h4><p class="site-description">我不会下写诗,但我写的代码像诗一样优雅.</p></div></div><div class="author-contact"><ul><li><a href="https://weibo.com/u/5212711259" target="_blank"><i class="iconfont icon-weibo"></i></a></li><li><a href="https://github.com/wx11055" target="_blank"><i class="iconfont icon-github"></i></a></li><li><a href="https://www.zhihu.com/" target="_blank"><i class="iconfont icon-zhihu"></i></a></li></ul></div></div><div class="layout__item palm-mt"><div class="media__body"></div><p class="site-description">©️2019-2020 matosiki.site 版权所有.ICP证:鄂ICP备16003435号</p></div></div></div></div><footer class="footer" role="contentinfo"><div class="wrapper wrapper--wide split split--responsive"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数<span id="busuanzi_value_site_uv"></span></span></div></footer><script src="../../../js/lib.js"></script><script src="../../../js/google-code-prettify/prettify.js"></script><script src="../../../js/module.js"></script><script src="../../../js/script.js"></script><script src="../../../assets/algolia/algoliasearch.min.js"></script><script src="../../../js/search.js"></script><script async src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><script type="text/javascript">$(document).ready(function(){$("pre").addClass("prettyprint linenums").attr("style","overflow:auto;"),prettyPrint()})</script></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>blog/java/java中StringTokenizer使用 | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  <link rel="icon" href="http://img.matosiki.site/favicon.svg">
+  
+  
+<link rel="stylesheet" href="../../../css/style.css">
+
+  
+<link rel="stylesheet" href="../../../css/search.css">
+
+  
+<link rel="stylesheet" href="../../../js/google-code-prettify/tomorrow-night-eighties.min.css">
+
+  <link rel="icon" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <script src="https://cdn.bootcss.com/instantsearch.js/1.7.1/instantsearch.min.js"></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<header>
+	<a id="logo" href="/" title="大道至简">
+	<img src="http://img.matosiki.site/favicon.svg" alt="大道至简"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" role="search">
+	<div class="search-form__inner">
+		<div>
+			<div class="algolia-search-input-icon">
+				<i class="fa fa-search"></i>
+			</div>
+			<input id="algolia-search-input" class="text-input algolia-search-input"
+				placeholder="你想知道什么?" type="search">
+			<div class="algolia-results">
+				<div id="algolia-stats"></div>
+				<div id="algolia-hits"></div>
+				<div id="algolia-pagination" class="algolia-pagination"></div>
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa fa-times-circle"></i>
+			</span>
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://www.matosiki.site/" target="_self">首页</a>
+				</li>
+			
+				
+				<li class="current-menu-item">
+					<a href="./bash" target="_self">bash教程</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+	<figure class="top-image" style='background-image: url(https://api.66mz8.com/api/rand.acg.php?type=%E7%BE%8E%E5%A5%B3)' data-enable=false></figure>
+	
+</div>
+<!--文章列表-->
+<div class="wrapper" id="wrapper">
+  
+  <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
+      blog/java/java中StringTokenizer使用
+    </h1>
+  
+
+	<div class='post-body mb'>
+		<h2 id="使用特殊分割符分割String类型一般使用StringTokenize"><a href="#使用特殊分割符分割String类型一般使用StringTokenize" class="headerlink" title="使用特殊分割符分割String类型一般使用StringTokenize()"></a>使用特殊分割符分割String类型一般使用<strong>StringTokenize()</strong></h2><h1 id="1-使用逗号分割-再用枚举递归"><a href="#1-使用逗号分割-再用枚举递归" class="headerlink" title="1. 使用逗号分割,再用枚举递归"></a>1. 使用逗号分割,再用枚举递归</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokens</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    StringTokenizer tokenizer = <span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>);</span><br><span class="line">    <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">        tokens.add(tokenizer.nextToken());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-使用java8"><a href="#2-使用java8" class="headerlink" title="2. 使用java8"></a>2. 使用java8</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensWithCollection</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.list(<span class="keyword">new</span> StringTokenizer(str, <span class="string">","</span>)).stream()</span><br><span class="line">      .map(token -&gt; (String) token)  <span class="comment">// 注意这里返回类型为Object类型需要强转</span></span><br><span class="line">      .collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-自定义分割符"><a href="#3-自定义分割符" class="headerlink" title="3. 自定义分割符"></a>3. 自定义分割符</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">tokens.add(tokenizer.nextToken(<span class="string">"e"</span>));</span><br></pre></td></tr></table></figure>
+<h1 id="读取CVS文件"><a href="#读取CVS文件" class="headerlink" title="读取CVS文件"></a>读取CVS文件</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTokensFromFile</span><span class="params">( String path , String delim )</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; tokens = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    String currLine = <span class="string">""</span>;</span><br><span class="line">    StringTokenizer tokenizer;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> InputStreamReader(Application<span class="class">.<span class="keyword">class</span>.<span class="title">getResourceAsStream</span>( </span></span><br><span class="line">          "/" + path )))) &#123;</span><br><span class="line">        <span class="keyword">while</span> (( currLine = br.readLine()) != <span class="keyword">null</span> ) &#123;</span><br><span class="line">            tokenizer = <span class="keyword">new</span> StringTokenizer( currLine , delim );</span><br><span class="line">            <span class="keyword">while</span> (tokenizer.hasMoreElements()) &#123;</span><br><span class="line">                tokens.add(tokenizer.nextToken());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tokens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerTest</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> MyTokenizer myTokenizer = <span class="keyword">new</span> MyTokenizer();</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForString = Arrays.asList(</span><br><span class="line">      <span class="string">"Welcome"</span> , <span class="string">"to"</span> , <span class="string">"baeldung.com"</span> );</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; expectedTokensForFile = Arrays.asList(</span><br><span class="line">      <span class="string">"1"</span> , <span class="string">"IND"</span> , <span class="string">"India"</span> , </span><br><span class="line">      <span class="string">"2"</span> , <span class="string">"MY"</span> , <span class="string">"Malaysia"</span> , </span><br><span class="line">      <span class="string">"3"</span>, <span class="string">"AU"</span> , <span class="string">"Australia"</span> );</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenString_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">"Welcome,to,baeldung.com"</span>;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokens( str );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForString, actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">givenFile_thenGetListOfString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; actualTokens = myTokenizer.getTokensFromFile( </span><br><span class="line">          <span class="string">"data.csv"</span>, <span class="string">"|"</span> );</span><br><span class="line">  </span><br><span class="line">        assertEquals( expectedTokensForFile , actualTokens );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2020-06-04T02:02:07.177Z" itemprop="datePublished">2020-06-04</time>
+	</div>
+</article>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+  
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://img.matosiki.site/avatar.jpg' alt='iki'>
+					<div class="media__body">
+						<h4>不积跬步无以至千里</h4>
+						<p class='site-description'>我不会下写诗,但我写的代码像诗一样优雅.</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+						
+						<li>
+							<a href="https://weibo.com/u/5212711259" target="_blank">
+								
+								<i class="iconfont icon-weibo"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://github.com/wx11055" target="_blank">
+								
+								<i class="iconfont icon-github"></i>
+								
+				        		</a>
+				        	</li>
+						
+						
+						<li>
+							<a href="https://www.zhihu.com/" target="_blank">
+								
+								<i class="iconfont icon-zhihu"></i>
+								
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="layout__item palm-mt">
+				<div class="media__body"></div>
+				<p class='site-description'>©️2017-2021 matosiki.site 版权所有.ICP证:<a href="https://beian.miit.gov.cn/#/Integrated/recordQuery" target="_blank" rel="noopener">鄂ICP备16003435号</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		
+		<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次, 访客数 <span
+				id="busuanzi_value_site_uv"></span></span>
+		
+	</div>
+</footer>
+		
+ 		<!--这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+
+		<!--
+<script src="../../../http:/lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>
+-->
+		
+<script src="../../../js/lib.js"></script>
+
+		
+<script src="../../../js/google-code-prettify/prettify.js"></script>
+
+		
+<script src="../../../js/module.js"></script>
+
+		
+<script src="../../../js/script.js"></script>
+
+		
+<script src="../../../assets/algolia/algoliasearch.min.js"></script>
+
+		
+<script src="../../../js/search.js"></script>
+
+		
+		<!-- <script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+		
+	<script async src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function () {
+			$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
